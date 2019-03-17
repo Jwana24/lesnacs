@@ -18,7 +18,7 @@
 <body>
     
     <nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
-        <a class="navbar-brand" href="<?= $router->generate('accueil') ?>"><img class="logo-site" src="http://localhost/images/logo-site-lesnac.svg" alt="Logo du site Les Nacs"></a>
+        <a class="navbar-brand" href="<?= $this->router->generate('accueil') ?>"><img class="logo-site" src="http://localhost/images/logo-site-lesnac.svg" alt="Logo du site Les Nacs"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -26,27 +26,27 @@
         <div class="collapse navbar-collapse" id="navbarsExample04">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/accueil/">Accueil</a>
+                    <a class="nav-link" href="<?= $this->router->generate('accueil') ?>">Accueil</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/article_list/">Articles</a>
+                    <a class="nav-link" href="<?= $this->router->generate('article_list') ?>">Articles</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/post_list/">Forum</a>
+                    <a class="nav-link" href="<?= $this->router->generate('post_list') ?>">Forum</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/accueil/#contacts">Contacts</a>
+                    <a class="nav-link" href="<?= $this->router->generate('accueil') ?>#contacts">Contacts</a>
                 </li>
             
-                {% if is_granted('ROLE_USER') %}
+                <?php if($this->is_granted('ROLE_USER')): ?>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ion-icon style="color: white" name="person"></ion-icon></a>
                         <div class="dropdown-menu" aria-labelledby="dropdown04">
                             <!-- <a class="dropdown-item" href="{{ path('logout') }}">Déconnexion</a> -->
                             <!-- <a class="dropdown-item" href="{{ path('member_show', {'id':app.user.id}) }}">Profil de {{ app.user.username }}</a> -->
-                            {% if is_granted('ROLE_ADMIN') %}
+                            <?php if($this->is_granted('ROLE_ADMIN')): ?>
                                 <!-- <a class="dropdown-item" href="{{ path('members_list', {'id':app.user.id}) }}">Liste des membres</a> -->
-                            {% endif %}
+                            <?php endif ?>
                         </div>
                     </li>
                 
@@ -57,15 +57,15 @@
                             <a class="dropdown-item" href="{{ path('translation', {'_language':'en', 'last_path':last_path}) }}">Anglais</a> -->
                         </div>
                     </li>
-                {% else %}
+                <?php else: ?>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ion-icon style="color: white" name="person"></ion-icon></a>
                         <div class="dropdown-menu" aria-labelledby="dropdown04">
-                            <a class="dropdown-item btn-connection" href="http://localhost/connexion/">Connexion</a>
-                            <a class="dropdown-item btn-inscription" href="http://localhost/inscription/">Inscription</a>
+                            <a class="dropdown-item btn-connection" href="<?= $this->router->generate('connexion') ?>">Connexion</a>
+                            <a class="dropdown-item btn-inscription" href="<?= $this->router->generate('inscription') ?>">Inscription</a>
                         </div>
                     </li>
-                {% endif %}
+                <?php endif ?>
             
             </ul>
 
@@ -130,9 +130,9 @@
             <article class="center_modal_connection">
                 <ion-icon class="cross-close-co" name="close"></ion-icon>
                 <h4>Connexion</h4>
-                <form name="member-co" action="http://localhost/connexion/" method="POST">
+                <form name="member-co" action="<?= $this->router->generate('connexion') ?>" method="POST">
                     <div id="member-co">
-                        <input type="hidden" name="_target_path" value="http://localhost/accueil/" />
+                        <input type="hidden" name="_target_path" value="<?= $this->router->generate('accueil') ?>" />
                         <div>
                             <input type="text" name="_username" placeholder="Pseudo" required="">
                         </div>
@@ -146,7 +146,7 @@
                         </div>
 
                         <div>
-                            <a href="http://localhost/motdepasseoublie/">Mot de passe oublié ?</a>
+                            <a href="<?= $this->router->generate('motdepasseoublie') ?>">Mot de passe oublié ?</a>
                         </div>
                     </div>
                 </form>

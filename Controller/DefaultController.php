@@ -1,12 +1,7 @@
 <?php
 
-class DefaultController
+class DefaultController extends Controller
 {
-    public function __construct()
-    {
-
-    }
-    
     public function index()
     {
         $titlePage = 'Le site LesNACs';

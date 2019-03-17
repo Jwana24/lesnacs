@@ -23,7 +23,7 @@ class ArticleManager extends Manager
 
     public function list()
     {
-        return $this->_bdd->query('SELECT * FROM article INNER JOIN member ON member.id = article.id_member_FK', PDO::FETCH_CLASS, 'Article').fetchAll();
+        return $this->_bdd->query('SELECT * FROM article INNER JOIN member ON member.id = article.id_member_FK', PDO::FETCH_CLASS, 'Article')->fetchAll();
     }
 
     public function showLast()

@@ -47,7 +47,7 @@
                     <!-- {% if app.session.get('_locale') == 'fr_FR' %} -->
                     <p class="date-article"><?= $article->get_date_article() ?></p>
                     <p class="text-article"><?= $article->get_text_article() ?></p>
-                    <a class="btn-site" href="<?= $router->generate('article_show', ['id' => $article->get_id()]) ?>">En voir plus</a>
+                    <a class="btn-site" href="<?= $this->router->generate('article_show', ['id' => $article->get_id()]) ?>">En voir plus</a>
                 </div>
                 
             </article>

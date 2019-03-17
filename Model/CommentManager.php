@@ -22,31 +22,20 @@ class CommentManager extends Manager
         }
     }
 
-    public function list($id)
+    public function show($id)
     {
-        $request = $this->_bdd->prepare('SELECT * FROM comment INNER JOIN member ON membres.id = comment.id_member_FK WHERE comment.id_article_FK = :id');
+        $request = $this->_bdd->prepare('SELECT * FROM comment INNER JOIN member ON member.id = comment.id_member_FK WHERE comment.id_article_FK = :id');
         $request->bindParam(':id', (int)$id, PDO::PARAM_INT);
         $request->execute();
         return $request->fetchAll(PDO::FETCH_CLASS);
     }
 
-    public function show($id)
+    public function getByIdParent($id)
     {
-        $request = $this->_bdd->prepare('SELECT *, DATE_FORMAT(date_inscription, \'%d/%m/%Y\') AS dateInsc FROM comment INNER JOIN member ON member.id = comment.id_member_FK WHERE comment.id = :id');
-        if($request->execute(['id' => $id]) && $request->rowCount() == 1)
-        {
-            $results = $request->fetch(\PDO::FETCH_ASSOC);
-            $comment = new comment();
-            $comment->set_id($results['id']);
-            $comment->set_text_comment($results['textComment']);
-            $comment->set_date_inscription($results['dateInsc']);
-
-            return $comment;
-        }
-        else
-        {
-            return false;
-        }
+        $request = $this->_bdd->prepare('SELECT * FROM comment INNER JOIN member ON membres.id = comment.id_member_FK WHERE comment.id_parent = :id');
+        $request->bindParam(':id', (int)$id, PDO::PARAM_INT);
+        $request->execute();
+        return $request->fetchAll(PDO::FETCH_CLASS);
     }
 
     public function edit(Comment $comment)

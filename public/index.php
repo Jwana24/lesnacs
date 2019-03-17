@@ -25,6 +25,7 @@ $router = new AltoRouter();
 // Create route mapping
 $router->map('GET|POST', '/accueil/', 'DefaultController#index', 'accueil');
 $router->map('GET|POST', '/article/', 'ArticleController#list', 'article_list');
+$router->map('GET|POST', '/ajout-article/', 'ArticleController#add', 'add_article');
 $router->map('GET|POST', '/article/[i:id]/', 'ArticleController#show', 'article_show');
 $router->map('GET|POST', '/forum/', 'PostController#list', 'post_list');
 $router->map('GET|POST', '/forum/[i:id]/', 'PostController#show', 'forum_show');
@@ -33,6 +34,7 @@ $router->map('GET|POST', '/recherche/', 'SearchController#search', 'recherche');
 $router->map('GET|POST', '/connexion/', 'SecurityController#login', 'connexion');
 $router->map('GET|POST', '/inscription/', 'MemberController#add', 'inscription');
 $router->map('GET|POST', '/motdepasseoublie/', 'MemberController#lostPassword', 'motdepasseoublie');
+$router->map('GET|POST', '/profil/[i:id]/', 'MemberController#show', 'member_show');
 
 $route = $router->match();
 
@@ -43,8 +45,8 @@ if($route)
     $routeAction = $target[1];
     $routeParams = $route['params'];
 
-    $controller = new $routeController();
-    $controller->$routeAction($routeParams, $router);
+    $controller = new $routeController($router);
+    $controller->$routeAction($routeParams);
 }
 else
 {

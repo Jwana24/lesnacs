@@ -36,38 +36,38 @@
                 {% endif %} -->
 
                 <div class="like" data-id="<?= $article->get_id() ?>">
-                    {% if is_granted('ROLE_USER') %}
+                    <?php if($this->is_granted('ROLE_USER')): ?>
                         <ion-icon name="heart"></ion-icon>
                         <ion-icon name="heart-empty"></ion-icon>
-                    {% endif %}
+                    <?php endif ?>
                 <!-- <p class="nb-like-article">{{likes}} likes</p> -->
                 </div>
 
                 <div class="container-btn-article">
                     <div class="like-article">
-                    {% if is_granted('ROLE_USER') %}
+                        <?php if($this->is_granted('ROLE_USER')): ?>
 
-                        <a class="btn-site" href="#">
-                        <label for="toggle-comment">Commenter</label>
-                        </a>
+                            <a class="btn-site" href="#">
+                            <label for="toggle-comment">Commenter</label>
+                            </a>
 
-                    {% else %}
+                        <?php else: ?>
 
-                        <p>Vous devez être connecté pour pouvoir liker ou commenter un article</p>
+                            <p>Vous devez être connecté pour pouvoir liker ou commenter un article</p>
 
-                    {% endif %}
+                        <?php endif ?>
                     </div>
 
                     <div class="btn-admin-article">
-                    {% if is_granted('ROLE_ADMIN') %}
+                        <?php if($this->is_granted('ROLE_ADMIN')): ?>
 
-                        {{ include('Admin/article/delete.html.twig') }}
+                            {{ include('Admin/article/delete.html.twig') }}
 
-                        <a class="btn-site btn-edit-article" data-locale="{{ app.session.get('_locale') }}" data-toggle="false" data-id="<?= $article->get_id() ?>" href="{{ path('article_edit', {'id' : article.Id}) }}">Editer article</a>
+                            <a class="btn-site btn-edit-article" data-locale="{{ app.session.get('_locale') }}" data-toggle="false" data-id="<?= $article->get_id() ?>" href="<?= $this->router->generate('article_show', ['id' => $article->get_id()]) ?>">Editer article</a>
 
-                        <a class="btn-site cancel-article" href="#">Annuler</a>
+                            <a class="btn-site cancel-article" href="#">Annuler</a>
 
-                    {% endif %}
+                        <?php endif ?>
                     </div>
                 </div>
 
@@ -77,33 +77,33 @@
         <input id="toggle-comment" type="checkbox">
         <div class="form-comment-article">
 
-            {% if is_granted('ROLE_USER') %}
-            <form method="post">
-                <input class="message-comment-article" type="text" name="" id="">
-                <input class="btn-site" type="submit" value="Envoyer">
-            </form>
-            {% endif %}
+            <?php if($this->is_granted('ROLE_USER')): ?>
+                <form method="post">
+                    <input class="message-comment-article" type="text" name="" id="">
+                    <input class="btn-site" type="submit" value="Envoyer">
+                </form>
+            <?php endif ?>
 
         </div>
         
         <div class="article-comment">
-            <?php foreach($comments as $comment): ?>
+            <?php var_dump($comments); foreach($comments as $comment): ?>
                 <section class="comment-response-article">
                     <article class="comment-article">
                         <!-- {% if app.session.get('_locale') == 'fr_FR' %} -->
                         <p class="date"><?= $comment->get_date_comment() ?></p>
-                        <p class="username username-comment">{{ comment.IdMemberFK.username }}<?= $comment->get_id_member_FK()->get_username() ?></p>
-                        <p class="text-article-comment content-comment{{ comment.id }}"><?= $comment->get_text_comment() ?></p>
+                        <p class="username username-comment"><?= $comment->get_id_member_FK()->get_username() ?></p>
+                        <p class="text-article-comment content-comment<?= $comment->get_id() ?>"><?= $comment->get_text_comment() ?></p>
                         
-                        <form class="form-edit-comment form-edit-comment{{ comment.id }}" method="post">
-                            <textarea class="content-comment-edit content-comment-edit{{ comment.id }}" name="text_comment"></textarea>
+                        <form class="form-edit-comment form-edit-comment<?= $comment->get_id() ?>" method="post">
+                            <textarea class="content-comment-edit content-comment-edit<?= $comment->get_id() ?>" name="text_comment"></textarea>
                         </form>
 
                         <div class="btn-comment">
                             {% if is_granted('MODIF', comment) %}
-                                <a class="btn-site btn-edit-comment" data-post="false" data-locale="{{ app.session.get('_locale') }}" data-toggle="false" data-id="{{ comment.id }}" href="{{ path('edit_comment', {'id':comment.Id}) }}">Editer commentaire</a>
+                                <a class="btn-site btn-edit-comment" data-post="false" data-locale="{{ app.session.get('_locale') }}" data-toggle="false" data-id="<?= $comment->get_id() ?>" href="{{ path('edit_comment', {'id':comment.Id}) }}">Editer commentaire</a>
 
-                                <a class="btn-site cancel-comment cancel-comment{{ comment.id }}" href="#">Annuler</a>
+                                <a class="btn-site cancel-comment cancel-comment<?= $comment->get_id() ?>" href="#">Annuler</a>
                             {% endif %}
 
                             {% if is_granted('MODIF', comment) %}
@@ -111,18 +111,18 @@
                             {% endif %}
                         </div>
 
-                        {% if is_granted('ROLE_USER') %}
+                        <?php if($this->is_granted('ROLE_USER')): ?>
                             <a class="btn-site response-btn" href="#" data-id="{{ comment.Id }}">Répondre</a>
-                        {% endif %}
+                        <?php endif ?>
                     </article>
 
-                    {% for response in comment.getResponses %}
+                    <?php foreach($commentManager->getByIdParent($comment->get_id_parent()) as $response): ?>
 
                         <article class="response-article">
                             <!-- {% if app.session.get('_locale') == 'fr_FR' %} -->
                             <p class="date date-response"><?= $response->get_id_parent() ?></p>
-                            <p class="username">{{ response.IdMemberFK.username }}<?= $response->get_id_member_FK()->get_username() ?></p>
-                            <p class="text-article-response content-response{{ response.id }}"><?= $response->get_id_parent()->get_text_comment() ?></p>
+                            <p class="username">{{ response.IdMemberFK.username }}<?= $comment->get_id_member_FK()->get_username() ?></p>
+                            <p class="text-article-response content-response{{ response.id }}"><?= $comment->get_id_parent()->get_text_comment() ?></p>
 
                             <form class="form-edit-response form-edit-response{{ response.id }}" method="post">
                                 <textarea class="content-response-edit content-response-edit{{ response.id }}" name="text_response"></textarea>
@@ -141,7 +141,7 @@
                             </div>
                         </article>
 
-                    {% endfor %}
+                    <?php endforeach ?>
                     
                     <div class="contain-response{{ comment.Id }}">
 
@@ -159,8 +159,8 @@
             </div>
 
             <div class="link-article-page">
-                <a class="btn-site link-return-articles" href="<?= $router->generate('article_list') ?>">Revenir à la liste des articles</a>
-                <a class="btn-site link-return-homepage" href="<?= $router->generate('accueil') ?>">Revenir à l'accueil</a>
+                <a class="btn-site link-return-articles" href="<?= $this->router->generate('article_list') ?>">Revenir à la liste des articles</a>
+                <a class="btn-site link-return-homepage" href="<?= $this->router->generate('accueil') ?>">Revenir à l'accueil</a>
             </div>
 
             {% for message in app.flashes('success') %}

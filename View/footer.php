@@ -12,11 +12,11 @@
 </head>
 <body>
     
-    {% if not app.request.cookies.get('cookie-bandeauCookie') %}
+    <?php if($this->cookie_exist('cookie-bandeauCookie')): ?>
         <div class="container">
             <div class="toast message-cookie" data-autohide="false" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="toast-header">
-                    <img widht="10px" height="20px" src="{{ asset('images/gingerman.png') }}" class="rounded mr-2" alt="...">
+                    <img widht="10px" height="20px" src="http://localhost/images/gingerman.png" class="rounded mr-2" alt="...">
                     <strong class="mr-auto">Cookies</strong>
                     <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -24,42 +24,42 @@
                 </div>
                 <div class="toast-body">
                     <p>
-                        {% trans %}Les cookies vous permettent de bénéficier de nombreuses fonctionnalités afin d'améliorer votre navigation sur le site. En utilisant ce site, vous acceptez de recevoir des cookies. Pour en savoir plus et accepter les cookies{% endtrans %}, <a href="{{ path('mentionslegales') }}#cookies">{% trans %}cliquez ici{% endtrans %}</a>.
+                        Les cookies vous permettent de bénéficier de nombreuses fonctionnalités afin d'améliorer votre navigation sur le site. En utilisant ce site, vous acceptez de recevoir des cookies. Pour en savoir plus et accepter les cookies, <a href="<?= $this->router->generate('mentionslegales') ?>#cookies">cliquez ici</a>.
                     </p>
                 </div>
             </div>
         </div>
-    {% endif %}
+    <?php endif ?>
 
     <footer>
         <div class="footer-elements">
             <div class="elements-center">
-                <a href="{{ path('accueil') }}#contacts">Contacts</a>
-                <a href="{{ path('mentionslegales') }}">{% trans %}Mentions légales{% endtrans %}</a>
-                <a href="{{ path('articles_list') }}">Articles</a>
-                <a href="{{ path('posts_list') }}">Forum</a>
-                {% if is_granted('ROLE_USER') %}
-                <a href="{{ path('member_show', {'id': app.user.id}) }}">{% trans %}Mon profil{% endtrans %}</a>
-                {% endif %}
+                <a href="<?= $this->router->generate('accueil') ?>#contacts">Contacts</a>
+                <a href="<?= $this->router->generate('mentionslegales') ?>">Mentions légales</a>
+                <a href="<?= $this->router->generate('article_list') ?>">Articles</a>
+                <a href="<?= $this->router->generate('post_list') ?>">Forum</a>
+                <?php if($this->is_granted('ROLE_USER')): ?>
+                    <a href="<?= $this->router->generate('member_show', ['id' => $member->get_id()]) ?>">Mon profil</a>
+                <?php endif ?>
                 <p class="recommand-sites">
-                    {% trans %}Les sites que l'on vous recommande{% endtrans %} :
+                    Les sites que l'on vous recommande :
                     <div class="logos">
                         <div class="logo-30MA">
-                            <a href="https://www.30millionsdamis.fr/"><img class="logo-30MAmis" src="{{ asset('images/logo-30MAmis.png') }}" alt="Logo de la Fondation 30 Millions d'Amis"></a>
+                            <a href="https://www.30millionsdamis.fr/"><img class="logo-30MAmis" src="http://localhost/images/logo-30MAmis.png" alt="Logo de la Fondation 30 Millions d'Amis"></a>
                         </div>
                         <div class="logo-spa">
-                            <a href="https://www.la-spa.fr/"><img class="logo-spa" src="{{ asset('images/logo-LaSPA.png') }}" alt="Logo de la SPA (Société Protectrice des Animaux)"></a>
+                            <a href="https://www.la-spa.fr/"><img class="logo-spa" src="http://localhost/images/logo-LaSPA.png" alt="Logo de la SPA (Société Protectrice des Animaux)"></a>
                         </div>
                     </div>
                 </p>
             </div>
-            <p>© {% trans %}Site LesNac créé par{% endtrans %} Johanna DETRIEUX</p>
+            <p>© Site LesNac créé par Johanna DETRIEUX</p>
         </div>
     </footer>
 
-    {% if not is_granted('ROLE_USER') %}
-            <script src="http://localhost/js/registration.js"></script>
-    {% endif %}
+    <?php if($this->user == NULL): ?>
+        <script src="http://localhost/js/registration.js"></script>
+    <?php endif ?>
 
     <!-- Bootstrap links, content JS to Bootstrap -->
     <script src="https://unpkg.com/ionicons@4.5.5/dist/ionicons.js"></script>
