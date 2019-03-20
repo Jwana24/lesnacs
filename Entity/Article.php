@@ -8,6 +8,7 @@ class Article
     private $date_article = '';
     private $image = '';
     private $id_member_FK = '';
+    private $comments = '';
 
 
     /**
@@ -126,6 +127,26 @@ class Article
     public function set_id_member_FK($_id_member_FK)
     {
         $this->id_member_FK = $_id_member_FK;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of comment
+     */ 
+    public function get_comments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * Set the value of comment
+     *
+     * @return  self
+     */ 
+    public function set_comments($comments)
+    {
+        $this->comments = $comments;
 
         return $this;
     }

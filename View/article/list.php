@@ -43,12 +43,10 @@
         <?php endif ?>
     </div>
 
-    {# Show flash success if the message is create in the Controller #}
-    {% for message in app.flashes('success') %}
-        <div class="alert alert-success" role="alert">
-            {{ message }}
-        </div>
-    {% endfor %}
+    <!-- Show flash success if the message is create in the Controller -->
+    <div class="alert alert-success" role="alert">
+        {{ message }}
+    </div>
 
     <script src="http://localhost/js/scrollBtn.js"></script>
 </main>

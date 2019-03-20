@@ -1,8 +1,6 @@
 if(document.querySelector('.btn-edit-member'))
 {
     let editButton = document.querySelector('.btn-edit-member');
-    let messageSuccess = document.querySelector('.edit-success');
-    let messageError = document.querySelector('.edit-error');
 
     editButton.addEventListener('click', (e) =>
     {
@@ -35,21 +33,13 @@ if(document.querySelector('.btn-edit-member'))
                 let member = JSON.parse(promise).content;
                 let statut = JSON.parse(promise).statut;
 
-                if(statut === 'success')
+                if(statut == 'success')
                 {
-                    messageSuccess.style.display = 'flex';
-                    setTimeout(()=>
-                    {
-                        messageSuccess.style.display = 'none';
-                    }, 5000);
+                    showMessage('success', 'Le profil a bien été édité !');
                 }
-                else if(statut === 'error')
+                else if(statut == 'error')
                 {
-                    messageError.style.display ='flex';
-                    setTimeout(()=>
-                    {
-                        messageError.style.display = 'none';
-                    }, 5000);
+                    showMessage('error', 'Une erreur c\'est produite :(');
                 }
 
                 username.innerText = member['username'];

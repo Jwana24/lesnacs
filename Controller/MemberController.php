@@ -1,127 +1,160 @@
 <?php
 
-class MemberController
+class MemberController extends Controller
 {
-    public function inscription()
+    public function connection()
     {
-        $memberManager = new MemberManager($bdd);
+        $memberManager = new MemberManager();
+        $errors = [];
+
+        if(!empty($_POST))
+        {   // 'Trim' : delete whitespace from the beginning and end of a string ; 'strip_tags' : delete HTML and PHP tags
+            $post = array_map('trim', array_map('strip_tags', $_POST));
+
+            if(!isset($post['username']) || empty($post['username']))
+            {
+                $errors[] = 'Pseudo ou mot de passe invalide';
+            }
+
+            if(!isset($post['password']) || empty($post['password']))
+            {
+                $errors[] = 'Pseudo ou mot de passe invalide';
+            }
+
+            if(count($errors) == 0)
+            {
+                $member = $memberManager->getByUsername($post['username']);
+
+                if($member)
+                {
+                    // We verify if the password in "post" and the password in the "member" (hashed password) is the same
+                    if(password_verify($post['password'], $member->get_password()))
+                    {
+                        $_SESSION['member'] = $member;
+                        // Return our js messages in an json object
+                        echo json_encode(['statut' => 'success']);
+                    }
+                }
+                else
+                {
+                    echo json_encode(['statut' => 'error', 'error' => 'L\'utilisateur n\'existe pas']);
+                }
+
+            }
+            else
+            {
+                echo json_encode(['statut' => 'error']);
+            }
+        }
+    }
+
+    public function add()
+    {
+        $memberManager = new MemberManager();
 
         $errors = [];
 
         if(!empty($_POST))
         {
-            $post = array_map('htmlspecialchars', $_POST);
+            $post = array_map('trim', array_map('strip_tags', $_POST));
 
-            if(isset($post['last_name']) && isset($post['first_name']) && isset($post['username']) && isset($post['password']) && isset($post['password2']) && isset($post['mail']) && isset($post['roles']) && isset($post['captcha']))
+            if(!isset($post['username']) || !preg_match('#^[A-z0-9-_ ]{2,50}$#', $post['username']))
             {
-                if($post['captcha'] != $_SESSION['captcha'])
-                {
-                    $errors[] = 'Captcha invalide';
-                }
+                $errors[] = 'Votre pseudo doit faire entre 2 et 50 caractères et ne doit pas contenir de caractères spéciaux (sauf espace, "_" et "-")';
+            }
 
-                if(!preg_match('#^[A-z0-9-_ ]{4,50}$#', $post['last_name']))
+            if(!empty($_FILES))
+            {
+                // Verify if 'avatar' exist, if there are errors in the upload and if the size is greather than 50mo
+                if(!isset($_FILES['avatar']) || $_FILES['avatar']['error'] != UPLOAD_ERR_OK || $_FILES['avatar']['size'] > 50000)
                 {
-                    $errors[] = 'Votre pseudo doit faire entre 4 et 50 caractères et ne doit pas contenir de caractères spéciaux (sauf espace, "_" et "-")';
-                }
-
-                if(!preg_match('#^[A-z0-9-_ ]{4,50}$#', $post['first_name']))
-                {
-                    $errors[] = 'Votre pseudo doit faire entre 4 et 50 caractères et ne doit pas contenir de caractères spéciaux (sauf espace, "_" et "-")';
-                }
-
-                if(!preg_match('#^[A-z0-9-_ ]{2,50}$#', $post['username']))
-                {
-                    $errors[] = 'Votre pseudo doit faire entre 2 et 50 caractères et ne doit pas contenir de caractères spéciaux (sauf espace, "_" et "-")';
-                }
-
-                if(!preg_match('#^((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@\#\$\%]).{8,})$#', $post['password']))
-                {
-                    $errors[] = 'Votre mot de passe doit contenir au minimum 8 caractères, au moins un chiffre, une lettre et un caractère spécial tel que @, #, $, %';
-                }
-
-                if(!preg_match('#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,5}$#', $post['mail']))
-                {
-                    $errors[] = 'Votre email n\'est pas valide';
+                    $errors[] = 'L\'avatar n\'a pas pu être télécharger '.$_FILES['avatar']['error'];
                 }
 
                 if(count($errors) == 0)
                 {
-                    if(!empty($post['last_name']) && isset($post['first_name']) && isset($post['username']) && isset($post['password']) && isset($post['password2']) && isset($post['mail']) && isset($post['roles']))
-                    {                
-                        // We verify to the "confirmation password" : password2, is the same of the "password" : password
-                        if($post['password'] == $post['password2'])
-                        {
-                            if($memberManager->verif($post['mail'], $post['username']))
-                            {
-                                // Password hashed
-                                $mp_hashed = password_hash($post['password'], PASSWORD_BCRYPT);
-                                $member = new Member();
-                                $member->set_username($post['username']);
-                                $member->set_password($mp_hashed);
-                                $member->set_mail($post['mail']);
+                    // We cut the string after the '.' in the name of the file where we selected the extension
+                    $fileExtension = explode('.', $_FILES['avatar']['name'])[1];
 
-                                // we keep the informations "username", "password(hashed)" and "mail" in the database
-                                if($memberManager->add($member, 'ROLE_USER'))
-                                {
-                                    $_SESSION['success'] = 'Vous êtes à présent inscrit !';
-                                    header('Location:../index.php');
-                                }
-                            }
-                            else
-                            {
-                                $errors[] = 'Email ou pseudo déjà utilisé';
-                            }
-                        }
-                        else
-                        {
-                            $errors[] = 'Le mot de passe n\'a pas pu être confirmé';
-                        }
-                    }
-                    else
+                    // We verify the file's extensions
+                    if(in_array($fileExtension ,['jpg', 'jpeg', 'gif', 'svg', 'png']))
                     {
-                        $errors[] = 'Veuillez remplir tous les champs';
+                        // We construct the path of and the name of the file
+                        $fileName = 'avatars/'. $post['username']. time(). '.'. $fileExtension;
+
+                        // Move the temporary file to the final folder ('avatar')
+                        if(move_uploaded_file($_FILES['avatar']['tmp_name'], $fileName))
+                        {
+                            $avatar = $fileName;
+                        }
                     }
                 }
             }
+
+            if(!isset($post['last_name']) || !preg_match('#^[A-z0-9-_ ]{4,50}$#', $post['last_name']))
+            {
+                $errors[] = 'Votre nom n\'est pas valide, il ne doit contenir aucun accent';
+            }
+
+            if(!isset($post['first_name']) || !preg_match('#^[A-z0-9-_ ]{4,50}$#', $post['first_name']))
+            {
+                $errors[] = 'Votre prénom n\'est pas valide';
+            }
+
+            if(!isset($post['password']) || !preg_match('#^((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@\#\$\%]).{8,})$#', $post['password']))
+            {
+                $errors[] = 'Votre mot de passe doit contenir au minimum 8 caractères, au moins un chiffre, une lettre et un caractère spécial tel que @, #, $, %';
+            }
+
+            // We verify to the "confirmation password" : password2, is the same of the "password" : password
+            if(!isset($post['password2']) || $post['password'] != $post['password2'])
+            {
+                $errors[] = 'Le mot de passe n\'a pas pu être confirmé';
+            }
+
+            if(!isset($post['mail']) || !preg_match('#^[A-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,5}$#', $post['mail']))
+            {
+                $errors[] = 'Votre email n\'est pas valide';
+            }
+
+            if(count($errors) == 0)
+            {
+                if($memberManager->verif($post['mail'], $post['username']))
+                {
+                    // Password hashed
+                    $mp_hashed = password_hash($post['password'], PASSWORD_BCRYPT);
+                    $member = new Member();
+                    $member->set_last_name($post['last_name']);
+                    $member->set_first_name($post['first_name']);
+                    $member->set_username($post['username']);
+                    $member->set_password($mp_hashed);
+                    $member->set_mail($post['mail']);
+                    $member->set_avatar($avatar ?? 'avatars/default-avatar.jpg');
+                    $member->set_token_session(password_hash(uniqid(), PASSWORD_BCRYPT));
+
+                    // We keep the informations "username", "password(hashed)" and "mail" in the database
+                    if($memberManager->add($member))
+                    {
+                        echo json_encode(['statut' => 'success']);
+                    }
+                }
+                else
+                {
+                    echo json_encode(['statut' => 'error', 'error' => 'Pseudo ou email déjà utilisé']);
+                }
+            }
+            else
+            {
+                echo json_encode(['statut' => 'error']);
+            }
         }
-    }
-
-    public function captcha()
-    {
-        // Generate the captcha
-        $md5_hash = md5(rand(0,999));
-        $captcha = substr($md5_hash, 14, 5);
-
-        // Add the captcha in the session
-        $_SESSION['captcha'] = $captcha;
-
-        $image = ImageCreate(200,50); // create an image : width = 200 and height = 50
-
-        // Create colors
-        $white = imagecolorallocate($image, 255, 255, 255);
-        $black = imagecolorallocate($image, 0, 0, 0);
-
-        // Add background for the image
-        imagefill($image, 0, 0, $black);
-
-        // Add text to the image
-        imagestring($image, 4, 75, 15, $captcha, $white);
-
-        // Indicates that we are sending a jpeg image
-        header('content-type:image/jpeg');
-
-        // Converted the image to jpeg
-        imagejpeg($image);
-
-        // Empty the cache
-        imagedestroy($image);
     }
 
     public function editProfile()
     {
         $errors = [];
 
-        $memberManager = new MemberManager($bdd);
+        $memberManager = new MemberManager();
 
         $member = $memberManager->show($_SESSION['id']);
         // $token = new token($bdd, $_SESSION['id']);
@@ -191,7 +224,7 @@ class MemberController
 
     public function editAvatar()
     {
-        $memberManager = new MemberManager($bdd);
+        $memberManager = new MemberManager();
 
         // $token = new token($bdd, $_SESSION['id']);
 
@@ -269,66 +302,6 @@ class MemberController
                                 $error = 'Echec du téléchargement de l\'image';
                             }
                         }
-                    }
-                }
-            }
-        }
-    }
-
-    public function connection()
-    {
-        $memberManager = new MemberManager($bdd);
-
-        if(!empty($_POST))
-        {
-            $post = array_map('htmlspecialchars', $_POST);
-
-            if(isset($post['username']) && isset($post['password']))
-            {   
-                $result = $memberManager->getByUsername($post['username']);
-                
-                // We create a variable for verify if the password in "post" and the password in the "result" (hashed password) is the same
-                $isPasswordOk = password_verify($post['password'], $result->get_password());
-
-                if(!$result)
-                {
-                    $error = 'Mauvais identifiant ou mot de passe';
-                }
-                else
-                {
-                    // If the password is correct we offered to the member to connect automatically by storing his informations in cookies
-                    if ($isPasswordOk)
-                    {
-                        if(isset($post['autoCo']) && isset($post['username']) && isset($post['password']))
-                        {
-                            if($post['autoCo'] == 'ok')
-                            {
-                                // we keep the cookie 24H
-                                setcookie('username', $post['username'], time() + 3600*24, null, null, false, true);
-                                // the password is hashed
-                                $mp_hashed = password_hash($post['password'], PASSWORD_BCRYPT);
-                                setcookie('password', $mp_hashed, time() + 3600*24, null, null, false, true);
-                            }
-                        }
-
-                        // We keep the informations on the session of the member
-                        $_SESSION['id'] = $result->get_id();
-                        $_SESSION['username'] = $result->get_username();
-                        $_SESSION['success'] = 'Vous êtes connecté';
-
-                        // if the member who connect is an admin, he can access to the "admin.php" page
-                        if($result->get_roles() === 'ROLE_ADMIN')
-                        {
-                            header('Location:../admin/admin.php');
-                        }
-                        else
-                        {
-                            header('Location:../index.php');
-                        }
-                    }
-                    else
-                    {
-                        $error = 'Mauvais identifiant ou mot de passe';
                     }
                 }
             }

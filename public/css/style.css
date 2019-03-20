@@ -141,6 +141,16 @@ footer .logo-30MAmis:hover
 }
 
 
+/* ALERTS ON THE SITE */
+
+.alert
+{
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+}
+
+
 /* TITLES, DATES AND TEXTS (POST + ARTICLE) */
 
 .title
@@ -288,18 +298,6 @@ footer .logo-30MAmis:hover
 .cross-close-co:hover
 {
     font-size: 30px;
-}
-
-.inscription-success,
-.inscription-error,
-.edit-success,
-.edit-error
-{
-    z-index: 8;
-    display: none;
-    position: fixed;
-    top: 100px;
-    left: 10px;
 }
 
 

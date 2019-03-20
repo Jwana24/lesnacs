@@ -48,3 +48,27 @@ function transformText(elements, fr, en, fr2, en2)
         }
     }
 }
+
+function showMessage(type, message)
+{
+    let contentMessage = document.createElement('div');
+    contentMessage.setAttribute('role', 'alert');
+
+    if(type == 'success')
+    {
+        contentMessage.classList.add('alert', 'alert-success');
+        contentMessage.innerText = message;
+    }
+    else if(type == 'error')
+    {
+        contentMessage.classList.add('alert', 'alert-danger');
+        contentMessage.innerText = message;
+    }
+
+    document.body.appendChild(contentMessage);
+    
+    setTimeout(()=>
+    {
+        contentMessage.style.display = 'none';
+    }, 5000);
+}

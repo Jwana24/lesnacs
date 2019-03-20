@@ -9,6 +9,8 @@ class Comment
     private $id_article_FK = '';
     private $id_post_FK = '';
     private $id_parent = '';
+    private $member = '';
+    private $responses = '';
 
 
     /**
@@ -147,6 +149,46 @@ class Comment
     public function set_id_parent($_id_parent)
     {
         $this->id_parent = $_id_parent;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of member
+     */ 
+    public function get_member()
+    {
+        return $this->member;
+    }
+
+    /**
+     * Set the value of member
+     *
+     * @return  self
+     */ 
+    public function set_member($member)
+    {
+        $this->member = $member;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of responses
+     */ 
+    public function get_responses()
+    {
+        return $this->responses;
+    }
+
+    /**
+     * Set the value of responses
+     *
+     * @return  self
+     */ 
+    public function set_responses($responses)
+    {
+        $this->responses = $responses;
 
         return $this;
     }

@@ -7,7 +7,7 @@
         <section class="container-article">
             <article class="article-show">
 
-                <img class="image" src="<?= $article->get_image() ?>" alt="Image de l'article">
+                <img class="image" src="http://localhost/<?= $article->get_image() ?>" alt="Image de l'article">
                 <h2 class="title title-article"><?= $article->get_title_article() ?></h2>
                 <!-- {% if app.session.get('_locale') == 'fr_FR' %} -->
                 <p class="date"><?= $article->get_date_article() ?></p>
@@ -79,7 +79,7 @@
 
             <?php if($this->is_granted('ROLE_USER')): ?>
                 <form method="post">
-                    <input class="message-comment-article" type="text" name="" id="">
+                    <input class="message-comment-article" type="text">
                     <input class="btn-site" type="submit" value="Envoyer">
                 </form>
             <?php endif ?>
@@ -87,12 +87,12 @@
         </div>
         
         <div class="article-comment">
-            <?php var_dump($comments); foreach($comments as $comment): ?>
+            <?php foreach($article->get_comments() as $comment): ?>
                 <section class="comment-response-article">
                     <article class="comment-article">
                         <!-- {% if app.session.get('_locale') == 'fr_FR' %} -->
                         <p class="date"><?= $comment->get_date_comment() ?></p>
-                        <p class="username username-comment"><?= $comment->get_id_member_FK()->get_username() ?></p>
+                        <p class="username username-comment"><?= $comment->get_member()->get_username() ?></p>
                         <p class="text-article-comment content-comment<?= $comment->get_id() ?>"><?= $comment->get_text_comment() ?></p>
                         
                         <form class="form-edit-comment form-edit-comment<?= $comment->get_id() ?>" method="post">
@@ -100,15 +100,15 @@
                         </form>
 
                         <div class="btn-comment">
-                            {% if is_granted('MODIF', comment) %}
-                                <a class="btn-site btn-edit-comment" data-post="false" data-locale="{{ app.session.get('_locale') }}" data-toggle="false" data-id="<?= $comment->get_id() ?>" href="{{ path('edit_comment', {'id':comment.Id}) }}">Editer commentaire</a>
+                            <?php if($this->voterArticle()): ?>
+                                <a class="btn-site btn-edit-comment" data-post="false" data-locale="{{ app.session.get('_locale') }}" data-toggle="false" data-id="<?= $comment->get_id() ?>" href="<?= $this->router->generate('article_show', ['id' => $comment->get_id()]) ?>">Editer commentaire</a>
 
                                 <a class="btn-site cancel-comment cancel-comment<?= $comment->get_id() ?>" href="#">Annuler</a>
-                            {% endif %}
+                            <?php endif ?>
 
-                            {% if is_granted('MODIF', comment) %}
+                            <?php if($this->voterArticle()): ?>
                                 {{ include('article/comments/delete.html.twig') }}
-                            {% endif %}
+                            <?php endif ?>
                         </div>
 
                         <?php if($this->is_granted('ROLE_USER')): ?>
@@ -116,28 +116,28 @@
                         <?php endif ?>
                     </article>
 
-                    <?php foreach($commentManager->getByIdParent($comment->get_id_parent()) as $response): ?>
+                    <?php foreach($comment->get_responses() as $response): ?>
 
                         <article class="response-article">
                             <!-- {% if app.session.get('_locale') == 'fr_FR' %} -->
-                            <p class="date date-response"><?= $response->get_id_parent() ?></p>
-                            <p class="username">{{ response.IdMemberFK.username }}<?= $comment->get_id_member_FK()->get_username() ?></p>
-                            <p class="text-article-response content-response{{ response.id }}"><?= $comment->get_id_parent()->get_text_comment() ?></p>
+                            <p class="date date-response"><?= $response->get_id() ?></p>
+                            <p class="username"><?= $response->get_member()->get_username() ?></p>
+                            <p class="text-article-response content-response<?= $response->get_id() ?>"><?= $response->get_text_comment() ?></p>
 
-                            <form class="form-edit-response form-edit-response{{ response.id }}" method="post">
-                                <textarea class="content-response-edit content-response-edit{{ response.id }}" name="text_response"></textarea>
+                            <form class="form-edit-response form-edit-response<?= $response->get_id() ?>" method="post">
+                                <textarea class="content-response-edit content-response-edit<?= $response->get_id() ?>" name="text_response"></textarea>
                             </form>
 
                             <div class="btn-response">
-                                {% if is_granted('MODIFRESPONSE', response) %}
-                                    <a class="btn-site btn-edit-response" data-post="false" data-locale="{{ app.session.get('_locale') }}" data-toggle="false" data-id="{{ response.id }}" href="{{ path('edit_response', {'id':response.Id}) }}">Editer réponse</a>
+                                <?php if($this->voterArticle()): ?>
+                                    <a class="btn-site btn-edit-response" data-post="false" data-locale="{{ app.session.get('_locale') }}" data-toggle="false" data-id="<?= $response->get_id() ?>" href="<?= $this->router->generate('article_show', ['id' => $response->get_id()]) ?>">Editer réponse</a>
                                     
-                                    <a class="btn-site cancel-response cancel-response{{ response.id }}" href="#">Annuler</a>
-                                {% endif %}
+                                    <a class="btn-site cancel-response cancel-response<?= $response->get_id() ?>" href="#">Annuler</a>
+                                <?php endif ?>
 
-                                {% if is_granted('MODIFRESPONSE', response) %}
+                                <?php if($this->voterArticle()): ?>
                                     {{ include('article/responses/delete.html.twig') }}
-                                {% endif %}
+                                <?php endif ?>
                             </div>
                         </article>
 

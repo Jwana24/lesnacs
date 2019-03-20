@@ -1,14 +1,12 @@
 // INSCRIPTION
 let formContainerInsc = document.querySelector('form[name=member]');
-let messageSuccess = document.querySelector('.inscription-success');
-let messageError = document.querySelector('.inscription-error');
-
 let closeModal = document.querySelector('.cross-close');
 let modalInsc = document.querySelector('.modal_inscription');
 
 let btnInsc = document.querySelector('.btn-inscription');
 
 // CONNECTION
+let formContainerCo = document.querySelector('form[name=member-co]');
 let closeModalCo = document.querySelector('.cross-close-co');
 let modalCo = document.querySelector('.modal_connection');
 
@@ -24,9 +22,8 @@ formContainerInsc.addEventListener('submit',(e) =>
 
     let data = new FormData(e.target);
 
-    fetch('/members/inscription', {method: 'POST', body: data}).then(promise => promise.text()).then(promise =>
+    fetch('http://localhost/inscription/', {method: 'POST', body: data}).then(promise => promise.text()).then(promise =>
     {
-
         modalInsc.style.display = 'none';
 
         // Browse all the inputs and clear their values
@@ -36,22 +33,19 @@ formContainerInsc.addEventListener('submit',(e) =>
         }
 
         let statut = JSON.parse(promise).statut;
+        let errors = (JSON.parse(promise).error != undefined) ? JSON.parse(promise).error : null;
 
         if(statut == 'success')
         {
-            messageSuccess.style.display = 'flex';
-            setTimeout(()=>
-            {
-                messageSuccess.style.display = 'none';
-            }, 5000);
+            showMessage('success', 'Vous êtes bien inscrits !');
+        }
+        else if(statut == 'error' && errors == null)
+        {
+            showMessage('error', 'Une erreur c\'est produite :(');
         }
         else if(statut == 'error')
         {
-            messageError.style.display ='flex';
-            setTimeout(()=>
-            {
-                messageError.style.display = 'none';
-            }, 5000);
+            showMessage('error', errors);
         }
     })
 })
@@ -101,3 +95,37 @@ btnCo.addEventListener('click', (e) =>
         modalCo.style.display = 'none';
     }
 });
+
+formContainerCo.addEventListener('submit',(e) =>
+{
+    e.preventDefault();
+
+    let data = new FormData(e.target);
+
+    fetch('http://localhost/connexion/', {method: 'POST', body: data}).then(promise => promise.text()).then(promise =>
+    {
+
+        modalCo.style.display = 'none';
+
+        for(let i = 0; i <= 2; i++)
+        {
+            formContainerCo[i].value = '';
+        }
+
+        let statut = JSON.parse(promise).statut;
+        let errors = (JSON.parse(promise).error != undefined) ? JSON.parse(promise).error : null;
+
+        if(statut == 'success')
+        {
+            showMessage('success', 'Vous êtes connecté !');
+        }
+        else if(statut == 'error' && errors == null)
+        {
+            showMessage('error', 'Une erreur c\'est produite :(');
+        }
+        else if(statut == 'error')
+        {
+            showMessage('error', errors);
+        }
+    })
+})

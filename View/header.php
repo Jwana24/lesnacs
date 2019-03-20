@@ -1,12 +1,8 @@
-<?php
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title><?= $titlePage ?? 'Le site LesNACs' ?></title>
      <!-- Bootstrap links, CSS content to Bootstrap -->
@@ -75,7 +71,7 @@
         </div>
     </nav>
 
-    {% if not is_granted('ROLE_USER') %}
+    <?php if(!$this->is_granted('ROLE_USER')): ?>
 
         <section class="modal_inscription">
             <article class="center_modal_inscription">
@@ -85,36 +81,36 @@
                     <div id="member">
 
                         <div>
-                            <input type="text" placeholder="Nom" id="member_last_name" name="member[last_name]" required maxlength="50" pattern="^[a-zA-Z \-]{5,50}$" title="Votre nom n'est pas valide, il ne doit contenir aucun accent"/>
+                            <input type="text" placeholder="Nom" id="member_last_name" name="last_name" required maxlength="50" pattern="^[a-zA-Z \-]{5,50}$" title="Votre nom n'est pas valide, il ne doit contenir aucun accent"/>
                         </div>
 
                         <div>
-                            <input type="text" placeholder="Prénom" id="member_first_name" name="member[first_name]" required maxlength="50" pattern="^[a-zA-Z \-àáâãäåçèéêëìíîïðòóôõöùúûüýÿ]{5,50}$" title="Votre prénom n'est pas valide"/>
+                            <input type="text" placeholder="Prénom" id="member_first_name" name="first_name" required maxlength="50" pattern="^[a-zA-Z \-àáâãäåçèéêëìíîïðòóôõöùúûüýÿ]{5,50}$" title="Votre prénom n'est pas valide"/>
                         </div>
 
                         <div>
-                            <input type="text" placeholder="Pseudo" id="member_username" name="member[username]" required maxlength="50" pattern=".{2,50}" title="Votre pseudo doit faire entre 2 et 50 caractères" />
+                            <input type="text" placeholder="Pseudo" id="member_username" name="username" required maxlength="50" pattern=".{2,50}" title="Votre pseudo doit faire entre 2 et 50 caractères" />
                         </div>
 
                         <div>
-                            <input type="password" id="member_password_first" placeholder="Mot de passe" name="member[password][first]" class="password-field" required pattern="^((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%!&+=]).{8,})$" title="Votre mot de passe doit contenir au minimum 8 caractères, au moins un chiffre, une lettre et un caractère spécial tel que (@, #, $, %, !, &, + et =)" />
+                            <input type="password" id="member_password_first" placeholder="Mot de passe" name="password" class="password-field" required pattern="^((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%!&+=]).{8,})$" title="Votre mot de passe doit contenir au minimum 8 caractères, au moins un chiffre, une lettre et un caractère spécial tel que (@, #, $, %, !, &, + et =)" />
                         </div>
 
                         <div>
-                            <input type="password" id="member_password_second" placeholder="Confirmation du mot de passe" name="member[password][second]" class="password-field" required />
+                            <input type="password" id="member_password_second" placeholder="Confirmation du mot de passe" name="password2" class="password-field" required />
                         </div>
 
                         <div>
-                            <input type="email" placeholder="Email" id="member_mail" name="member[mail]" required maxlength="200" />
+                            <input type="email" placeholder="Email" id="member_mail" name="mail" required maxlength="200" />
                         </div>
 
                         <div>
-                            <input type="text" placeholder="Description (facultatif)" id="member_description" name="member[description]" maxlength="500" />
+                            <input type="text" placeholder="Description (facultatif)" id="member_description" name="description" maxlength="500" />
                         </div>
 
                         <div>
                             <label for="member_avatar">Avatar</label>
-                            <input type="file" placeholder="Avatar" id="member_avatar" name="member[avatar]" />
+                            <input type="file" placeholder="Avatar" id="member_avatar" name="avatar" />
                         </div>
 
                     </div>
@@ -130,7 +126,7 @@
             <article class="center_modal_connection">
                 <ion-icon class="cross-close-co" name="close"></ion-icon>
                 <h4>Connexion</h4>
-                <form name="member-co" action="<?= $this->router->generate('connexion') ?>" method="POST">
+                <form name="member-co" method="POST">
                     <div id="member-co">
                         <input type="hidden" name="_target_path" value="<?= $this->router->generate('accueil') ?>" />
                         <div>
@@ -153,16 +149,4 @@
             </article>
         </section>
 
-    {% endif %}
-
-
-    <div class="alert alert-success inscription-success" role="alert">
-        Vous avez été inscrit avec succès !
-    </div>
-
-    <div class="alert alert-danger inscription-error" role="alert">
-        Une erreur s'est produite
-    </div>
-    
-</body>
-</html>
+    <?php endif ?>

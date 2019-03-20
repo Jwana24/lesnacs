@@ -31,24 +31,108 @@ class ArticleManager extends Manager
         return $this->_bdd->query('SELECT * FROM article INNER JOIN member ON member.id = article.id_member_FK ORDER BY date_article DESC LIMIT 0,4', PDO::FETCH_CLASS, 'Article')->fetchAll();
     }
 
-    public function show($id)
+    public function get($id)
     {
-        $request = $this->_bdd->prepare('SELECT *, DATE_FORMAT(date_inscription, \'%d/%m/%Y\') AS dateInsc FROM article INNER JOIN member ON member.id = article.id_member_FK WHERE article.id = :id');
-        if($request->execute(['id' => $id]) && $request->rowCount() == 1)
+        $request = $this->_bdd->prepare('SELECT * FROM comment WHERE id_article_FK = :id');
+        $request->bindValue(':id', (int)$id, PDO::PARAM_INT);
+        $request->execute();
+
+        if($request->rowCount() > 0)
         {
-            $results = $request->fetch(\PDO::FETCH_ASSOC);
-            $article = new article();
-            $article->set_id($results['id']);
-            $article->set_title_article($results['titleArt']);
-            $article->set_text_article($results['textArt']);
-            $article->set_date_inscription($results['dateInsc']);
-            $article->set_image($results['image']);
+            $request = $this->_bdd->prepare('SELECT
+            comment.id as comId,
+            comment.id_member_FK as comIdMemberFK,
+            member.*,
+            article.*
+            FROM article
+            INNER JOIN (comment, member)
+            ON (article.id = comment.idArticleFK AND comment.idMemberFK = member.id)
+            WHERE article.id = :id');
+
+            $request->bindValue(':id', (int)$id, PDO::PARAM_INT);
+            $request->execute();
+            $results = $request->fetchAll(PDO::FETCH_ASSOC);
+
+            $comments = [];
+
+            $arrayComments = [];
+            $arrayResponses = [];
+
+            foreach($results as $result)
+            {
+                if($result['id_parent'] === NULL)
+                {
+                    $arrayComments = $result;
+                }
+                else
+                {
+                    $arrayResponses = $result;
+                }
+            }
+
+            foreach($arrayComments as $comment)
+            {
+                $responses = [];
+
+                foreach($arrayResponses as $response)
+                {
+                    if($responses['id_parent'] === $comment['comId'])
+                    {
+                        $member = new Member();
+                        $member
+                            ->set_id($response['comIdMemberFK'])
+                            ->set_username($response['username'])
+                            ->set_avatar($response['avatar'])
+                            ->set_date_inscription($response['date_inscription'])
+                            ->set_roles($response['roles']);
+                        
+                        $finalResponse = new Comment();
+                        $finalResponse
+                            ->set_id($response['comId'])
+                            ->set_text_comment($response['text_comment'])
+                            ->set_date_comment($response['date_comment'])
+                            ->set_member($member);
+
+                        $responses[] = $finalResponse;
+                    }
+                }
+
+                $member = new Member();
+                $member
+                    ->set_id($response['comIdMemberFK'])
+                    ->set_username($response['username'])
+                    ->set_avatar($response['avatar'])
+                    ->set_date_inscription($response['date_inscription'])
+                    ->set_roles($response['roles']);
+                
+                $finalComment = new Comment();
+                $finalComment
+                    ->set_id($comment['comId'])
+                    ->set_text_comment($comment['text_comment'])
+                    ->set_date_comment($comment['date_comment'])
+                    ->set_member($member)
+                    ->set_responses($responses);
+
+                $comments[] = $finalComment;
+            }
+
+            $firstResult = $results[0];
+            $article = new Article();
+            $article
+                ->set_id($firstResult['id'])
+                ->set_title_article($firstResult['title_article'])
+                ->set_text_article($firstResult['text_article'])
+                ->set_date_article($firstResult['date_article'])
+                ->set_image($firstResult['image'])
+                ->set_comments($comments);
 
             return $article;
         }
         else
         {
-            return false;
+            $article = $this->_bdd->query('SELECT *, article.id FROM article INNER JOIN member ON member.id = article.id_member_FK', PDO::FETCH_CLASS, 'Article')->fetchAll()[0];
+            $article->set_comments([]);
+            return $article;
         }
     }
 

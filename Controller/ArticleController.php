@@ -2,14 +2,13 @@
 
 class ArticleController extends Controller
 {
-    public function show()
+    public function get($params)
     {
+        extract($params);
         $articleManager = new ArticleManager();
-        $article = new Article();
-        $id = $article->get_id();
+        $article = $articleManager->get($id);
         $titlePage = $article->get_title_article();
-        $articles = $articleManager->show($id);
-        
+
         ob_start();
         require '../View/article/show.php';
         echo ob_get_clean();

@@ -39,7 +39,7 @@
             <article class="article">
 
                 <div class="div-img">
-                    <img src="<?= $article->get_image() ?>">
+                    <img src="http://localhost/<?= $article->get_image() ?>">
                 </div>
 
                 <div class="containt-article">
