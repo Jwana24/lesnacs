@@ -3,19 +3,19 @@
 // We create a class "membre" with all the informations which we have need compared to our fields in the database
 class Member
 {
-    private $_id = '';
-    private $_last_name = '';
-    private $_first_name = '';
-    private $_username = '';
-    private $_password = '';
-    private $_mail = '';
-    private $_roles = '';
-    private $_avatar = '';
-    private $_token_session = '';
-    private $_token_password = '';
-    private $_date_inscription = '';
-    private $_description = '';
-    private $_locale = '';
+    private $id = '';
+    private $last_name = '';
+    private $first_name = '';
+    private $username = '';
+    private $password = '';
+    private $mail = '';
+    private $roles = '';
+    private $avatar = '';
+    private $token_session = '';
+    private $token_password = '';
+    private $date_inscription = '';
+    private $description = '';
+    private $locale = '';
 
 
 
@@ -24,7 +24,7 @@ class Member
      */ 
     public function get_id()
     {
-        return $this->_id;
+        return $this->id;
     }
 
     /**
@@ -32,9 +32,9 @@ class Member
      *
      * @return  self
      */ 
-    public function set_id($_id)
+    public function set_id($id)
     {
-        $this->_id = $_id;
+        $this->id = $id;
 
         return $this;
     }
@@ -44,7 +44,7 @@ class Member
      */ 
     public function get_last_name()
     {
-        return $this->_last_name;
+        return $this->last_name;
     }
 
     /**
@@ -52,9 +52,9 @@ class Member
      *
      * @return  self
      */ 
-    public function set_last_name($_last_name)
+    public function set_last_name($last_name)
     {
-        $this->_last_name = $_last_name;
+        $this->last_name = $last_name;
 
         return $this;
     }
@@ -64,7 +64,7 @@ class Member
      */ 
     public function get_first_name()
     {
-        return $this->_first_name;
+        return $this->first_name;
     }
 
     /**
@@ -72,9 +72,9 @@ class Member
      *
      * @return  self
      */ 
-    public function set_first_name($_first_name)
+    public function set_first_name($first_name)
     {
-        $this->_first_name = $_first_name;
+        $this->first_name = $first_name;
 
         return $this;
     }
@@ -84,7 +84,7 @@ class Member
      */ 
     public function get_username()
     {
-        return $this->_username;
+        return $this->username;
     }
 
     /**
@@ -92,9 +92,9 @@ class Member
      *
      * @return  self
      */ 
-    public function set_username($_username)
+    public function set_username($username)
     {
-        $this->_username = $_username;
+        $this->username = $username;
 
         return $this;
     }
@@ -104,7 +104,7 @@ class Member
      */ 
     public function get_password()
     {
-        return $this->_password;
+        return $this->password;
     }
 
     /**
@@ -112,9 +112,9 @@ class Member
      *
      * @return  self
      */ 
-    public function set_password($_password)
+    public function set_password($password)
     {
-        $this->_password = $_password;
+        $this->password = $password;
 
         return $this;
     }
@@ -124,7 +124,7 @@ class Member
      */ 
     public function get_mail()
     {
-        return $this->_mail;
+        return $this->mail;
     }
 
     /**
@@ -132,9 +132,9 @@ class Member
      *
      * @return  self
      */ 
-    public function set_mail($_mail)
+    public function set_mail($mail)
     {
-        $this->_mail = $_mail;
+        $this->mail = $mail;
 
         return $this;
     }
@@ -144,7 +144,7 @@ class Member
      */ 
     public function get_roles()
     {
-        return $this->_roles;
+        return $this->roles;
     }
 
     /**
@@ -152,9 +152,9 @@ class Member
      *
      * @return  self
      */ 
-    public function set_roles($_roles)
+    public function set_roles($roles)
     {
-        $this->_roles = $_roles;
+        $this->roles = $roles;
 
         return $this;
     }
@@ -164,7 +164,7 @@ class Member
      */ 
     public function get_avatar()
     {
-        return $this->_avatar;
+        return $this->avatar;
     }
 
     /**
@@ -172,9 +172,9 @@ class Member
      *
      * @return  self
      */ 
-    public function set_avatar($_avatar)
+    public function set_avatar($avatar)
     {
-        $this->_avatar = $_avatar;
+        $this->avatar = $avatar;
 
         return $this;
     }
@@ -184,7 +184,7 @@ class Member
      */ 
     public function get_token_session()
     {
-        return $this->_token_session;
+        return $this->token_session;
     }
 
     /**
@@ -192,9 +192,9 @@ class Member
      *
      * @return  self
      */ 
-    public function set_token_session($_token_session)
+    public function set_token_session($token_session)
     {
-        $this->_token_session = $_token_session;
+        $this->token_session = $token_session;
 
         return $this;
     }
@@ -204,7 +204,7 @@ class Member
      */ 
     public function get_token_password()
     {
-        return $this->_token_password;
+        return $this->token_password;
     }
 
     /**
@@ -212,9 +212,9 @@ class Member
      *
      * @return  self
      */ 
-    public function set_token_password($_token_password)
+    public function set_token_password($token_password)
     {
-        $this->_token_password = $_token_password;
+        $this->token_password = $token_password;
 
         return $this;
     }
@@ -224,7 +224,7 @@ class Member
      */ 
     public function get_date_inscription()
     {
-        return $this->_date_inscription;
+        return $this->date_inscription;
     }
 
     /**
@@ -232,9 +232,9 @@ class Member
      *
      * @return  self
      */ 
-    public function set_date_inscription($_date_inscription)
+    public function set_date_inscription($date_inscription)
     {
-        $this->_date_inscription = $_date_inscription;
+        $this->date_inscription = $date_inscription;
 
         return $this;
     }
@@ -244,7 +244,7 @@ class Member
      */ 
     public function get_description()
     {
-        return $this->_description;
+        return $this->description;
     }
 
     /**
@@ -252,9 +252,9 @@ class Member
      *
      * @return  self
      */ 
-    public function set_description($_description)
+    public function set_description($description)
     {
-        $this->_description = $_description;
+        $this->description = $description;
 
         return $this;
     }
@@ -264,7 +264,7 @@ class Member
      */ 
     public function get_locale()
     {
-        return $this->_locale;
+        return $this->locale;
     }
 
     /**
@@ -272,9 +272,9 @@ class Member
      *
      * @return  self
      */ 
-    public function set_locale($_locale)
+    public function set_locale($locale)
     {
-        $this->_locale = $_locale;
+        $this->locale = $locale;
 
         return $this;
     }

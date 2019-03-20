@@ -2,16 +2,16 @@
 
 class Like
 {
-    private $_id = '';
-    private $_id_member_FK = '';
-    private $_id_article_FK = '';
+    private $id = '';
+    private $id_member_FK = '';
+    private $id_article_FK = '';
 
     /**
      * Get the value of _id
      */ 
     public function get_id()
     {
-        return $this->_id;
+        return $this->id;
     }
 
     /**
@@ -19,9 +19,9 @@ class Like
      *
      * @return  self
      */ 
-    public function set_id($_id)
+    public function set_id($id)
     {
-        $this->_id = $_id;
+        $this->id = $id;
 
         return $this;
     }
@@ -31,7 +31,7 @@ class Like
      */ 
     public function get_id_member_FK()
     {
-        return $this->_id_member_FK;
+        return $this->id_member_FK;
     }
 
     /**
@@ -39,9 +39,9 @@ class Like
      *
      * @return  self
      */ 
-    public function set_id_member_FK($_id_member_FK)
+    public function set_id_member_FK($id_member_FK)
     {
-        $this->_id_member_FK = $_id_member_FK;
+        $this->id_member_FK = $id_member_FK;
 
         return $this;
     }
@@ -51,7 +51,7 @@ class Like
      */ 
     public function get_id_article_FK()
     {
-        return $this->_id_article_FK;
+        return $this->id_article_FK;
     }
 
     /**
@@ -59,9 +59,9 @@ class Like
      *
      * @return  self
      */ 
-    public function set_id_article_FK($_id_article_FK)
+    public function set_id_article_FK($id_article_FK)
     {
-        $this->_id_article_FK = $_id_article_FK;
+        $this->id_article_FK = $id_article_FK;
 
         return $this;
     }

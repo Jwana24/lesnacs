@@ -38,7 +38,7 @@
     <div class="link-article-page">
         <a class="btn-site link-homepage" href="<?= $this->router->generate('accueil') ?>">Revenir à l'accueil</a>
 
-        <?php if($this->is_granted('ROLE_ADMIN')): ?>
+        <?php if($this->is_granted(['ROLE_ADMIN'])): ?>
             <a class="btn-site" href="<?= $this->router->generate('add_article') ?>">Ajouter un article</a>
         <?php endif ?>
     </div>

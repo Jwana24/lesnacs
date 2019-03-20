@@ -2,7 +2,13 @@
 
 class MemberController extends Controller
 {
-    public function connection()
+    public function logout()
+    {
+        unset($_SESSION['member']);
+        header('Location: http://localhost/accueil/');
+    }
+
+    public function login()
     {
         $memberManager = new MemberManager();
         $errors = [];
@@ -24,20 +30,24 @@ class MemberController extends Controller
             if(count($errors) == 0)
             {
                 $member = $memberManager->getByUsername($post['username']);
-
+                
                 if($member)
                 {
                     // We verify if the password in "post" and the password in the "member" (hashed password) is the same
                     if(password_verify($post['password'], $member->get_password()))
                     {
-                        $_SESSION['member'] = $member;
+                        $_SESSION['member'] = serialize($member);
                         // Return our js messages in an json object
                         echo json_encode(['statut' => 'success']);
+                    }
+                    else
+                    {
+                        echo json_encode(['statut' => 'error', 'error' => 'Erreur d\'authentification']);
                     }
                 }
                 else
                 {
-                    echo json_encode(['statut' => 'error', 'error' => 'L\'utilisateur n\'existe pas']);
+                    echo json_encode(['statut' => 'error', 'error' => 'Erreur d\'authentification']);
                 }
 
             }

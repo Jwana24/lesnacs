@@ -45,7 +45,7 @@
         <div class="col-12">
             <div class="btn-link-forum">
                 <a class="btn-site" href="<?= $this->router->generate('accueil') ?>">Revenir à l'accueil</a>
-                <?php if($this->is_granted('ROLE_USER')): ?>
+                <?php if($this->is_granted(['ROLE_USER'])): ?>
                     <a class="btn-site" href="<?= $this->router->generate('add_post') ?>">Ajouter un post</a>
                 <?php endif ?>
             </div>

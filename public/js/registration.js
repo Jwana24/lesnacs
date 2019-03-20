@@ -107,7 +107,7 @@ formContainerCo.addEventListener('submit',(e) =>
 
         modalCo.style.display = 'none';
 
-        for(let i = 0; i <= 2; i++)
+        for(let i = 0; i <= 1; i++)
         {
             formContainerCo[i].value = '';
         }
@@ -118,6 +118,7 @@ formContainerCo.addEventListener('submit',(e) =>
         if(statut == 'success')
         {
             showMessage('success', 'Vous êtes connecté !');
+            window.location = '';
         }
         else if(statut == 'error' && errors == null)
         {

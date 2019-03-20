@@ -1,6 +1,6 @@
 <?php
 
-class SecurityController extends Controller
+class AdminSecurityController extends Controller
 {
     // Members list
     public function list()

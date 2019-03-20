@@ -71,7 +71,7 @@
 
         <input id="toggle-comment" type="checkbox">
         <div class="form-comment-post">
-            <?php if($this->is_granted('ROLE_USER')): ?>
+            <?php if($this->is_granted(['ROLE_USER'])): ?>
                 <form method="post">
                     <input class="message-comment-post" type="text">
                     <input class="btn-site" type="submit" value="Envoyer">

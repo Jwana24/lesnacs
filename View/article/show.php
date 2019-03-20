@@ -36,7 +36,7 @@
                 {% endif %} -->
 
                 <div class="like" data-id="<?= $article->get_id() ?>">
-                    <?php if($this->is_granted('ROLE_USER')): ?>
+                    <?php if($this->is_granted(['ROLE_USER'])): ?>
                         <ion-icon name="heart"></ion-icon>
                         <ion-icon name="heart-empty"></ion-icon>
                     <?php endif ?>
@@ -45,7 +45,7 @@
 
                 <div class="container-btn-article">
                     <div class="like-article">
-                        <?php if($this->is_granted('ROLE_USER')): ?>
+                        <?php if($this->is_granted(['ROLE_USER'])): ?>
 
                             <a class="btn-site" href="#">
                             <label for="toggle-comment">Commenter</label>
@@ -59,7 +59,7 @@
                     </div>
 
                     <div class="btn-admin-article">
-                        <?php if($this->is_granted('ROLE_ADMIN')): ?>
+                        <?php if($this->is_granted(['ROLE_ADMIN'])): ?>
 
                             {{ include('Admin/article/delete.html.twig') }}
 
@@ -77,7 +77,7 @@
         <input id="toggle-comment" type="checkbox">
         <div class="form-comment-article">
 
-            <?php if($this->is_granted('ROLE_USER')): ?>
+            <?php if($this->is_granted(['ROLE_USER'])): ?>
                 <form method="post">
                     <input class="message-comment-article" type="text">
                     <input class="btn-site" type="submit" value="Envoyer">
@@ -111,7 +111,7 @@
                             <?php endif ?>
                         </div>
 
-                        <?php if($this->is_granted('ROLE_USER')): ?>
+                        <?php if($this->is_granted(['ROLE_USER'])): ?>
                             <a class="btn-site response-btn" href="#" data-id="{{ comment.Id }}">Répondre</a>
                         <?php endif ?>
                     </article>

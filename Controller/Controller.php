@@ -3,19 +3,19 @@
 class Controller
 {
     protected $router;
-    protected $user;
+    protected $member;
 
     public function __construct($router)
     {
         $this->router = $router;
-        $this->user = $_SESSION['user'] ?? NULL;
+        $this->member = isset($_SESSION['member']) ? unserialize($_SESSION['member']) : NULL;
         $_SESSION['success'] = [];
         $_SESSION['error'] = [];
     }
 
-    public function is_granted($role)
+    public function is_granted(array $role)
     {
-        return ($this->user != NULL && $this->user->get_role() == $role) ? true : false;
+        return ($this->member != NULL && in_array($this->member->get_roles(), $role)) ? true : false;
     }
 
     public function cookie_exist($cookie)

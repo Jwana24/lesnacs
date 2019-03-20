@@ -34,14 +34,14 @@
                     <a class="nav-link" href="<?= $this->router->generate('accueil') ?>#contacts">Contacts</a>
                 </li>
             
-                <?php if($this->is_granted('ROLE_USER')): ?>
+                <?php if($this->is_granted(['ROLE_USER', 'ROLE_ADMIN'])): ?>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ion-icon style="color: white" name="person"></ion-icon></a>
                         <div class="dropdown-menu" aria-labelledby="dropdown04">
-                            <!-- <a class="dropdown-item" href="{{ path('logout') }}">Déconnexion</a> -->
-                            <!-- <a class="dropdown-item" href="{{ path('member_show', {'id':app.user.id}) }}">Profil de {{ app.user.username }}</a> -->
-                            <?php if($this->is_granted('ROLE_ADMIN')): ?>
-                                <!-- <a class="dropdown-item" href="{{ path('members_list', {'id':app.user.id}) }}">Liste des membres</a> -->
+                            <a class="dropdown-item" href="<?= $this->router->generate('deconnexion') ?>">Déconnexion</a>
+                            <a class="dropdown-item" href="<?= $this->router->generate('member_show', ['id' => $this->member->get_id()]) ?>">Profil de <?= $this->member->get_username() ?></a>
+                            <?php if($this->is_granted(['ROLE_ADMIN'])): ?>
+                                <a class="dropdown-item" href="<?= $this->router->generate('member_list') ?>">Liste des membres</a>
                             <?php endif ?>
                         </div>
                     </li>
@@ -71,7 +71,7 @@
         </div>
     </nav>
 
-    <?php if(!$this->is_granted('ROLE_USER')): ?>
+    <?php if(!$this->is_granted(['ROLE_USER'])): ?>
 
         <section class="modal_inscription">
             <article class="center_modal_inscription">
@@ -128,13 +128,12 @@
                 <h4>Connexion</h4>
                 <form name="member-co" method="POST">
                     <div id="member-co">
-                        <input type="hidden" name="_target_path" value="<?= $this->router->generate('accueil') ?>" />
                         <div>
-                            <input type="text" name="_username" placeholder="Pseudo" required="">
+                            <input type="text" name="username" placeholder="Pseudo" required="">
                         </div>
 
                         <div>
-                            <input type="password" name="_password" placeholder="Mot de passe" required>
+                            <input type="password" name="password" placeholder="Mot de passe" required>
                         </div>
 
                         <div>

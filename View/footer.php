@@ -24,7 +24,7 @@
             <a href="<?= $this->router->generate('mentionslegales') ?>">Mentions légales</a>
             <a href="<?= $this->router->generate('article_list') ?>">Articles</a>
             <a href="<?= $this->router->generate('post_list') ?>">Forum</a>
-            <?php if($this->is_granted('ROLE_USER')): ?>
+            <?php if($this->is_granted(['ROLE_USER'])): ?>
                 <a href="<?= $this->router->generate('member_show', ['id' => $member->get_id()]) ?>">Mon profil</a>
             <?php endif ?>
             <p class="recommand-sites">
