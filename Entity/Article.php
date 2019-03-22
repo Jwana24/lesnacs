@@ -134,7 +134,7 @@ class Article
     /**
      * Get the value of text_article_notags
      */ 
-    public function getText_article_notags()
+    public function get_text_article_notags()
     {
         return $this->text_article_notags;
     }
@@ -144,7 +144,7 @@ class Article
      *
      * @return  self
      */ 
-    public function setText_article_notags($text_article_notags)
+    public function set_text_article_notags($text_article_notags)
     {
         $this->text_article_notags = $text_article_notags;
 

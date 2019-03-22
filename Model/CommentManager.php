@@ -2,16 +2,14 @@
 
 class CommentManager extends Manager
 {
-    public function add(Comment $comment)
+    public function addCommentArt(Comment $comment)
     {
-        $request = $this->_bdd->prepare('INSERT INTO comment(text_comment, date_inscription, id_member_FK, id_article_FK, id_post_FK, id_parent) VALUES (:title_comment, :text_comment, NOW(), :idMemberFK, :idArticleFK, :idPostFK, :idParent)');
+        $request = $this->_bdd->prepare('INSERT INTO comment(text_comment, date_comment, id_member_FK, id_article_FK, id_post_FK, id_parent) VALUES (:textCom, NOW(), :idMemberFK, :idArticleFK, NULL, NULL)');
 
         if($request->execute([
-            'text_comment' => $comment->get_text_comment(),
+            'textCom' => $comment->get_text_comment(),
             'idMemberFK' => $comment->get_id_member_FK(),
-            'idArticleFK' => $comment->get_id_article_FK(),
-            'idPostFK' => $comment->get_id_post_FK(),
-            'idParent' => $comment->get_id_parent()
+            'idArticleFK' => $comment->get_id_article_FK()
             ]))
         {
             return true;

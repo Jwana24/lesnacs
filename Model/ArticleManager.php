@@ -41,12 +41,15 @@ class ArticleManager extends Manager
         {
             $request = $this->_bdd->prepare('SELECT
             comment.id as comId,
+            comment.text_comment,
+            comment.date_comment,
             comment.id_member_FK as comIdMemberFK,
+            comment.id_parent,
             member.*,
             article.*
             FROM article
             INNER JOIN (comment, member)
-            ON (article.id = comment.idArticleFK AND comment.idMemberFK = member.id)
+            ON (article.id = comment.id_article_FK AND comment.id_member_FK = member.id)
             WHERE article.id = :id');
 
             $request->bindValue(':id', (int)$id, PDO::PARAM_INT);
@@ -62,11 +65,11 @@ class ArticleManager extends Manager
             {
                 if($result['id_parent'] === NULL)
                 {
-                    $arrayComments = $result;
+                    $arrayComments[] = $result;
                 }
                 else
                 {
-                    $arrayResponses = $result;
+                    $arrayResponses[] = $result;
                 }
             }
 
@@ -99,11 +102,11 @@ class ArticleManager extends Manager
 
                 $member = new Member();
                 $member
-                    ->set_id($response['comIdMemberFK'])
-                    ->set_username($response['username'])
-                    ->set_avatar($response['avatar'])
-                    ->set_date_inscription($response['date_inscription'])
-                    ->set_roles($response['roles']);
+                    ->set_id($comment['comIdMemberFK'])
+                    ->set_username($comment['username'])
+                    ->set_avatar($comment['avatar'])
+                    ->set_date_inscription($comment['date_inscription'])
+                    ->set_roles($comment['roles']);
                 
                 $finalComment = new Comment();
                 $finalComment

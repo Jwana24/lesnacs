@@ -22,11 +22,7 @@ class ArticleController extends Controller
             {
                 $post = array_map('trim', array_map('strip_tags', $_POST));
 
-                if(!isset($post['ajax-like']) || $post['ajax-like'] != 'true')
-                {
-                    $errors[] = 'Erreur sur la page';
-                }
-                else
+                if(isset($post['ajax-like']) && $post['ajax-like'] == 'true')
                 {
                     if($like)
                     {
@@ -41,6 +37,21 @@ class ArticleController extends Controller
                         $nbLike = $likeManager->numberLike($article);
                         echo json_encode(['content' => true, 'nbLike' => $nbLike]);
                         return null;
+                    }
+                }
+
+                if(isset($post['form']) && !empty($post['form']))
+                {
+                    if($post['form'] == 'form-comment')
+                    {
+                        $comment = new Comment();
+                        $commentManager = new CommentManager();
+                        $comment
+                            ->set_text_comment($post['text_comment'])
+                            ->set_id_member_FK($this->member->get_id())
+                            ->set_id_article_FK($article->get_id());
+
+                        $commentManager->addCommentArt($comment);
                     }
                 }
             }

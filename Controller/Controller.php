@@ -33,12 +33,12 @@ class Controller
         return (isset($_COOKIE[$cookie])) ? true : false;
     }
 
-    private function voterArticle($article, $member)
+    public function voterArticle($article, $member)
     {
         return $member->get_id() === $article->get_id_member_FK() || $member->get_roles()[0] === 'ROLE_ADMIN';
     }
 
-    private function voterPost($post)
+    public function voterPost($post)
     {
         return $member->get_id() === $post->get_id_member_FK() || $member->get_roles()[0] === 'ROLE_ADMIN';
     }

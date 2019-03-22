@@ -45,7 +45,7 @@
 
                 <div class="container-btn-article">
                     <div class="like-article">
-                        <?php if($this->is_granted(['ROLE_USER'])): ?>
+                        <?php if($this->is_granted(['ROLE_USER', 'ROLE_ADMIN'])): ?>
 
                             <a class="btn-site" href="#">
                             <label for="toggle-comment">Commenter</label>
@@ -81,9 +81,10 @@
         <input id="toggle-comment" type="checkbox">
         <div class="form-comment-article">
 
-            <?php if($this->is_granted(['ROLE_USER'])): ?>
+            <?php if($this->is_granted(['ROLE_USER', 'ROLE_ADMIN'])): ?>
                 <form method="post">
-                    <input class="message-comment-article" type="text">
+                    <input type="hidden" name="form" value="form-comment">
+                    <input class="message-comment-article" type="text" name="text_comment">
                     <input class="btn-site" type="submit" value="Envoyer">
                 </form>
             <?php endif ?>
@@ -104,14 +105,17 @@
                         </form>
 
                         <div class="btn-comment">
-                            <?php if($this->voterArticle()): ?>
+                            <?php if($this->is_granted(['ROLE_ADMIN'])): ?>
                                 <a class="btn-site btn-edit-comment" data-post="false" data-locale="{{ app.session.get('_locale') }}" data-toggle="false" data-id="<?= $comment->get_id() ?>" href="<?= $this->router->generate('article_show', ['id' => $comment->get_id()]) ?>">Editer commentaire</a>
 
                                 <a class="btn-site cancel-comment cancel-comment<?= $comment->get_id() ?>" href="#">Annuler</a>
-                            <?php endif ?>
 
-                            <?php if($this->voterArticle()): ?>
-                                {{ include('article/comments/delete.html.twig') }}
+                                <form action="<?= $this->router->generate('delete_comment') ?>" method="post">
+                                    <input type="hidden" name="token_session" value="<?= $this->member->get_token_session() ?>">
+                                    <input type="hidden" name="id" value="<?= $comment->get_id() ?>">
+                                    <input type="hidden" name="idArt" value="<?= $article->get_id() ?>">
+                                    <input class="btn-site" value="Supprimer commentaire" type="submit">
+                                </form>
                             <?php endif ?>
                         </div>
 
