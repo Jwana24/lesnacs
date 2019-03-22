@@ -145,6 +145,7 @@ footer .logo-30MAmis:hover
 
 .alert
 {
+    z-index: 20;
     position: fixed;
     bottom: 10px;
     right: 10px;

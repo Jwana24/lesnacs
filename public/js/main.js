@@ -52,20 +52,32 @@ function transformText(elements, fr, en, fr2, en2)
 function showMessage(type, message)
 {
     let contentMessage = document.createElement('div');
+    let listMessage = document.createElement('ul');
+
+    contentMessage.appendChild(listMessage);
     contentMessage.setAttribute('role', 'alert');
 
     if(type == 'success')
     {
         contentMessage.classList.add('alert', 'alert-success');
-        contentMessage.innerText = message;
+        contentMessage.innerText = message[0];
     }
     else if(type == 'error')
     {
         contentMessage.classList.add('alert', 'alert-danger');
-        contentMessage.innerText = message;
+
+        message.forEach((e) =>
+        {
+            let itemsMessage = document.createElement('li');
+            
+            itemsMessage.innerText = e;
+            
+            listMessage.appendChild(itemsMessage);
+        })
     }
 
-    document.body.appendChild(contentMessage);
+    document.querySelector('main').appendChild(contentMessage);
+    console.log(document.querySelector('main'));
     
     setTimeout(()=>
     {

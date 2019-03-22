@@ -28,19 +28,19 @@
                     </div>
                 </form>
 
-                <!-- {# Pass the value from Twig to JS if the connected member has already liked or not #}
-                {% if member_like %}
+                <!-- Pass the value from Twig to JS if the connected member has already liked or not -->
+                <?php if($like): ?>
                     <div class="member-like" data-like="true" style="display:none"></div>
-                {% else %}
+                <?php else: ?>
                     <div class="member-like" data-like="false" style="display:none"></div>
-                {% endif %} -->
+                <?php endif ?>
 
                 <div class="like" data-id="<?= $article->get_id() ?>">
-                    <?php if($this->is_granted(['ROLE_USER'])): ?>
+                    <?php if($this->is_granted(['ROLE_USER', 'ROLE_ADMIN'])): ?>
                         <ion-icon name="heart"></ion-icon>
                         <ion-icon name="heart-empty"></ion-icon>
                     <?php endif ?>
-                <!-- <p class="nb-like-article">{{likes}} likes</p> -->
+                <p class="nb-like-article"><?= $nbLike ?> likes</p>
                 </div>
 
                 <div class="container-btn-article">
@@ -61,9 +61,13 @@
                     <div class="btn-admin-article">
                         <?php if($this->is_granted(['ROLE_ADMIN'])): ?>
 
-                            {{ include('Admin/article/delete.html.twig') }}
+                            <form action="<?= $this->router->generate('delete_article') ?>" method="post">
+                                <input type="hidden" name="token_session" value="<?= $this->member->get_token_session() ?>">
+                                <input type="hidden" name="id" value="<?= $article->get_id() ?>">
+                                <input class="btn-site" value="Supprimer article" type="submit">
+                            </form>
 
-                            <a class="btn-site btn-edit-article" data-locale="{{ app.session.get('_locale') }}" data-toggle="false" data-id="<?= $article->get_id() ?>" href="<?= $this->router->generate('article_show', ['id' => $article->get_id()]) ?>">Editer article</a>
+                            <a class="btn-site btn-edit-article" data-locale="fr_FR" data-toggle="false" data-id="<?= $article->get_id() ?>" href="#">Editer article</a>
 
                             <a class="btn-site cancel-article" href="#">Annuler</a>
 
@@ -173,5 +177,8 @@
     </div>
 
 </main>
+
+<script src="http://localhost/js/editArticle.js"></script>
+<script src="http://localhost/js/likeArticle.js"></script>
 
 <?php require '../View/footer.php' ?>

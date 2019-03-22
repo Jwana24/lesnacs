@@ -2,7 +2,7 @@
     <div class="container">
         <div class="toast message-cookie" data-autohide="false" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
-                <img widht="10px" height="20px" src="http://localhost/images/gingerman.png" class="rounded mr-2" alt="...">
+                <img widht="10px" height="20px" src="http://localhost/images/gingerman.png" class="rounded mr-2" alt="Image du cookie">
                 <strong class="mr-auto">Cookies</strong>
                 <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -24,8 +24,8 @@
             <a href="<?= $this->router->generate('mentionslegales') ?>">Mentions légales</a>
             <a href="<?= $this->router->generate('article_list') ?>">Articles</a>
             <a href="<?= $this->router->generate('post_list') ?>">Forum</a>
-            <?php if($this->is_granted(['ROLE_USER'])): ?>
-                <a href="<?= $this->router->generate('member_show', ['id' => $member->get_id()]) ?>">Mon profil</a>
+            <?php if($this->is_granted(['ROLE_USER', 'ROLE_ADMIN'])): ?>
+                <a href="<?= $this->router->generate('member_show', ['id' => $this->member->get_id()]) ?>">Mon profil</a>
             <?php endif ?>
             <p class="recommand-sites">
                 Les sites que l'on vous recommande :
@@ -43,7 +43,7 @@
     </div>
 </footer>
 
-<?php if($this->user == NULL): ?>
+<?php if($this->member == NULL): ?>
     <script src="http://localhost/js/registration.js"></script>
 <?php endif ?>
 
@@ -54,7 +54,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 
 <script>$('.toast').toast('show')</script>
-<script src="http://localhost/js/main.js"></script>
 
 <script src="https://cdn.ckeditor.com/ckeditor5/12.0.0/classic/ckeditor.js"></script>
 <script>

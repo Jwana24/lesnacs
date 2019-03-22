@@ -75,7 +75,7 @@ class MemberManager extends Manager
         return $request->fetchAll(PDO::FETCH_CLASS, 'Member')[0];
     }
 
-    // We verify if the usdername or the mail already exist in the database
+    // We verify if the username or the mail already exist in the database
     public function verif($mail, $username)
     {
         $request = $this->_bdd->prepare('SELECT * FROM member WHERE mail = :mail || username = :username');

@@ -43,12 +43,19 @@
         <?php endif ?>
     </div>
 
-    <!-- Show flash success if the message is create in the Controller -->
-    <div class="alert alert-success" role="alert">
-        {{ message }}
-    </div>
-
     <script src="http://localhost/js/scrollBtn.js"></script>
 </main>
+
+<script>
+    <?php $errorsMessage = $this->getMessage('error'); ?>
+    <?php if(!empty($errorsMessage)): ?>
+        showMessage('error', <?= json_encode($errorsMessage) ?>);
+    <?php endif ?>
+
+    <?php $successMessage = $this->getMessage('success'); ?>
+    <?php if(!empty($successMessage)): ?>
+        showMessage('success', [<?= json_encode($successMessage) ?>]);
+    <?php endif ?>
+</script>
 
 <?php require '../View/footer.php' ?>

@@ -5,7 +5,7 @@ if(document.querySelector('.list-articles'))
     let arrowDown = document.querySelector('.arrow-down');
     let arrowUp = document.querySelector('.arrow-up');
     let btnElements = document.querySelectorAll('.card');
-    // let arrayBtnElements = btnElements[btnElements.length - 10].offsetTop;
+    let arrayBtnElements = btnElements[btnElements.length].offsetTop;
 
     window.addEventListener('scroll', () =>
     {

@@ -5,9 +5,9 @@ class Article
     private $id = '';
     private $title_article = '';
     private $text_article = '';
+    private $text_article_notags = '';
     private $date_article = '';
     private $image = '';
-    private $id_member_FK = '';
     private $comments = '';
 
 
@@ -112,26 +112,6 @@ class Article
     }
 
     /**
-     * Get the value of _id_member_FK
-     */ 
-    public function get_id_member_FK()
-    {
-        return $this->id_member_FK;
-    }
-
-    /**
-     * Set the value of _id_member_FK
-     *
-     * @return  self
-     */ 
-    public function set_id_member_FK($_id_member_FK)
-    {
-        $this->id_member_FK = $_id_member_FK;
-
-        return $this;
-    }
-
-    /**
      * Get the value of comment
      */ 
     public function get_comments()
@@ -147,6 +127,26 @@ class Article
     public function set_comments($comments)
     {
         $this->comments = $comments;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of text_article_notags
+     */ 
+    public function getText_article_notags()
+    {
+        return $this->text_article_notags;
+    }
+
+    /**
+     * Set the value of text_article_notags
+     *
+     * @return  self
+     */ 
+    public function setText_article_notags($text_article_notags)
+    {
+        $this->text_article_notags = $text_article_notags;
 
         return $this;
     }

@@ -10,7 +10,7 @@ if(document.querySelector('ion-icon[name=heart]') && document.querySelector('ion
         let data = new FormData();
     
         data.append('ajax-like', 'true'); // make the same action to a hidden input where the value is true
-        fetch('/article/'+like.dataset['id']+'/show', {method: 'POST', body: data}).then(promise => promise.text()).then(promise =>
+        fetch('/article/'+like.dataset['id']+'/', {method: 'POST', body: data}).then(promise => promise.text()).then(promise =>
             {
                 let isLiked = JSON.parse(promise);
                 countLike.innerText = isLiked.nbLike+' likes'; // get to our JS object the number of likes

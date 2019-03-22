@@ -31,6 +31,8 @@ $router->map('GET|POST', '/accueil/', 'DefaultController#index', 'accueil');
 $router->map('GET|POST', '/article/', 'ArticleController#list', 'article_list');
 $router->map('GET|POST', '/ajout-article/', 'AdminArticleController#add', 'add_article');
 $router->map('GET|POST', '/article/[i:id]/', 'ArticleController#get', 'article_show');
+$router->map('GET|POST', '/article/edit/[i:id]/', 'AdminArticleController#edit', 'edit_article');
+$router->map('GET|POST', '/article/delete/', 'AdminArticleController#delete', 'delete_article');
 $router->map('GET|POST', '/forum/', 'PostController#list', 'post_list');
 $router->map('GET|POST', '/ajout-post/', 'PostController#add', 'add_post');
 $router->map('GET|POST', '/forum/[i:id]/', 'PostController#get', 'post_show');

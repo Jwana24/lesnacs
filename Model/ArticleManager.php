@@ -4,13 +4,13 @@ class ArticleManager extends Manager
 {
     public function add(Article $article)
     {
-        $request = $this->_bdd->prepare('INSERT INTO article(title_article, text_article, date_inscription, image, id_member_FK) VALUES (:title_article, :text_article, NOW(), :image, :idMemberFK)');
+        $request = $this->_bdd->prepare('INSERT INTO article(title_article, text_article, text_article_notags, date_inscription, image) VALUES (:title_article, :text_article, :text_article_notags, NOW(), :image)');
 
         if($request->execute([
             'title_article' => $article->get_title_article(),
             'text_article' => $article->get_text_article(),
-            'image' => $article->get_image(),
-            'idMemberFK' => $article->get_id_member_FK()
+            'text_article_notags' => strip_tags($article->get_text_article()),
+            'image' => $article->get_image()
             ]))
         {
             return true;
@@ -23,12 +23,12 @@ class ArticleManager extends Manager
 
     public function list()
     {
-        return $this->_bdd->query('SELECT * FROM article INNER JOIN member ON member.id = article.id_member_FK', PDO::FETCH_CLASS, 'Article')->fetchAll();
+        return $this->_bdd->query('SELECT * FROM article', PDO::FETCH_CLASS, 'Article')->fetchAll();
     }
 
     public function showLast()
     {
-        return $this->_bdd->query('SELECT * FROM article INNER JOIN member ON member.id = article.id_member_FK ORDER BY date_article DESC LIMIT 0,4', PDO::FETCH_CLASS, 'Article')->fetchAll();
+        return $this->_bdd->query('SELECT * FROM article ORDER BY date_article DESC LIMIT 0,4', PDO::FETCH_CLASS, 'Article')->fetchAll();
     }
 
     public function get($id)
@@ -122,6 +122,7 @@ class ArticleManager extends Manager
                 ->set_id($firstResult['id'])
                 ->set_title_article($firstResult['title_article'])
                 ->set_text_article($firstResult['text_article'])
+                ->set_text_article_notags(strip_tags($firstResult['text_article']))
                 ->set_date_article($firstResult['date_article'])
                 ->set_image($firstResult['image'])
                 ->set_comments($comments);
@@ -130,7 +131,7 @@ class ArticleManager extends Manager
         }
         else
         {
-            $article = $this->_bdd->query('SELECT *, article.id FROM article INNER JOIN member ON member.id = article.id_member_FK', PDO::FETCH_CLASS, 'Article')->fetchAll()[0];
+            $article = $this->_bdd->query('SELECT * FROM article', PDO::FETCH_CLASS, 'Article')->fetchAll()[0];
             $article->set_comments([]);
             return $article;
         }
@@ -138,15 +139,14 @@ class ArticleManager extends Manager
 
     public function edit(Article $article)
     {
-        $request = $this->_bdd->prepare('UPDATE article SET title_article = :titleArt, text_article = :textArt, image = :image, id_member_FK = :idMember WHERE id = :id');
+        $request = $this->_bdd->prepare('UPDATE article SET title_article = :titleArt, text_article = :textArt, text_article_notags = :textArtNoT, image = :image WHERE id = :id');
 
         if($request->execute([
             'id' => $article->get_id(),
-            'title_article' => $article->get_title_article(),
-            'text_article' => $article->get_text_article(),
-            'date_inscription' => $article->get_date_inscription(),
-            'image' => $article->get_image(),
-            'idMember' => $article->get_id_member_FK()
+            'titleArt' => $article->get_title_article(),
+            'textArt' => $article->get_text_article(),
+            'textArtNoT' => strip_tags($article->get_title_article()),
+            'image' => $article->get_image()
             ]))
         {
             return true;

@@ -42,18 +42,19 @@ class MemberController extends Controller
                     }
                     else
                     {
-                        echo json_encode(['statut' => 'error', 'error' => 'Erreur d\'authentification']);
+                        $errors[] = 'Erreur d\'authentification';
+                        echo json_encode(['statut' => 'error', 'error' => $errors]);
                     }
                 }
                 else
                 {
-                    echo json_encode(['statut' => 'error', 'error' => 'Erreur d\'authentification']);
+                    echo json_encode(['statut' => 'error', 'error' => $errors]);
                 }
 
             }
             else
             {
-                echo json_encode(['statut' => 'error']);
+                echo json_encode(['statut' => 'error', 'error' => $errors]);
             }
         }
     }
@@ -78,7 +79,7 @@ class MemberController extends Controller
                 // Verify if 'avatar' exist, if there are errors in the upload and if the size is greather than 50mo
                 if(!isset($_FILES['avatar']) || $_FILES['avatar']['error'] != UPLOAD_ERR_OK || $_FILES['avatar']['size'] > 50000)
                 {
-                    $errors[] = 'L\'avatar n\'a pas pu être télécharger '.$_FILES['avatar']['error'];
+                    $errors[] = 'L\'avatar n\'a pas pu être téléchargée '.$_FILES['avatar']['error'];
                 }
 
                 if(count($errors) == 0)
@@ -90,7 +91,11 @@ class MemberController extends Controller
                     if(in_array($fileExtension ,['jpg', 'jpeg', 'gif', 'svg', 'png']))
                     {
                         // We construct the path of and the name of the file
-                        $fileName = 'avatars/'. $post['username']. time(). '.'. $fileExtension;
+                        $username = str_replace( 
+                            ['À','Á','Â','Ã','Ä','Å','Ç','È','É','Ê','Ë','Ì','Í','Î','Ï','Ò','Ó','Ô','Õ','Ö','Ù','Ú','Û','Ü','Ý','à','á','â','ã','ä','å','ç','è','é','ê','ë','ì','í','î','ï','ð','ò','ó','ô','õ','ö','ù','ú','û','ü','ý','ÿ',' '],
+                            ['A','A','A','A','A','A','C','E','E','E','E','I','I','I','I','O','O','O','O','O','U','U','U','U','Y','a','a','a','a','a','a','c','e','e','e','e','i','i','i','i','o','o','o','o','o','o','u','u','u','u','y','y',''],
+                            $post['username']);
+                        $fileName = 'avatars/'. $username. '.'. $fileExtension;
 
                         // Move the temporary file to the final folder ('avatar')
                         if(move_uploaded_file($_FILES['avatar']['tmp_name'], $fileName))
@@ -147,15 +152,20 @@ class MemberController extends Controller
                     {
                         echo json_encode(['statut' => 'success']);
                     }
+                    else
+                    {
+                        echo json_encode(['statut' => 'error', 'error' => $errors]);
+                    }
                 }
                 else
                 {
-                    echo json_encode(['statut' => 'error', 'error' => 'Pseudo ou email déjà utilisé']);
+                    $errors[] = 'Pseudo ou email déjà utilisé';
+                    echo json_encode(['statut' => 'error', 'error' => $errors]);
                 }
             }
             else
             {
-                echo json_encode(['statut' => 'error']);
+                echo json_encode(['statut' => 'error', 'error' => $errors]);
             }
         }
     }

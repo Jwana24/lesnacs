@@ -37,11 +37,11 @@ formContainerInsc.addEventListener('submit',(e) =>
 
         if(statut == 'success')
         {
-            showMessage('success', 'Vous êtes bien inscrits !');
+            showMessage('success', ['Vous êtes bien inscrits !']);
         }
         else if(statut == 'error' && errors == null)
         {
-            showMessage('error', 'Une erreur c\'est produite :(');
+            showMessage('error', ['Une erreur c\'est produite :(']);
         }
         else if(statut == 'error')
         {
@@ -117,12 +117,12 @@ formContainerCo.addEventListener('submit',(e) =>
 
         if(statut == 'success')
         {
-            showMessage('success', 'Vous êtes connecté !');
+            showMessage('success', ['Vous êtes connecté !']);
             window.location = '';
         }
         else if(statut == 'error' && errors == null)
         {
-            showMessage('error', 'Une erreur c\'est produite :(');
+            showMessage('error', ['Une erreur c\'est produite :(']);
         }
         else if(statut == 'error')
         {

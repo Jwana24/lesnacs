@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <link rel="stylesheet" href="http://localhost/css/style.css">
     <link rel="icon" type="image/png" href="http://localhost/images/icone-site-lesnac-16px.svg" />
+    <script src="http://localhost/js/main.js"></script>
 </head>
 <body>
     

@@ -9,8 +9,18 @@ class Controller
     {
         $this->router = $router;
         $this->member = isset($_SESSION['member']) ? unserialize($_SESSION['member']) : NULL;
-        $_SESSION['success'] = [];
-        $_SESSION['error'] = [];
+        $_SESSION['success'] = $_SESSION['success'] ?? '';
+        $_SESSION['error'] = $_SESSION['error'] ?? [];
+    }
+    
+    public function tokenSession()
+    {
+        if($this->member != NULL)
+        {
+            $memberManager = new MemberManager();
+            $this->member->set_token_session(password_hash(uniqid(), PASSWORD_BCRYPT));
+            $memberManager->edit($this->member);
+        }
     }
 
     public function is_granted(array $role)
@@ -37,7 +47,7 @@ class Controller
     {
         if($type == 'success')
         {
-            $_SESSION['success'][] = $message;
+            $_SESSION['success'] = $message;
         }
         else if($type == 'error')
         {
@@ -50,7 +60,7 @@ class Controller
         if($type == 'success')
         {
             $success = $_SESSION['success'];
-            $_SESSION['success'] = [];
+            $_SESSION['success'] = '';
             return $success;
         }
         else if($type == 'error')
