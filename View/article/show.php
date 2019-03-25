@@ -105,7 +105,7 @@
                         </form>
 
                         <div class="btn-comment">
-                            <?php if($this->is_granted(['ROLE_ADMIN'])): ?>
+                            <?php if($this->voter($comment)): ?>
                                 <a class="btn-site btn-edit-comment" data-locale="{{ app.session.get('_locale') }}" data-toggle="false" data-id="<?= $comment->get_id() ?>" href="<?= $this->router->generate('article_show', ['id' => $comment->get_id()]) ?>">Editer commentaire</a>
 
                                 <a class="btn-site cancel-comment cancel-comment<?= $comment->get_id() ?>" href="#">Annuler</a>
@@ -196,6 +196,7 @@
 
 <script src="http://localhost/js/editArticle.js"></script>
 <script src="http://localhost/js/editComment.js"></script>
+<script src="http://localhost/js/editResponse.js"></script>
 <script src="http://localhost/js/likeArticle.js"></script>
 <script src="http://localhost/js/toggle-response.js"></script>
 

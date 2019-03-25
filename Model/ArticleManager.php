@@ -94,7 +94,8 @@ class ArticleManager extends Manager
                             ->set_id($response['comId'])
                             ->set_text_comment($response['text_comment'])
                             ->set_date_comment($response['date_comment'])
-                            ->set_member($member);
+                            ->set_member($member)
+                            ->set_id_member_FK($response['comIdMemberFK']);
 
                         $responses[] = $finalResponse;
                     }
@@ -114,7 +115,8 @@ class ArticleManager extends Manager
                     ->set_text_comment($comment['text_comment'])
                     ->set_date_comment($comment['date_comment'])
                     ->set_member($member)
-                    ->set_responses($responses);
+                    ->set_responses($responses)
+                    ->set_id_member_FK($comment['comIdMemberFK']);
 
                 $comments[] = $finalComment;
             }

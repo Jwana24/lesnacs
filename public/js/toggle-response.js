@@ -7,7 +7,8 @@ containerFormResponse.style.display = 'none';
 form = false;
 
 // One form for all the responses : depending on the 'response button', the form move
-btnResponse.forEach((bouton)=>{
+btnResponse.forEach((bouton)=>
+{
     bouton.addEventListener('click',(e)=>{
         e.preventDefault();
         if(form)

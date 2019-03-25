@@ -122,17 +122,17 @@
                                 <p class="date date-response">{{ response.DateResponse|date('D d M Y') }}</p>
                             {% endif %}
                             <p class="username">{{ response.IdMemberFK.username }}</p>
-                            <p class="text-post-response content-response-post{{ response.id }}">{{ response.TextResponse }}</p>
+                            <p class="text-post-response content-response{{ response.id }}">{{ response.TextResponse }}</p>
 
-                            <form class="form-edit-response-post form-edit-response-post{{ response.id }}" method="post">
+                            <form class="form-edit-response form-edit-response{{ response.id }}" method="post">
                                 <input type="hidden" name="_token" value="{{ csrf_token('edit-response-post' ~ response.id) }}">
-                                <textarea class="content-response-edit-post content-response-edit-post{{ response.id }}" name="text_response_post"></textarea>
+                                <textarea class="content-response-edit content-response-edit{{ response.id }}" name="text_response_post"></textarea>
                             </form>
 
                             <div class="btn-response">
                                 {% if is_granted('MODIFRESPONSE', response) %}
                                     <a class="btn-site btn-edit-response" data-locale="{{ app.session.get('_locale') }}" data-toggle="false" data-id="{{ response.id }}" href="{{ path('edit_response_post', {'id':response.Id}) }}">{% trans %}Editer réponse{% endtrans %}</a>
-                                    <a class="btn-site cancel-response-post cancel-response-post{{ response.id }}" href="#">{% trans %}Annuler{% endtrans %}</a>
+                                    <a class="btn-site cancel-response cancel-response{{ response.id }}" href="#">{% trans %}Annuler{% endtrans %}</a>
                                 {% endif %}
 
                                 {% if is_granted('MODIFRESPONSE', response) %}

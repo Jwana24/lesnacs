@@ -33,14 +33,9 @@ class Controller
         return (isset($_COOKIE[$cookie])) ? true : false;
     }
 
-    public function voterArticle($article, $member)
+    public function voter($subject)
     {
-        return $member->get_id() === $article->get_id_member_FK() || $member->get_roles()[0] === 'ROLE_ADMIN';
-    }
-
-    public function voterPost($post)
-    {
-        return $member->get_id() === $post->get_id_member_FK() || $member->get_roles()[0] === 'ROLE_ADMIN';
+        return $this->member->get_id() === $subject->get_id_member_FK() || $this->member->get_roles()[0] === 'ROLE_ADMIN';
     }
 
     public function addMessages($message, $type)
