@@ -2,7 +2,7 @@
 
 class PostController extends Controller
 {
-    public function get($params)
+    public function show($params)
     {
         extract($params);
         $postManager = new PostManager();

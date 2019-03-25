@@ -6,19 +6,18 @@
 
         <section class="container-forum">
             <article class="forum-show">
-
                 <h2 class="title title-post"><?= $post->get_title_post() ?>
-                    {% if post.Resolve == 'resolve' %}
-                        <span><br>[{% trans %}Post résolu{% endtrans %}]</span>
-                    {% endif %}
+                    <?php if($post->get_resolve() == 'resolve'): ?>
+                        <span><br>[Post résolu]</span>
+                    <?php endif ?>
                 </h2>
                 <!-- {% if app.session.get('_locale') == 'fr_FR' %} -->
                 <p class="date"><?= $post->get_date_post() ?></p>
-                {% if  not post.IdMemberFK == null %}
-                <p class="username"><?= $post->get_id_member_FK()->get_username() ?></p>
-                {% else %}
-                <p class="member-not-exist">[Ce membre n'existe plus]</p>
-                {% endif %}
+                <?php if($post->get_id_member_FK() != 'NULL'): ?>
+                    <p class="username"><?= $post->get_id_member_FK()->get_username() ?></p>
+                <?php else: ?>
+                    <p class="member-not-exist">[Ce membre n'existe plus]</p>
+                <?php endif ?>
                 <p class="category-post">Catégorie : <?= $post->get_categorie() ?></p>
                 <p class="text text-post"><?= $post->get_text_post() ?></p>
 

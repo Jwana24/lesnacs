@@ -24,7 +24,7 @@ class PostManager extends Manager
 
     public function list()
     {
-        return $this->_bdd->query('SELECT * FROM post INNER JOIN member ON member.id = post.id_member_FK', PDO::FETCH_CLASS, 'Post')->fetchAll();
+        return $this->_bdd->query('SELECT * FROM post', PDO::FETCH_CLASS, 'Post')->fetchAll();
     }
 
     public function get($id)
@@ -37,12 +37,15 @@ class PostManager extends Manager
         {
             $request = $this->_bdd->prepare('SELECT
             comment.id as comId,
+            comment.text_comment,
+            comment.date_comment,
             comment.id_member_FK as comIdMemberFK,
+            comment.id_parent,
             member.*,
             post.*
             FROM post
             INNER JOIN (comment, member)
-            ON (post.id = comment.idPostFK AND comment.idMemberFK = member.id)
+            ON (post.id = comment.id_post_FK AND comment.id_member_FK = member.id)
             WHERE post.id = :id');
 
             $request->bindValue(':id', (int)$id, PDO::PARAM_INT);
@@ -72,7 +75,7 @@ class PostManager extends Manager
 
                 foreach($arrayResponses as $response)
                 {
-                    if($responses['id_parent'] === $comment['comId'])
+                    if($response['id_parent'] === $comment['comId'])
                     {
                         $member = new Member();
                         $member
@@ -87,7 +90,8 @@ class PostManager extends Manager
                             ->set_id($response['comId'])
                             ->set_text_comment($response['text_comment'])
                             ->set_date_comment($response['date_comment'])
-                            ->set_member($member);
+                            ->set_member($member)
+                            ->set_id_member_FK($response['comIdMemberFK']);
 
                         $responses[] = $finalResponse;
                     }
@@ -107,7 +111,8 @@ class PostManager extends Manager
                     ->set_text_comment($comment['text_comment'])
                     ->set_date_comment($comment['date_comment'])
                     ->set_member($member)
-                    ->set_responses($responses);
+                    ->set_responses($responses)
+                    ->set_id_member_FK($comment['comIdMemberFK']);
 
                 $comments[] = $finalComment;
             }
@@ -118,6 +123,7 @@ class PostManager extends Manager
                 ->set_id($firstResult['id'])
                 ->set_title_post($firstResult['title_post'])
                 ->set_text_post($firstResult['text_post'])
+                ->set_text_post_notags(strip_tags($firstResult['text_post']))
                 ->set_date_post($firstResult['date_post'])
                 ->set_categorie($firstResult['categorie'])
                 ->set_resolve($firstResult['resolve'])
