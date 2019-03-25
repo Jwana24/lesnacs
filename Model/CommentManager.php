@@ -20,33 +20,28 @@ class CommentManager extends Manager
         }
     }
 
-    public function show($id)
+    public function getComment($id)
     {
-        $request = $this->_bdd->prepare('SELECT * FROM comment INNER JOIN member ON member.id = comment.id_member_FK WHERE comment.id_article_FK = :id');
-        $request->bindParam(':id', (int)$id, PDO::PARAM_INT);
+        $request = $this->_bdd->prepare('SELECT *, comment.id FROM comment INNER JOIN member ON member.id = comment.id_member_FK WHERE comment.id');
+        $request->bindValue(':id', (int)$id, PDO::PARAM_INT);
         $request->execute();
-        return $request->fetchAll(PDO::FETCH_CLASS);
+        return $request->fetchAll(PDO::FETCH_CLASS, 'Comment')[0];
     }
 
     public function getByIdParent($id)
     {
         $request = $this->_bdd->prepare('SELECT * FROM comment INNER JOIN member ON membres.id = comment.id_member_FK WHERE comment.id_parent = :id');
-        $request->bindParam(':id', (int)$id, PDO::PARAM_INT);
+        $request->bindValue(':id', (int)$id, PDO::PARAM_INT);
         $request->execute();
         return $request->fetchAll(PDO::FETCH_CLASS);
     }
 
     public function edit(Comment $comment)
     {
-        $request = $this->_bdd->prepare('UPDATE comment SET text_comment = :textComment, id_member_FK = :idMemberFK, id_article_FK = :idArtFK, id_post_FK = :idPostFK, id_parent = :idParent WHERE id = :id');
-
+        $request = $this->_bdd->prepare('UPDATE comment SET text_comment = :textComment WHERE comment.id = :id');
         if($request->execute([
             'id' => $comment->get_id(),
-            'text_comment' => $comment->get_text_comment(),
-            'idMemberFK' => $comment->get_id_member_FK(),
-            'idArtFK' => $comment->get_id_article_FK(),
-            'idPostFK' => $comment->get_post_FK(),
-            'idParent' => $comment->get_id_parent()
+            'textComment' => $comment->get_text_comment()
             ]))
         {
             return true;

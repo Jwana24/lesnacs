@@ -28,7 +28,7 @@
                     </div>
                 </form>
 
-                <!-- Pass the value from Twig to JS if the connected member has already liked or not -->
+                <!-- Pass the value from PHP to JS if the connected member has already liked or not -->
                 <?php if($like): ?>
                     <div class="member-like" data-like="true" style="display:none"></div>
                 <?php else: ?>
@@ -90,7 +90,7 @@
             <?php endif ?>
 
         </div>
-        
+
         <div class="article-comment">
             <?php foreach($article->get_comments() as $comment): ?>
                 <section class="comment-response-article">
@@ -106,7 +106,7 @@
 
                         <div class="btn-comment">
                             <?php if($this->is_granted(['ROLE_ADMIN'])): ?>
-                                <a class="btn-site btn-edit-comment" data-post="false" data-locale="{{ app.session.get('_locale') }}" data-toggle="false" data-id="<?= $comment->get_id() ?>" href="<?= $this->router->generate('article_show', ['id' => $comment->get_id()]) ?>">Editer commentaire</a>
+                                <a class="btn-site btn-edit-comment" data-locale="{{ app.session.get('_locale') }}" data-toggle="false" data-id="<?= $comment->get_id() ?>" href="<?= $this->router->generate('article_show', ['id' => $comment->get_id()]) ?>">Editer commentaire</a>
 
                                 <a class="btn-site cancel-comment cancel-comment<?= $comment->get_id() ?>" href="#">Annuler</a>
 
@@ -138,7 +138,7 @@
 
                             <div class="btn-response">
                                 <?php if($this->voterArticle()): ?>
-                                    <a class="btn-site btn-edit-response" data-post="false" data-locale="{{ app.session.get('_locale') }}" data-toggle="false" data-id="<?= $response->get_id() ?>" href="<?= $this->router->generate('article_show', ['id' => $response->get_id()]) ?>">Editer réponse</a>
+                                    <a class="btn-site btn-edit-response" data-locale="{{ app.session.get('_locale') }}" data-toggle="false" data-id="<?= $response->get_id() ?>" href="<?= $this->router->generate('article_show', ['id' => $response->get_id()]) ?>">Editer réponse</a>
                                     
                                     <a class="btn-site cancel-response cancel-response<?= $response->get_id() ?>" href="#">Annuler</a>
                                 <?php endif ?>
@@ -182,7 +182,21 @@
 
 </main>
 
+<script>
+    <?php $errorsMessage = $this->getMessage('error'); ?>
+    <?php if(!empty($errorsMessage)): ?>
+        showMessage('error', <?= json_encode($errorsMessage) ?>);
+    <?php endif ?>
+
+    <?php $successMessage = $this->getMessage('success'); ?>
+    <?php if(!empty($successMessage)): ?>
+        showMessage('success', [<?= json_encode($successMessage) ?>]);
+    <?php endif ?>
+</script>
+
 <script src="http://localhost/js/editArticle.js"></script>
+<script src="http://localhost/js/editComment.js"></script>
 <script src="http://localhost/js/likeArticle.js"></script>
+<script src="http://localhost/js/toggle-response.js"></script>
 
 <?php require '../View/footer.php' ?>

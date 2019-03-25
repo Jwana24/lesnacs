@@ -2,6 +2,78 @@
 
 class AdminArticleController extends Controller
 {
+    public function add()
+    {
+        $articleManager = new ArticleManager();
+
+        $errors = [];
+
+        if(!empty($_POST))
+        {
+            $post = array_map('trim', array_map('strip_tags', $_POST));
+
+            if(!empty($_FILES))
+            {
+                if(!isset($_FILES['image']) || $_FILES['image']['error'] != UPLOAD_ERR_OK || $_FILES['image']['size'] > 500000)
+                {
+                    $errors[] = 'L\'image n\'a pas pu être téléchargée '.$_FILES['image']['error'];
+                }
+
+                if(count($errors) == 0)
+                {
+                    $fileExtension = explode('.', $_FILES['image']['name'])[1];
+
+                    if(in_array($fileExtension ,['jpg', 'jpeg', 'svg', 'png']))
+                    {
+                        $fileName = 'images/'. time(). '.'. $fileExtension;
+
+                        if(move_uploaded_file($_FILES['image']['tmp_name'], $fileName))
+                        {
+                            $image = $fileName;
+                        }
+                    }
+                    else
+                    {
+                        $errors[] = 'Le fichier doit être en \'jpg\', \'jpeg\', \'svg\', ou \'png\'';
+                    }
+                }
+
+                if(!isset($post['title_article']) || empty($post['title_article']))
+                {
+                    $errors[] = 'Erreur sur le titre';
+                }
+
+                if(!isset($post['text_article']) || empty($post['text_article']))
+                {
+                    $errors[] = 'Erreur sur le contenu';
+                }
+
+                if(count($errors) == 0)
+                {
+                    $article = new Article();
+                    $article->set_title_article($post['title_article']);
+                    $article->set_text_article($post['text_article']);
+                    $article->set_image($image);
+
+                    if($articleManager->add($article))
+                    {
+                        $this->addMessages('L\'article a été ajouté', 'success');
+                        header('Location: http://localhost/article/');
+                    }
+                    else
+                    {
+                        $this->addMessages('Erreur lors de l\'ajout de l\'article', 'error');
+                    }
+                }
+                else
+                {
+                    $this->addMessages('Une erreur s\'est produite', 'error');
+                }
+            }
+        }
+
+    }
+
     public function edit($params)
     {
         extract($params);
@@ -57,7 +129,7 @@ class AdminArticleController extends Controller
             {
                 $article
                     ->set_title_article($post['title_article'])
-                    ->set_text_article($post['text_article'])
+                    ->set_text_article($_POST['text_article'])
                     ->set_image($image ?? $article->get_image());
                 
                 if($articleManager->edit($article))

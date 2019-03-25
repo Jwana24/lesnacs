@@ -4,7 +4,6 @@ if(document.querySelector('.btn-edit-article'))
 
     editButton.addEventListener('click', (e) =>
     {
-        console.log(e.target);
         e.preventDefault();
 
         let image = document.querySelector('.image'),
@@ -25,7 +24,7 @@ if(document.querySelector('.btn-edit-article'))
         }
         else if(e.target.dataset['toggle'] == 'true')
         {
-            let data = new FormData(formEdit); // Instantiate formData object with the formEdit in parameters
+            let data = new FormData(formEdit); // instantiate formData object with the formEdit in parameters
             
             // Make an Ajax request on the edit article page, we spend data of the form, we return a promise (a tool for managing asynchronous operations)
             fetch('http://localhost/article/edit/'+e.target.dataset['id']+'/', {method: 'POST', body: data}).then(promise => promise.text()).then(promise =>
@@ -44,7 +43,7 @@ if(document.querySelector('.btn-edit-article'))
                 }
                 else if(statut == 'error' && errors == null)
                 {
-                    showMessage('error', ['Une erreur c\'est produite :(']);
+                    showMessage('error', ['Une erreur s\'est produite :(']);
                 }
                 else if(statut == 'error')
                 {

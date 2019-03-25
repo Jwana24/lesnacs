@@ -77,7 +77,6 @@ function showMessage(type, message)
     }
 
     document.querySelector('main').appendChild(contentMessage);
-    console.log(document.querySelector('main'));
     
     setTimeout(()=>
     {

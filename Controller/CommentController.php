@@ -17,6 +17,40 @@ class CommentController extends Controller
     public function edit($params)
     {
         extract($params);
+        $commentManager = new CommentManager();
+        $comment = $commentManager->getComment($id);
+        $errors = [];
+
+        if(!empty($_POST))
+        {
+            $post = array_map('trim', array_map('strip_tags', $_POST));
+
+            if(!isset($post['text_comment']) || empty($post['text_comment']))
+            {
+                $errors[] = 'Erreur sur le contenu';
+            }
+            if(count($errors) == 0)
+            {
+                $comment
+                    ->set_text_comment($post['text_comment']);
+            
+                if($commentManager->edit($comment))
+                {
+                    echo json_encode(['statut' => 'success', 'content' => [
+                        'text_comment' => $comment->get_text_comment()
+                    ]]);
+                }
+                else
+                {
+                    $errors[] = 'Votre commentaire n\'a pas pu être édité';
+                    echo json_encode(['statut' => 'error', 'error' => $errors]);
+                }
+            }
+            else
+            {
+                echo json_encode(['statut' => 'error', 'error' => $errors]);
+            }
+        }
     }
 
     public function delete()
@@ -47,7 +81,7 @@ class CommentController extends Controller
             {
                 if($commentManager->delete($post['id']))
                 {
-                    $this->addMessages('L\'article a été supprimé', 'success');
+                    $this->addMessages('Le commentaire a été supprimé', 'success');
                 }
                 else
                 {

@@ -2,7 +2,7 @@
 
 class ArticleController extends Controller
 {
-    public function get($params)
+    public function show($params)
     {
         extract($params);
         $articleManager = new ArticleManager();
@@ -56,6 +56,7 @@ class ArticleController extends Controller
                 }
             }
         }
+        $article = $articleManager->get($id);
 
         ob_start();
         require '../View/article/show.php';

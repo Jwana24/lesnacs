@@ -90,17 +90,17 @@
                         <!-- {% if app.session.get('_locale') == 'fr_FR' %} -->
                         <p class="date">{{ comment.DateCommentPost|date('D d M Y') }}</p>
                         <p class="username username-comment">{{ comment.IdMemberFK.username }}</p>
-                        <p class="text-post-comment content-comment-post{{ comment.id }}">{{ comment.TextCommentPost }}</p>
+                        <p class="text-post-comment content-comment{{ comment.id }}">{{ comment.TextCommentPost }}</p>
 
-                        <form class="form-edit-comment-post form-edit-comment-post{{ comment.id }}" method="post">
+                        <form class="form-edit-comment form-edit-comment{{ comment.id }}" method="post">
                             <input type="hidden" name="_token" value="{{ csrf_token('edit-comment-post' ~ comment.id) }}">
-                            <textarea class="content-comment-edit-post content-comment-edit-post{{ comment.id }}" name="text_comment_post"></textarea>
+                            <textarea class="content-comment-edit content-comment-edit{{ comment.id }}" name="text_comment_post"></textarea>
                         </form>
 
                         <div class="btn-comment">
                             {% if is_granted('MODIFPOSTCOMMENT', comment) %}
-                                <a class="btn-site btn-edit-comment" data-post="true" data-locale="{{ app.session.get('_locale') }}" data-toggle="false" data-id="{{ comment.id }}" href="{{ path('edit_comment_post', {'id':comment.Id}) }}">Editer commentaire</a>
-                                <a class="btn-site cancel-comment-post cancel-comment-post{{ comment.id }}" href="#">Annuler</a>
+                                <a class="btn-site btn-edit-comment" data-locale="{{ app.session.get('_locale') }}" data-toggle="false" data-id="{{ comment.id }}" href="{{ path('edit_comment_post', {'id':comment.Id}) }}">Editer commentaire</a>
+                                <a class="btn-site cancel-comment cancel-comment{{ comment.id }}" href="#">Annuler</a>
                             {% endif %}
 
                             {% if is_granted('MODIFPOSTCOMMENT', comment) %}
@@ -131,7 +131,7 @@
 
                             <div class="btn-response">
                                 {% if is_granted('MODIFRESPONSE', response) %}
-                                    <a class="btn-site btn-edit-response" data-post="true" data-locale="{{ app.session.get('_locale') }}" data-toggle="false" data-id="{{ response.id }}" href="{{ path('edit_response_post', {'id':response.Id}) }}">{% trans %}Editer réponse{% endtrans %}</a>
+                                    <a class="btn-site btn-edit-response" data-locale="{{ app.session.get('_locale') }}" data-toggle="false" data-id="{{ response.id }}" href="{{ path('edit_response_post', {'id':response.Id}) }}">{% trans %}Editer réponse{% endtrans %}</a>
                                     <a class="btn-site cancel-response-post cancel-response-post{{ response.id }}" href="#">{% trans %}Annuler{% endtrans %}</a>
                                 {% endif %}
 
