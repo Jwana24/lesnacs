@@ -79,7 +79,7 @@ class ArticleManager extends Manager
 
                 foreach($arrayResponses as $response)
                 {
-                    if($responses['id_parent'] === $comment['comId'])
+                    if($response['id_parent'] === $comment['comId'])
                     {
                         $member = new Member();
                         $member

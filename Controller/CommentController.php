@@ -42,7 +42,7 @@ class CommentController extends Controller
                 }
                 else
                 {
-                    $errors[] = 'Votre commentaire n\'a pas pu être édité';
+                    $errors[] = 'Problème lors de l\'édition de votre message';
                     echo json_encode(['statut' => 'error', 'error' => $errors]);
                 }
             }

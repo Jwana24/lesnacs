@@ -53,6 +53,19 @@ class ArticleController extends Controller
 
                         $commentManager->addCommentArt($comment);
                     }
+
+                    if($post['form'] == 'form-response')
+                    {
+                        $comment = new Comment();
+                        $commentManager = new CommentManager();
+                        $comment
+                            ->set_text_comment($post['text_comment'])
+                            ->set_id_member_FK($this->member->get_id())
+                            ->set_id_article_FK($article->get_id())
+                            ->set_id_parent($post['id_comment']);
+
+                        $commentManager->addResponseArt($comment);
+                    }
                 }
             }
         }
