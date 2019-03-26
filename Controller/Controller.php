@@ -25,7 +25,14 @@ class Controller
 
     public function is_granted(array $role)
     {
-        return ($this->member != NULL && in_array($this->member->get_roles(), $role)) ? true : false;
+        if($this->member != NULL)
+        {
+            return (in_array($this->member->get_roles(), $role) || $this->member->get_roles() === 'ROLE_ADMIN') ? true : false;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public function cookie_exist($cookie)
@@ -35,7 +42,14 @@ class Controller
 
     public function voter($subject)
     {
-        return $this->member->get_id() === $subject->get_id_member_FK() || $this->member->get_roles()[0] === 'ROLE_ADMIN';
+        if($this->member != NULL)
+        {
+            return $this->member->get_id() === $subject->get_member()->get_id() || $this->member->get_roles() === 'ROLE_ADMIN';
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public function addMessages($message, $type)

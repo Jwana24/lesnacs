@@ -142,7 +142,7 @@ class AdminArticleController extends Controller
                 }
                 else
                 {
-                    $errors[] = 'Votre article n\'a pas pu être édité';
+                    $errors[] = 'L\'article n\'a pas pu être édité';
                     echo json_encode(['statut' => 'error', 'error' => $errors]);
                 }
             }

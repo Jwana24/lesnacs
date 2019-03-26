@@ -36,7 +36,7 @@
                 <?php endif ?>
 
                 <div class="like" data-id="<?= $article->get_id() ?>">
-                    <?php if($this->is_granted(['ROLE_USER', 'ROLE_ADMIN'])): ?>
+                    <?php if($this->is_granted(['ROLE_USER'])): ?>
                         <ion-icon name="heart"></ion-icon>
                         <ion-icon name="heart-empty"></ion-icon>
                     <?php endif ?>
@@ -45,7 +45,7 @@
 
                 <div class="container-btn-article">
                     <div class="like-article">
-                        <?php if($this->is_granted(['ROLE_USER', 'ROLE_ADMIN'])): ?>
+                        <?php if($this->is_granted(['ROLE_USER'])): ?>
 
                             <a class="btn-site" href="#">
                             <label for="toggle-comment">Commenter</label>
@@ -81,7 +81,7 @@
         <input id="toggle-comment" type="checkbox">
         <div class="form-comment-article">
 
-            <?php if($this->is_granted(['ROLE_USER', 'ROLE_ADMIN'])): ?>
+            <?php if($this->is_granted(['ROLE_USER'])): ?>
                 <form method="post">
                     <input type="hidden" name="token_session" value="<?= $this->member->get_token_session() ?>">
                     <input type="hidden" name="form" value="form-comment">
@@ -101,10 +101,12 @@
                         <p class="username username-comment"><?= $comment->get_member()->get_username() ?></p>
                         <p class="text-article-comment content-comment<?= $comment->get_id() ?>"><?= $comment->get_text_comment() ?></p>
                         
-                        <form class="form-edit-comment form-edit-comment<?= $comment->get_id() ?>" method="post">
-                            <input type="hidden" name="token_session" value="<?= $this->member->get_token_session() ?>">
-                            <textarea class="content-comment-edit content-comment-edit<?= $comment->get_id() ?>" name="text_comment"></textarea>
-                        </form>
+                        <?php if($this->is_granted(['ROLE_USER'])): ?>
+                            <form class="form-edit-comment form-edit-comment<?= $comment->get_id() ?>" method="post">
+                                <input type="hidden" name="token_session" value="<?= $this->member->get_token_session() ?>">
+                                <textarea class="content-comment-edit content-comment-edit<?= $comment->get_id() ?>" name="text_comment"></textarea>
+                            </form>
+                        <?php endif ?>
 
                         <div class="btn-comment">
                             <?php if($this->voter($comment)): ?>
@@ -134,10 +136,12 @@
                             <p class="username"><?= $response->get_member()->get_username() ?></p>
                             <p class="text-article-response content-response<?= $response->get_id() ?>"><?= $response->get_text_comment() ?></p>
 
-                            <form class="form-edit-response form-edit-response<?= $response->get_id() ?>" method="post">
-                                <input type="hidden" name="token_session" value="<?= $this->member->get_token_session() ?>">
-                                <textarea class="content-response-edit content-response-edit<?= $response->get_id() ?>" name="text_comment"></textarea>
-                            </form>
+                            <?php if($this->is_granted(['ROLE_USER'])): ?>
+                                <form class="form-edit-response form-edit-response<?= $response->get_id() ?>" method="post">
+                                    <input type="hidden" name="token_session" value="<?= $this->member->get_token_session() ?>">
+                                    <textarea class="content-response-edit content-response-edit<?= $response->get_id() ?>" name="text_comment"></textarea>
+                                </form>
+                            <?php endif ?>
 
                             <div class="btn-response">
                                 <?php if($this->voter($response)): ?>
@@ -162,15 +166,17 @@
 
             <?php endforeach ?>
 
-            <div class="contain-form-response">
-                <form method="post">
-                    <input type="hidden" name="token_session" value="<?= $this->member->get_token_session() ?>">
-                    <input type="hidden" name="form" value="form-response">
-                    <input type="hidden" name="id_comment" value="<?= $comment->get_id() ?>">
-                    <textarea class="message-edit-response" name="text_comment"></textarea>
-                    <input class="btn-site btn-send-response" type="submit" value="Envoyer">
-                </form>
-            </div>
+            <?php if($this->is_granted(['ROLE_USER'])): ?>
+                <div class="contain-form-response">
+                    <form method="post">
+                        <input type="hidden" name="token_session" value="<?= $this->member->get_token_session() ?>">
+                        <input type="hidden" name="form" value="form-response">
+                        <input type="hidden" name="id_comment" value="">
+                        <textarea class="message-edit-response" name="text_comment"></textarea>
+                        <input class="btn-site btn-send-response" type="submit" value="Envoyer">
+                    </form>
+                </div>
+            <?php endif ?>
 
             <div class="link-article-page">
                 <a class="btn-site link-return-articles" href="<?= $this->router->generate('article_list') ?>">Revenir à la liste des articles</a>

@@ -76,31 +76,34 @@ class MemberController extends Controller
 
             if(!empty($_FILES))
             {
-                // Verify if 'avatar' exist, if there are errors in the upload and if the size is greather than 50mo
-                if(!isset($_FILES['avatar']) || $_FILES['avatar']['error'] != UPLOAD_ERR_OK || $_FILES['avatar']['size'] > 50000)
+                if($_FILES['avatar']['name'] != '')
                 {
-                    $errors[] = 'L\'avatar n\'a pas pu être téléchargée '.$_FILES['avatar']['error'];
-                }
-
-                if(count($errors) == 0)
-                {
-                    // We cut the string after the '.' in the name of the file where we selected the extension
-                    $fileExtension = explode('.', $_FILES['avatar']['name'])[1];
-
-                    // We verify the file's extensions
-                    if(in_array($fileExtension ,['jpg', 'jpeg', 'gif', 'svg', 'png']))
+                    // Verify if 'avatar' exist, if there are errors in the upload and if the size is greather than 50mo
+                    if(!isset($_FILES['avatar']) || $_FILES['avatar']['error'] != UPLOAD_ERR_OK || $_FILES['avatar']['size'] > 400000)
                     {
-                        // We construct the path of and the name of the file
-                        $username = str_replace( 
-                            ['À','Á','Â','Ã','Ä','Å','Ç','È','É','Ê','Ë','Ì','Í','Î','Ï','Ò','Ó','Ô','Õ','Ö','Ù','Ú','Û','Ü','Ý','à','á','â','ã','ä','å','ç','è','é','ê','ë','ì','í','î','ï','ð','ò','ó','ô','õ','ö','ù','ú','û','ü','ý','ÿ',' '],
-                            ['A','A','A','A','A','A','C','E','E','E','E','I','I','I','I','O','O','O','O','O','U','U','U','U','Y','a','a','a','a','a','a','c','e','e','e','e','i','i','i','i','o','o','o','o','o','o','u','u','u','u','y','y',''],
-                            $post['username']);
-                        $fileName = 'avatars/'. $username. '.'. $fileExtension;
-
-                        // Move the temporary file to the final folder ('avatar')
-                        if(move_uploaded_file($_FILES['avatar']['tmp_name'], $fileName))
+                        $errors[] = 'L\'avatar n\'a pas pu être téléchargé '.$_FILES['avatar']['error'];
+                    }
+    
+                    if(count($errors) == 0)
+                    {
+                        // We cut the string after the '.' in the name of the file where we selected the extension
+                        $fileExtension = explode('.', $_FILES['avatar']['name'])[1];
+    
+                        // We verify the file's extensions
+                        if(in_array($fileExtension ,['jpg', 'jpeg', 'gif', 'svg', 'png']))
                         {
-                            $avatar = $fileName;
+                            // We construct the path of and the name of the file
+                            $username = str_replace( 
+                                ['À','Á','Â','Ã','Ä','Å','Ç','È','É','Ê','Ë','Ì','Í','Î','Ï','Ò','Ó','Ô','Õ','Ö','Ù','Ú','Û','Ü','Ý','à','á','â','ã','ä','å','ç','è','é','ê','ë','ì','í','î','ï','ð','ò','ó','ô','õ','ö','ù','ú','û','ü','ý','ÿ',' '],
+                                ['A','A','A','A','A','A','C','E','E','E','E','I','I','I','I','O','O','O','O','O','U','U','U','U','Y','a','a','a','a','a','a','c','e','e','e','e','i','i','i','i','o','o','o','o','o','o','u','u','u','u','y','y',''],
+                                $post['username']);
+                            $fileName = 'avatars/'. $username. '.'. $fileExtension;
+    
+                            // Move the temporary file to the final folder ('avatar')
+                            if(move_uploaded_file($_FILES['avatar']['tmp_name'], $fileName))
+                            {
+                                $avatar = $fileName;
+                            }
                         }
                     }
                 }

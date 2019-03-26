@@ -163,15 +163,14 @@ class PostManager extends Manager
 
     public function edit(Post $post)
     {
-        $request = $this->_bdd->prepare('UPDATE post SET title_post = :titleArt, text_post = :textArt, image = :image, id_member_FK = :idMember WHERE id = :id');
+        $request = $this->_bdd->prepare('UPDATE post SET title_post = :titlePost, text_post = :textPost, text_post_notags = :textPostNoT, id_member_FK = :idMemberFK WHERE id = :id');
 
         if($request->execute([
             'id' => $post->get_id(),
-            'title_post' => $post->get_title_post(),
-            'text_post' => $post->get_text_post(),
-            'date_inscription' => $post->get_date_inscription(),
-            'image' => $post->get_image(),
-            'idMember' => $post->get_id_member_FK()
+            'titlePost' => $post->get_title_post(),
+            'textPost' => $post->get_text_post(),
+            'textPostNoT' => strip_tags($post->get_text_post()),
+            'idMemberFK' => $post->get_id_member_FK()
             ]))
         {
             return true;

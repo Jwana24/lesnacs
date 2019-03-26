@@ -150,7 +150,7 @@ class ArticleManager extends Manager
             'id' => $article->get_id(),
             'titleArt' => $article->get_title_article(),
             'textArt' => $article->get_text_article(),
-            'textArtNoT' => strip_tags($article->get_title_article()),
+            'textArtNoT' => strip_tags($article->get_text_article()),
             'image' => $article->get_image()
             ]))
         {

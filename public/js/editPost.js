@@ -24,9 +24,28 @@ if(document.querySelector('.btn-edit-post'))
         {
             let data = new FormData(formEdit);
             
-            fetch('/forum/'+e.target.dataset['id']+'/editpost', {method: 'POST', body: data}).then(promise => promise.text()).then(promise =>
+            fetch('http://localhost/post/edit/'+e.target.dataset['id']+'/', {method: 'POST', body: data}).then(promise => promise.text()).then(promise =>
             {
-                let post = JSON.parse(promise).content;
+                let statut = JSON.parse(promise).statut;
+                let errors = (JSON.parse(promise).error != undefined) ? JSON.parse(promise).error : null;
+                
+                if(statut == 'success')
+                {
+                    showMessage('success', ['Le post a bien été édité !']);
+                    
+                    let post = JSON.parse(promise).content;
+                    
+                    title.innerText = post['title_post'];
+                    text.innerText = post['text_post'];
+                }
+                else if(statut == 'error' && errors == null)
+                {
+                    showMessage('error', ['Une erreur s\'est produite :(']);
+                }
+                else if(statut == 'error')
+                {
+                    showMessage('error', errors);
+                }
 
                 title.innerText = post['title'];
                 text.innerText = post['text'];
