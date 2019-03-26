@@ -200,5 +200,6 @@
 <script src="http://localhost/js/editResponse.js"></script>
 <script src="http://localhost/js/likeArticle.js"></script>
 <script src="http://localhost/js/toggle-response.js"></script>
+<script src="http://localhost/js/textTransform.js"></script>
 
 <?php require '../View/footer.php' ?>

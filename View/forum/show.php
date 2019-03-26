@@ -3,64 +3,79 @@
 <main class="main-forum">
 
     <div class="forum-page">
-
         <section class="container-forum">
             <article class="forum-show">
-                <h2 class="title title-post"><?= $post->get_title_post() ?>
-                    <?php if($post->get_resolve() == 'resolve'): ?>
+                <h2 class="title title-post"><?= $postF->get_title_post() ?>
+
+                    <?php if($postF->get_resolve() == 'resolve'): ?>
                         <span><br>[Post résolu]</span>
                     <?php endif ?>
+
                 </h2>
                 <!-- {% if app.session.get('_locale') == 'fr_FR' %} -->
-                <p class="date"><?= $post->get_date_post() ?></p>
-                <?php if($post->get_id_member_FK() != 'NULL'): ?>
-                    <p class="username"><?= $post->get_id_member_FK()->get_username() ?></p>
+                <p class="date"><?= $postF->get_date_post() ?></p>
+
+                <?php if($postF->get_id_member_FK() != 'NULL'): ?>
+                    <p class="username"><?= $postF->get_member()->get_username() ?></p>
                 <?php else: ?>
+
                     <p class="member-not-exist">[Ce membre n'existe plus]</p>
+
                 <?php endif ?>
-                <p class="category-post">Catégorie : <?= $post->get_categorie() ?></p>
-                <p class="text text-post"><?= $post->get_text_post() ?></p>
+
+                <p class="category-post">Catégorie : <?= $postF->get_categorie() ?></p>
+                <p class="text text-post"><?= $postF->get_text_post() ?></p>
 
                 <form class="form-edit-post" method="post">
-                    <input type="hidden" name="_token" value="{{ csrf_token('edit-post' ~ post.id) }}">
 
                     <div class="form-group">
-                        <input class="form-control" type="text" name="title_post" value="{{ post.TitlePost }}">
+                        <input class="form-control" type="text" name="title_post" value="<?= $postF->get_title_post() ?>">
                     </div>
 
                     <div class="form-group">
-                        <textarea class="form-control" id="editor" name="text_post"><?= $post->get_text_post() ?></textarea>
+                        <textarea class="form-control" id="editor" name="text_post"><?= $postF->get_text_post() ?></textarea>
                     </div>
                 </form>
 
                 <div class="container-btn-post">
-
                     <div class="btn-comment-post">
-                        <a class="btn-site" href="#">
-                            <label for="toggle-comment">Commenter</label>
-                        </a>
+                        <?php if($this->is_granted(['ROLE_USER', 'ROLE_ADMIN'])): ?>
+                            <a class="btn-site" href="#">
+                                <label for="toggle-comment">Commenter</label>
+                            </a>
+                        <?php else: ?>
+
+                            <p>Vous devez être connecté pour pouvoir liker ou commenter un article</p>
+
+                        <?php endif ?>
                     </div>
 
                     <div class="btn-admin-post">
                         
-                        {% if is_granted('MODIFPOST', post) %}
+                        <?php if($this->is_granted(['ROLE_ADMIN'])): ?>
+
+                            <form action="<?= $this->router->generate('delete_post') ?>" method="post">
+                                <input type="hidden" name="token_session" value="<?= $this->member->get_token_session() ?>">
+                                <input type="hidden" name="id" value="<?= $postF->get_id() ?>">
+                                <input class="btn-site" value="Supprimer post" type="submit">
+                            </form>
 
                             <div>
-                                {{ include('forum/delete.html.twig') }}
 
-                                <a class="btn-site btn-edit-post"  data-locale="{{ app.session.get('_locale') }}" data-toggle="false" data-id="{{ post.id }}" href="{{ path('post_edit', {'id' : post.Id}) }}">Editer le post</a>
+                                <a class="btn-site btn-edit-post"  data-locale="{{ app.session.get('_locale') }}" data-toggle="false" data-id="<?= $postF->get_id() ?>">Editer post</a>
 
                                 <a class="btn-site cancel-post" href="#">Annuler</a>
                             </div>
 
-                            {% if post.Resolve != 'resolve' and is_granted('MODIFPOST', post) %} {# the button is show only if the post is not resolved and if the connected user is Admin, or has the post #}
-                            <form method="post">
-                                <input type="hidden" name="resolve" value="resolve">
-                                <input class="btn-site btn-resolve" type="submit" value="Résoudre">
-                            </form>
-                            {% endif %}
 
-                        {% endif %}
+                            <?php if($postF->get_resolve() == 'resolve' && $this->voter($postF)): ?> <!-- the button is show only if the post is not resolved and if the connected user is Admin, or has the post -->
+                                <form method="post">
+                                    <input type="hidden" name="resolve" value="resolve">
+                                    <input class="btn-site btn-resolve" type="submit" value="Résoudre">
+                                </form>
+                            <?php endif ?>
+
+                        <?php endif ?>
                     </div>
 
                 </div>
@@ -70,7 +85,7 @@
 
         <input id="toggle-comment" type="checkbox">
         <div class="form-comment-post">
-            <?php if($this->is_granted(['ROLE_USER'])): ?>
+            <?php if($this->is_granted(['ROLE_USER', 'ROLE_ADMIN'])): ?>
                 <form method="post">
                     <input class="message-comment-post" type="text">
                     <input class="btn-site" type="submit" value="Envoyer">
@@ -83,7 +98,7 @@
         </div>
 
         <div class="post-comment">
-            <?php foreach($comments as $comment): ?>
+            <?php foreach($postF->get_comments() as $comment): ?>
                 <section class="comment-response-forum">
                     <article class="comment-post">
                         <!-- {% if app.session.get('_locale') == 'fr_FR' %} -->
@@ -158,17 +173,11 @@
             </div>
 
             <div class="link-post-page">
-                <a class="btn-site link-return-posts" href="{{ path('posts_list') }}">{% trans %}Revenir à la liste des posts{% endtrans %}</a>
-                <a class="btn-site link-return-homepage" href="{{ path('accueil') }}">{% trans %}Revenir à l'accueil{% endtrans %}</a>
+                <a class="btn-site link-return-posts" href="{{ path('posts_list') }}">Revenir à la liste des posts</a>
+                <a class="btn-site link-return-homepage" href="{{ path('accueil') }}">Revenir à l'accueil</a>
             </div>
 
-            {% for message in app.flashes('success') %}
-                <div id="flash-notice" class="text-center mx-auto">
-                    {{ message }}
-                </div>
-            {% endfor %}
         </div>
-
     </div>
 
 </main>

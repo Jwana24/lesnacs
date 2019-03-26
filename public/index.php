@@ -36,6 +36,7 @@ $router->map('GET|POST', '/article/delete/', 'AdminArticleController#delete', 'd
 $router->map('GET|POST', '/forum/', 'PostController#list', 'post_list');
 $router->map('GET|POST', '/ajout-post/', 'PostController#add', 'add_post');
 $router->map('GET|POST', '/forum/[i:id]/', 'PostController#show', 'post_show');
+$router->map('GET|POST', '/post/delete/', 'PostController#delete', 'delete_post');
 $router->map('GET|POST', '/comment/edit/[i:id]/', 'CommentController#edit', 'edit_comment');
 $router->map('GET|POST', '/comment/delete/', 'CommentController#delete', 'delete_comment');
 $router->map('GET|POST', '/mentionslegales/', 'DefaultController#mentionsLegales', 'mentionslegales');

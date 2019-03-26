@@ -41,11 +41,13 @@ class PostManager extends Manager
             comment.date_comment,
             comment.id_member_FK as comIdMemberFK,
             comment.id_parent,
+            comMember.id as comMemberId,
+            comMember.username as comMemberUsername,
             member.*,
             post.*
             FROM post
-            INNER JOIN (comment, member)
-            ON (post.id = comment.id_post_FK AND comment.id_member_FK = member.id)
+            INNER JOIN (comment, member, member as comMember)
+            ON (post.id = comment.id_post_FK AND comment.id_member_FK = member.id AND comment.id_member_FK = comMember.id)
             WHERE post.id = :id');
 
             $request->bindValue(':id', (int)$id, PDO::PARAM_INT);
@@ -79,11 +81,8 @@ class PostManager extends Manager
                     {
                         $member = new Member();
                         $member
-                            ->set_id($response['comIdMemberFK'])
-                            ->set_username($response['username'])
-                            ->set_avatar($response['avatar'])
-                            ->set_date_inscription($response['date_inscription'])
-                            ->set_roles($response['roles']);
+                            ->set_id($response['comMemberId'])
+                            ->set_username($response['comMemberUsername']);
                         
                         $finalResponse = new Comment();
                         $finalResponse
@@ -99,11 +98,8 @@ class PostManager extends Manager
 
                 $member = new Member();
                 $member
-                    ->set_id($response['comIdMemberFK'])
-                    ->set_username($response['username'])
-                    ->set_avatar($response['avatar'])
-                    ->set_date_inscription($response['date_inscription'])
-                    ->set_roles($response['roles']);
+                    ->set_id($response['comMemberId'])
+                    ->set_username($response['comMemberUsername']);
                 
                 $finalComment = new Comment();
                 $finalComment
@@ -118,6 +114,11 @@ class PostManager extends Manager
             }
 
             $firstResult = $results[0];
+            $member = new Member();
+            $member
+                ->set_id($firstResult['id_member_FK'])
+                ->set_username($firstResult['username']);
+                
             $post = new Post();
             $post
                 ->set_id($firstResult['id'])
@@ -127,14 +128,35 @@ class PostManager extends Manager
                 ->set_date_post($firstResult['date_post'])
                 ->set_categorie($firstResult['categorie'])
                 ->set_resolve($firstResult['resolve'])
-                ->set_comments($comments);
+                ->set_comments($comments)
+                ->set_member($member);
 
             return $post;
         }
         else
         {
-            $post = $this->_bdd->query('SELECT *, post.id FROM post INNER JOIN member ON member.id = post.id_member_FK', PDO::FETCH_CLASS, 'Post')->fetchAll()[0];
-            $post->set_comments([]);
+            $request = $this->_bdd->prepare('SELECT *, post.id FROM post INNER JOIN member ON member.id = post.id_member_FK WHERE post.id = :id');
+            $request->bindValue(':id', (int)$id, PDO::PARAM_INT);
+            $request->execute();
+            $result = $request->fetch(PDO::FETCH_ASSOC);
+
+            $member = new Member();
+            $member
+                ->set_id($result['id_member_FK'])
+                ->set_username($result['username']);
+
+            $post = new Post();
+            $post
+                ->set_id($result['id'])
+                ->set_title_post($result['title_post'])
+                ->set_text_post($result['text_post'])
+                ->set_text_post_notags(strip_tags($result['text_post']))
+                ->set_date_post($result['date_post'])
+                ->set_categorie($result['categorie'])
+                ->set_resolve($result['resolve'])
+                ->set_member($member)
+                ->set_comments([]);
+
             return $post;
         }
     }

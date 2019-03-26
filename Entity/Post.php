@@ -5,10 +5,13 @@ class Post
     private $id = '';
     private $title_post = '';
     private $text_post = '';
+    private $text_post_notags = '';
     private $date_post = '';
     private $categorie = '';
     private $resolve = '';
     private $id_member_FK = '';
+    private $comments = '';
+    private $member = '';
 
 
     /**
@@ -147,6 +150,66 @@ class Post
     public function set_id_member_FK($id_member_FK)
     {
         $this->id_member_FK = $id_member_FK;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of comments
+     */ 
+    public function get_comments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * Set the value of comments
+     *
+     * @return  self
+     */ 
+    public function set_comments($comments)
+    {
+        $this->comments = $comments;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of member
+     */ 
+    public function get_member()
+    {
+        return $this->member;
+    }
+
+    /**
+     * Set the value of member
+     *
+     * @return  self
+     */ 
+    public function set_member($member)
+    {
+        $this->member = $member;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of text_post_notags
+     */ 
+    public function get_text_post_notags()
+    {
+        return $this->text_post_notags;
+    }
+
+    /**
+     * Set the value of text_post_notags
+     *
+     * @return  self
+     */ 
+    public function set_text_post_notags($text_post_notags)
+    {
+        $this->text_post_notags = $text_post_notags;
 
         return $this;
     }
