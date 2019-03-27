@@ -4,6 +4,7 @@ class Controller
 {
     protected $router;
     protected $member;
+    protected $lang;
 
     public function __construct($router)
     {
@@ -11,6 +12,7 @@ class Controller
         $this->member = isset($_SESSION['member']) ? unserialize($_SESSION['member']) : NULL;
         $_SESSION['success'] = $_SESSION['success'] ?? '';
         $_SESSION['error'] = $_SESSION['error'] ?? [];
+        $this->lang = $_SESSION['lang'] ?? 'fr_FR';
     }
     
     public function tokenSession()
@@ -78,5 +80,11 @@ class Controller
             $_SESSION['error'] = [];
             return $error;
         }
+    }
+
+    public function translation($trans)
+    {
+        require '../languages.php';
+        return $languages[$this->lang][$trans] ?? $trans;
     }
 }
