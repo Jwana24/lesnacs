@@ -73,23 +73,19 @@
             </form>
     </aside>
 
-    <div class="container">
-        <?php if(!empty($_SESSION['success'])): ?>
-            <div class="alert alert-success" role="alert">
-                <p>
-                    <?php echo $_SESSION['success'];
-                    $_SESSION['success'] = '';
-                    ?>
-                </p>
-            </div>
+    <div class="showMessage"></div>
+
+    <script>
+        <?php $errorsMessage = $this->getMessage('error'); ?>
+        <?php if(!empty($errorsMessage)): ?>
+            showMessage('error', <?= json_encode($errorsMessage) ?>);
         <?php endif ?>
 
-        <?php if(isset($error)): ?>
-            <div class="alert alert-danger" role="alert">
-                <p> <?= $error ?? '' ?> </p>
-            </div>
+        <?php $successMessage = $this->getMessage('success'); ?>
+        <?php if(!empty($successMessage)): ?>
+            showMessage('success', [<?= json_encode($successMessage) ?>]);
         <?php endif ?>
-    </div>
+    </script>
 
 </main>
 

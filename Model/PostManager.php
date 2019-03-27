@@ -4,14 +4,14 @@ class PostManager extends Manager
 {
     public function add(Post $post)
     {
-        $request = $this->_bdd->prepare('INSERT INTO post(title_post, text_post, date_post, categorie, resolve, id_member_FK) VALUES (:title_post, :text_post, NOW(), :categorie, :resolve, :idMemberFK)');
+        $request = $this->_bdd->prepare('INSERT INTO post (title_post, text_post, text_post_notags, date_post, categorie, id_member_FK) VALUES (:titlePost, :textPost, :textPostNoT, NOW(), :categorie, :idMemberFK)');
 
         if($request->execute([
-            'title_post' => $post->get_title_post(),
-            'text_post' => $post->get_text_post(),
+            'titlePost' => $post->get_title_post(),
+            'textPost' => $post->get_text_post(),
+            'textPostNoT' => $post->get_text_post_notags(),
             'categorie' => $post->get_categorie(),
-            'resolve' => $post->get_resolve(),
-            'idMemberFk' => $post->get_id_member_FK()
+            'idMemberFK' => $post->get_id_member_FK()
             ]))
         {
             return true;

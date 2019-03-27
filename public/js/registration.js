@@ -47,8 +47,8 @@ formContainerInsc.addEventListener('submit',(e) =>
         {
             showMessage('error', errors);
         }
-    })
-})
+    });
+});
 
 closeModal.addEventListener('click', () =>
 {
@@ -112,21 +112,6 @@ formContainerCo.addEventListener('submit',(e) =>
             formContainerCo[i].value = '';
         }
 
-        let statut = JSON.parse(promise).statut;
-        let errors = (JSON.parse(promise).error != undefined) ? JSON.parse(promise).error : null;
-
-        if(statut == 'success')
-        {
-            showMessage('success', ['Vous êtes connecté !']);
-            window.location = '';
-        }
-        else if(statut == 'error' && errors == null)
-        {
-            showMessage('error', ['Une erreur c\'est produite :(']);
-        }
-        else if(statut == 'error')
-        {
-            showMessage('error', errors);
-        }
-    })
-})
+        window.location = '';
+    });
+});

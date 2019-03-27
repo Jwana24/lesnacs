@@ -4,7 +4,7 @@ class ArticleManager extends Manager
 {
     public function add(Article $article)
     {
-        $request = $this->_bdd->prepare('INSERT INTO article(title_article, text_article, text_article_notags, date_inscription, image) VALUES (:title_article, :text_article, :text_article_notags, NOW(), :image)');
+        $request = $this->_bdd->prepare('INSERT INTO article (title_article, text_article, text_article_notags, date_article, image) VALUES (:title_article, :text_article, :text_article_notags, NOW(), :image)');
 
         if($request->execute([
             'title_article' => $article->get_title_article(),
@@ -136,7 +136,10 @@ class ArticleManager extends Manager
         }
         else
         {
-            $article = $this->_bdd->query('SELECT * FROM article', PDO::FETCH_CLASS, 'Article')->fetchAll()[0];
+            $request = $this->_bdd->prepare('SELECT * FROM article WHERE id = :id');
+            $request->bindValue(':id', (int)$id, PDO::PARAM_INT);
+            $request->execute();
+            $article = $request->fetchAll(PDO::FETCH_CLASS, 'Article')[0];
             $article->set_comments([]);
             return $article;
         }

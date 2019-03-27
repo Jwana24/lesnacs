@@ -37,41 +37,38 @@ class AdminArticleController extends Controller
                         $errors[] = 'Le fichier doit être en \'jpg\', \'jpeg\', \'svg\', ou \'png\'';
                     }
                 }
-
-                if(!isset($post['title_article']) || empty($post['title_article']))
-                {
-                    $errors[] = 'Erreur sur le titre';
-                }
-
-                if(!isset($post['text_article']) || empty($post['text_article']))
-                {
-                    $errors[] = 'Erreur sur le contenu';
-                }
-
-                if(count($errors) == 0)
-                {
-                    $article = new Article();
-                    $article->set_title_article($post['title_article']);
-                    $article->set_text_article($post['text_article']);
-                    $article->set_image($image);
-
-                    if($articleManager->add($article))
-                    {
-                        $this->addMessages('L\'article a été ajouté', 'success');
-                        header('Location: http://localhost/article/');
-                    }
-                    else
-                    {
-                        $this->addMessages('Erreur lors de l\'ajout de l\'article', 'error');
-                    }
-                }
-                else
-                {
-                    $this->addMessages('Une erreur s\'est produite', 'error');
-                }
             }
-        }
 
+            if(!isset($post['title_article']) || empty($post['title_article']))
+            {
+                $errors[] = 'Erreur sur le titre';
+            }
+
+            if(!isset($post['text_article']) || empty($post['text_article']))
+            {
+                $errors[] = 'Erreur sur le contenu';
+            }
+
+            if(count($errors) == 0)
+            {
+                $article = new Article();
+                $article
+                    ->set_title_article($post['title_article'])
+                    ->set_text_article($_POST['text_article'])
+                    ->set_text_article_notags($post['text_article'])
+                    ->set_image($image);
+                
+                $articleManager->add($article);
+            }
+            else
+            {
+                $errors[] = 'L\'article n\'a pas pu être créé';
+            }
+            header('Location: http://localhost/article/');
+        }
+        ob_start();
+        require '../View/Admin/article/add.php';
+        echo ob_get_clean();
     }
 
     public function edit($params)

@@ -46,6 +46,8 @@
     <script src="http://localhost/js/scrollBtn.js"></script>
 </main>
 
+<div class="showMessage"></div>
+
 <script>
     <?php $errorsMessage = $this->getMessage('error'); ?>
     <?php if(!empty($errorsMessage)): ?>

@@ -2,6 +2,54 @@
 
 class PostController extends Controller
 {
+    public function add()
+    {
+        $postManager = new PostManager();
+        $errors = [];
+
+        if(!empty($_POST))
+        {
+            $post = array_map('trim', array_map('strip_tags', $_POST));
+
+            if(!isset($post['title_post']) || empty($post['title_post']))
+            {
+                $errors[] = 'Erreur sur le titre';
+            }
+
+            if(!isset($post['text_post']) || empty($post['text_post']))
+            {
+                $errors[] = 'Erreur sur le contenu';
+            }
+
+            if(!isset($post['categorie']) || empty($post['categorie']))
+            {
+                $errors[] = 'Erreur sur la catégorie';
+            }
+
+            if(count($errors) == 0)
+            {
+                $postF = new Post();
+                $postF
+                    ->set_title_post($post['title_post'])
+                    ->set_text_post($_POST['text_post'])
+                    ->set_text_post_notags($post['text_post'])
+                    ->set_categorie($post['categorie'])
+                    ->set_id_member_FK($this->member->get_id());
+
+                $postManager->add($postF);
+            }
+            else
+            {
+                $errors[] = 'Le post n\'a pas pu être créé';
+            }
+            header('Location: http://localhost/forum/');
+        }
+
+        ob_start();
+        require '../View/forum/add.php';
+        echo ob_get_clean();
+    }
+
     public function show($params)
     {
         extract($params);

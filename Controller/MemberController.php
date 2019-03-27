@@ -39,22 +39,25 @@ class MemberController extends Controller
                         $_SESSION['member'] = serialize($member);
                         // Return our js messages in an json object
                         echo json_encode(['statut' => 'success']);
+                        $this->addMessages('Vous êtes connecté !', 'success');
                     }
                     else
                     {
-                        $errors[] = 'Erreur d\'authentification';
-                        echo json_encode(['statut' => 'error', 'error' => $errors]);
+                        echo json_encode(['statut' => 'error']);
+                        $this->addMessages('Erreur d\'authentification', 'error');
                     }
                 }
                 else
                 {
-                    echo json_encode(['statut' => 'error', 'error' => $errors]);
+                    echo json_encode(['statut' => 'error']);
+                    $this->addMessages('Une erreur s\'est produite :(', 'error');
                 }
 
             }
             else
             {
-                echo json_encode(['statut' => 'error', 'error' => $errors]);
+                echo json_encode(['statut' => 'error']);
+                $this->addMessages('Une erreur s\'est produite :(', 'error');
             }
         }
     }
