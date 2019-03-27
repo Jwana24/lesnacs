@@ -116,8 +116,9 @@
 
                                 <form action="<?= $this->router->generate('delete_comment') ?>" method="post">
                                     <input type="hidden" name="token_session" value="<?= $this->member->get_token_session() ?>">
+                                    <input type="hidden" name="form" value="delete-comment-art">
                                     <input type="hidden" name="id" value="<?= $comment->get_id() ?>">
-                                    <input type="hidden" name="idArt" value="<?= $article->get_id() ?>">
+                                    <input type="hidden" name="idSubject" value="<?= $article->get_id() ?>">
                                     <input class="btn-site" value="Supprimer commentaire" type="submit">
                                 </form>
                             <?php endif ?>
@@ -151,8 +152,9 @@
 
                                     <form action="<?= $this->router->generate('delete_comment') ?>" method="post">
                                         <input type="hidden" name="token_session" value="<?= $this->member->get_token_session() ?>">
+                                        <input type="hidden" name="form" value="delete-response-art">
                                         <input type="hidden" name="id" value="<?= $response->get_id() ?>">
-                                        <input type="hidden" name="idArt" value="<?= $article->get_id() ?>">
+                                        <input type="hidden" name="idSubject" value="<?= $article->get_id() ?>">
                                         <input class="btn-site" type="submit" value="Supprimer réponse">
                                     </form>
                                 <?php endif ?>

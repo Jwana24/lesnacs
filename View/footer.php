@@ -55,13 +55,15 @@
 
 <script>$('.toast').toast('show')</script>
 
-<script src="http://localhost/js/ckeditor.js"></script>
+<script src="http://localhost/js/ckeditor/ckeditor.js"></script>
 <script>
-    if(document.querySelector('#editor'))
+    if(document.querySelector('#editor1'))
     {
-        ClassicEditor
-            .create( document.querySelector( '#editor' ) )
-            .catch( error => {} );
+        let editor = CKEDITOR.replace('editor1');
+        editor.on('change', function(evt)
+        {
+            document.querySelector('#editor1').innerHTML = evt.editor.getData();
+        })
     }
 </script>
 

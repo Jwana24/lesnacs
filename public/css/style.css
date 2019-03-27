@@ -149,6 +149,12 @@ footer .logo-30MAmis:hover
     position: fixed;
     bottom: 10px;
     right: 10px;
+    animation: alertMessages 5s linear alternate;
+}
+
+@keyframes alertMessages
+{
+    
 }
 
 

@@ -66,6 +66,7 @@ class PostController extends Controller
     public function edit($params)
     {
         extract($params);
+        header('Content-Type: application/json');
         $postManager = new PostManager();
         $postF = $postManager->get($id);
         $errors = [];
@@ -88,8 +89,8 @@ class PostController extends Controller
             {
                 $postF
                     ->set_title_post($post['title_post'])
-                    ->set_text_post($post['text_post']);
-                
+                    ->set_text_post($_POST['text_post']);
+           
                 if($postManager->edit($postF))
                 {
                     echo json_encode(['statut' => 'success', 'content' => [

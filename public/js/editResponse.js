@@ -26,7 +26,6 @@ if(document.querySelectorAll('.btn-edit-response'))
             else if(e.target.dataset['toggle'] == 'true')
             {
                 let data = new FormData(formEdit);
-                console.log(e.target.dataset['id']);
                 fetch('http://localhost/comment/edit/'+e.target.dataset['id']+'/', {method: 'POST', body: data}).then(promise => promise.text()).then(promise =>
                 {
                     let statut = JSON.parse(promise).statut;

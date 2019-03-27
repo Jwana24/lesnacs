@@ -10,7 +10,7 @@ if(document.querySelector('.btn-edit-post'))
             text = document.querySelector('.text-post'),
             formEdit = document.querySelector('.form-edit-post'),
             cancelButton = document.querySelector('.cancel-post');
-        
+
         if(e.target.dataset['toggle'] == 'false')
         {
             title.style.display = 'none';
@@ -34,9 +34,8 @@ if(document.querySelector('.btn-edit-post'))
                     showMessage('success', ['Le post a bien été édité !']);
                     
                     let post = JSON.parse(promise).content;
-                    
                     title.innerText = post['title_post'];
-                    text.innerText = post['text_post'];
+                    text.innerHTML = post['text_post'];
                 }
                 else if(statut == 'error' && errors == null)
                 {
@@ -46,9 +45,6 @@ if(document.querySelector('.btn-edit-post'))
                 {
                     showMessage('error', errors);
                 }
-
-                title.innerText = post['title'];
-                text.innerText = post['text'];
             });
 
             title.style.display = '';

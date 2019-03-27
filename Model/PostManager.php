@@ -63,14 +63,14 @@ class PostManager extends Manager
             {
                 if($result['id_parent'] === NULL)
                 {
-                    $arrayComments = $result;
+                    $arrayComments[] = $result;
                 }
                 else
                 {
-                    $arrayResponses = $result;
+                    $arrayResponses[] = $result;
                 }
             }
-
+            
             foreach($arrayComments as $comment)
             {
                 $responses = [];
@@ -98,8 +98,8 @@ class PostManager extends Manager
 
                 $member = new Member();
                 $member
-                    ->set_id($response['comMemberId'])
-                    ->set_username($response['comMemberUsername']);
+                    ->set_id($comment['comMemberId'])
+                    ->set_username($comment['comMemberUsername']);
                 
                 $finalComment = new Comment();
                 $finalComment
@@ -170,7 +170,7 @@ class PostManager extends Manager
             'titlePost' => $post->get_title_post(),
             'textPost' => $post->get_text_post(),
             'textPostNoT' => strip_tags($post->get_text_post()),
-            'idMemberFK' => $post->get_id_member_FK()
+            'idMemberFK' => $post->get_member()->get_id()
             ]))
         {
             return true;

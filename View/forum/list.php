@@ -53,11 +53,17 @@
 
     </div>
 
-    {% for message in app.flashes('success') %}
-        <div class="alert alert-success" role="alert">
-            {{ message }}
-        </div>
-    {% endfor %}
+    <script>
+        <?php $errorsMessage = $this->getMessage('error'); ?>
+        <?php if(!empty($errorsMessage)): ?>
+            showMessage('error', <?= json_encode($errorsMessage) ?>);
+        <?php endif ?>
+
+        <?php $successMessage = $this->getMessage('success'); ?>
+        <?php if(!empty($successMessage)): ?>
+            showMessage('success', [<?= json_encode($successMessage) ?>]);
+        <?php endif ?>
+    </script>
 
     <script src="http://localhost/js/category.js"></script>
     <script src="http://localhost/js/scrollBtn.js"></script>

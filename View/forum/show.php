@@ -24,16 +24,15 @@
                 <?php endif ?>
 
                 <p class="category-post">Catégorie : <?= $postF->get_categorie() ?></p>
-                <p class="text text-post"><?= $postF->get_text_post() ?></p>
+                <div class="text text-post"><?= $postF->get_text_post() ?></div>
 
-                <form class="form-edit-post" method="post">
-
+                <form class="form-edit-post" data-id="<?= $postF->get_id() ?>" method="post">
                     <div class="form-group">
                         <input class="form-control" type="text" name="title_post" value="<?= $postF->get_title_post() ?>">
                     </div>
 
                     <div class="form-group">
-                        <textarea class="form-control" id="editor" name="text_post"><?= $postF->get_text_post() ?></textarea>
+                        <textarea class="form-control" id="editor1" name="text_post"><?= $postF->get_text_post() ?></textarea>
                     </div>
                 </form>
 
@@ -45,7 +44,7 @@
                             </a>
                         <?php else: ?>
 
-                            <p>Vous devez être connecté pour pouvoir liker ou commenter un article</p>
+                            <p>Vous devez être connecté pour pouvoir liker ou commenter un post</p>
 
                         <?php endif ?>
                     </div>
@@ -123,8 +122,9 @@
 
                                 <form action="<?= $this->router->generate('delete_comment') ?>" method="post">
                                     <input type="hidden" name="token_session" value="<?= $this->member->get_token_session() ?>">
+                                    <input type="hidden" name="form" value="delete-comment-post">
                                     <input type="hidden" name="id" value="<?= $comment->get_id() ?>">
-                                    <input type="hidden" name="idPost" value="<?= $article->get_id() ?>">
+                                    <input type="hidden" name="idSubject" value="<?= $postF->get_id() ?>">
                                     <input class="btn-site" value="Supprimer commentaire" type="submit">
                                 </form>
                             <?php endif ?>
@@ -158,8 +158,9 @@
 
                                     <form action="<?= $this->router->generate('delete_comment') ?>" method="post">
                                         <input type="hidden" name="token_session" value="<?= $this->member->get_token_session() ?>">
+                                        <input type="hidden" name="form" value="delete-response-art">
                                         <input type="hidden" name="id" value="<?= $response->get_id() ?>">
-                                        <input type="hidden" name="idArt" value="<?= $article->get_id() ?>">
+                                        <input type="hidden" name="idSubject" value="<?= $postF->get_id() ?>">
                                         <input class="btn-site" type="submit" value="Supprimer réponse">
                                     </form>
                                 <?php endif ?>

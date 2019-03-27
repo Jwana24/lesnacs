@@ -71,8 +71,8 @@ class CommentController extends Controller
             {
                 $errors[] = 'Une erreur s\'est produite';
             }
-            // We verify the id of the article
-            if(!isset($post['idArt']) || !is_numeric($post['idArt']))
+            // We verify the id of the article or the post
+            if(!isset($post['idSubject']) || !is_numeric($post['idSubject']))
             {
                 $errors[] = 'Une erreur s\'est produite';
             }
@@ -93,6 +93,17 @@ class CommentController extends Controller
                 $this->addMessages('Une erreur s\'est produite', 'error');
             }
         }
-        header('Location: http://localhost/article/'.$post['idArt'].'/');
+
+        if(isset($post['form']) || !empty($post['form']) || in_array($post['form'], ['delete-comment-post', 'delete-comment-art', 'delete-response-post', 'delete-response-art']))
+        {
+            if($post['form'] == 'delete-comment-art' || $post['form'] == 'delete-response-art')
+            {
+                header('Location: http://localhost/article/'.$post['idSubject'].'/');
+            }
+            else if($post['form'] == 'delete-comment-post' || $post['form'] == 'delete-response-post')
+            {
+                header('Location: http://localhost/forum/'.$post['idSubject'].'/');
+            }
+        }
     }
 }
