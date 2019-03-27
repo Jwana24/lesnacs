@@ -38,14 +38,16 @@
 
                 <div class="container-btn-post">
                     <div class="btn-comment-post">
-                        <?php if($this->is_granted(['ROLE_USER'])): ?>
-                            <a class="btn-site" href="#">
-                                <label for="toggle-comment">Commenter</label>
-                            </a>
-                        <?php else: ?>
+                        <?php if($postF->get_resolve() != 'resolve'): ?>
+                            <?php if($this->is_granted(['ROLE_USER'])): ?>
+                                <a class="btn-site" href="#">
+                                    <label for="toggle-comment">Commenter</label>
+                                </a>
+                            <?php else: ?>
 
-                            <p>Vous devez être connecté pour pouvoir liker ou commenter un post</p>
+                                <p>Vous devez être connecté pour pouvoir liker ou commenter un post</p>
 
+                            <?php endif ?>
                         <?php endif ?>
                     </div>
 
@@ -67,9 +69,9 @@
                             </div>
 
 
-                            <?php if($this->voter($postF)): ?> <!-- the button is show only if the post is not resolved and if the connected user is Admin, or has the post -->
+                            <?php if($this->voter($postF) && $postF->get_resolve() != 'resolve'): ?> <!-- the button is show only if the post is not resolved and if the connected user is Admin, or has the post -->
                                 <form method="post">
-                                    <input type="hidden" name="resolve" value="resolve">
+                                    <input type="hidden" name="form" value="resolve">
                                     <input class="btn-site btn-resolve" type="submit" value="Résoudre">
                                 </form>
                             <?php endif ?>
@@ -130,7 +132,7 @@
                             <?php endif ?>
                         </div>
                         
-                        <?php if($this->is_granted(['ROLE_USER'])): ?>
+                        <?php if($this->is_granted(['ROLE_USER']) && $postF->get_resolve() != 'resolve'): ?>
                             <a class="btn-site response-btn" href="#" data-id="<?= $comment->get_id() ?>">Répondre</a>
                         <?php endif ?>
                     </article>
@@ -158,7 +160,7 @@
 
                                     <form action="<?= $this->router->generate('delete_comment') ?>" method="post">
                                         <input type="hidden" name="token_session" value="<?= $this->member->get_token_session() ?>">
-                                        <input type="hidden" name="form" value="delete-response-art">
+                                        <input type="hidden" name="form" value="delete-response-post">
                                         <input type="hidden" name="id" value="<?= $response->get_id() ?>">
                                         <input type="hidden" name="idSubject" value="<?= $postF->get_id() ?>">
                                         <input class="btn-site" type="submit" value="Supprimer réponse">
@@ -195,6 +197,8 @@
     </div>
 
 </main>
+
+<div class="showMessage"></div>
 
 <script>
     <?php $errorsMessage = $this->getMessage('error'); ?>

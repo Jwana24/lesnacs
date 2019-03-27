@@ -42,6 +42,12 @@ class PostController extends Controller
 
                         $commentManager->addResponsePost($comment);
                     }
+                    // If we detect a 'resolve' value in the post, we update the field 'resolve' in the post on 'resolve'
+                    if($post['form'] == 'resolve')
+                    {
+                        $postF->set_resolve('resolve');
+                        $postManager->edit($postF);
+                    }
                 }
             }
         }
@@ -56,7 +62,27 @@ class PostController extends Controller
     {
         $titlePage = 'Tous les posts de notre forum';
         $postManager = new PostManager();
-        $posts = $postManager->list();
+
+        if(!empty($_POST))
+        {
+            if(isset($_POST['Catégories']) && !empty($_POST['Catégories']))
+            {
+                $posts = $postManager->findByCategorie($_POST['Catégories']);
+                
+                if(count($posts) == 0)
+                {
+                    $posts = $postManager->list();
+                }
+            }
+            else
+            {
+                $posts = $postManager->list();
+            }
+        }
+        else
+        {
+            $posts = $postManager->list();
+        }
 
         ob_start();
         require '../View/forum/list.php';

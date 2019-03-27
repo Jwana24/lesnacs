@@ -163,13 +163,14 @@ class PostManager extends Manager
 
     public function edit(Post $post)
     {
-        $request = $this->_bdd->prepare('UPDATE post SET title_post = :titlePost, text_post = :textPost, text_post_notags = :textPostNoT, id_member_FK = :idMemberFK WHERE id = :id');
+        $request = $this->_bdd->prepare('UPDATE post SET title_post = :titlePost, text_post = :textPost, text_post_notags = :textPostNoT, resolve = :resolve, id_member_FK = :idMemberFK WHERE id = :id');
 
         if($request->execute([
             'id' => $post->get_id(),
             'titlePost' => $post->get_title_post(),
             'textPost' => $post->get_text_post(),
             'textPostNoT' => strip_tags($post->get_text_post()),
+            'resolve' => $post->get_resolve(),
             'idMemberFK' => $post->get_member()->get_id()
             ]))
         {
@@ -179,6 +180,14 @@ class PostManager extends Manager
         {
             return false;
         }
+    }
+
+    public function findByCategorie($categorie)
+    {
+        $request = $this->_bdd->prepare('SELECT * FROM post WHERE categorie = :categorie');
+        $request->bindValue(':categorie', $categorie);
+        $request->execute();
+        return $request->fetchAll(PDO::FETCH_CLASS, 'Post');
     }
 
     public function delete($id)
