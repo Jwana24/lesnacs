@@ -70,13 +70,14 @@ function showMessage(type, message)
         {
             let itemsMessage = document.createElement('li');
             
+            itemsMessage.style.listStyle = 'none';
             itemsMessage.innerText = e;
             
             listMessage.appendChild(itemsMessage);
         })
     }
 
-    document.querySelector('main').appendChild(contentMessage);
+    document.querySelector('.showMessage').appendChild(contentMessage);
     
     setTimeout(()=>
     {

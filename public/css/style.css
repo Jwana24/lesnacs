@@ -142,19 +142,30 @@ footer .logo-30MAmis:hover
 
 
 /* ALERTS ON THE SITE */
-
-.alert
+.showMessage
 {
     z-index: 20;
     position: fixed;
-    bottom: 10px;
     right: 10px;
+    bottom: 10px;
+}
+
+.alert
+{
+    right: -200%;
     animation: alertMessages 5s linear alternate;
 }
 
 @keyframes alertMessages
 {
-    
+    20%
+    {
+        right: 0;
+    }
+    80%
+    {
+        right: 0;
+    }
 }
 
 
