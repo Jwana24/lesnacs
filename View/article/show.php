@@ -11,7 +11,7 @@
                 <h2 class="title title-article"><?= $article->get_title_article() ?></h2>
                 <!-- {% if app.session.get('_locale') == 'fr_FR' %} -->
                 <p class="date"><?= $article->get_date_article() ?></p>
-                <p class="text text-article"><?= $article->get_text_article() ?></p>
+                <div class="text text-article"><?= $article->get_text_article() ?></div>
                 
                 <form class="form-edit-article" method="post" enctype="multipart/form-data">
 
@@ -20,7 +20,7 @@
                     </div>
 
                     <div class="form-group">
-                        <textarea class="form-control" id="editor" name="text_article"><?= $article->get_text_article() ?></textarea>
+                        <textarea class="form-control" id="editor1" name="text_article"><?= $article->get_text_article() ?></textarea>
                     </div>
 
                     <div class="form-group">

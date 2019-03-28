@@ -39,7 +39,7 @@ if(document.querySelector('.btn-edit-article'))
                     let article = JSON.parse(promise).content; // in the variable 'article' we stock data from the edit article
                     image.src = 'http://localhost/' + article['image'];
                     title.innerText = article['title_article'];
-                    text.innerText = article['text_article'];
+                    text.innerHTML = article['text_article'];
                 }
                 else if(statut == 'error' && errors == null)
                 {
