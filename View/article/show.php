@@ -67,7 +67,7 @@
                                 <input class="btn-site" value="Supprimer article" type="submit">
                             </form>
 
-                            <a class="btn-site btn-edit-article" data-locale="fr_FR" data-toggle="false" data-id="<?= $article->get_id() ?>">Editer article</a>
+                            <a class="btn-site btn-edit-article" data-locale="fr" data-toggle="false" data-id="<?= $article->get_id() ?>">Editer article</a>
 
                             <a class="btn-site cancel-article" href="#">Annuler</a>
 

@@ -48,6 +48,7 @@ $router->map('GET|POST', '/inscription/', 'MemberController#add', 'inscription')
 $router->map('GET|POST', '/motdepasseoublie/', 'MemberController#lostPassword', 'motdepasseoublie');
 $router->map('GET|POST', '/profil/[i:id]/', 'MemberController#show', 'member_show');
 $router->map('GET|POST', '/admin/member-list/', 'AdminSecurityController#list', 'member_list');
+$router->map('GET|POST', '/langue/[a:lang]/', 'TranslateController#edit', 'translation');
 
 $route = $router->match();
 

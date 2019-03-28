@@ -13,7 +13,6 @@ class Controller
         $_SESSION['success'] = $_SESSION['success'] ?? '';
         $_SESSION['error'] = $_SESSION['error'] ?? [];
         $this->defaultLang();
-        var_dump($_SERVER);
     }
     
     public function tokenSession()

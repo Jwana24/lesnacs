@@ -52,6 +52,7 @@
 <script src="<?= $this->asset('js/jquery.js') ?>"></script>
 <script src="<?= $this->asset('js/popper.js') ?>"></script>
 <script src="<?= $this->asset('js/bootstrap.min.js') ?>"></script>
+<script src="<?= $this->asset('js/languages.js') ?>"></script>
 
 <script>$('.toast').toast('show')</script>
 

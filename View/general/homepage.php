@@ -6,15 +6,15 @@
 
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <span class="text-pug">Bienvenue sur le site "Les Nouveaux Animaux de Compagnie"</span>
+                <span class="text-pug"><?= $this->translation('Bienvenue sur le site "Les Nouveaux Animaux de Compagnie"') ?></span>
                 <img src="<?= $this->asset('images/pug.jpg') ?>" class="d-block w-100 img-fluid" alt="Un carlin enroulé dans une couverture">
             </div>
             <div class="carousel-item">
-                <span class="text-cat">Retrouvez tous nos articles animaliers</span>
+                <span class="text-cat"><?= $this->translation('Retrouvez tous nos articles animaliers') ?></span>
                 <img src="<?= $this->asset('images/cat.jpg') ?>" class="d-block w-100 img-fluid" alt="Profil d'un chat">
             </div>
             <div class="carousel-item">
-                <span class="text-foal">N'hésitez pas à faire un tour sur notre forum</span>
+                <span class="text-foal"><?= $this->translation('N\'hésitez pas à faire un tour sur notre forum') ?></span>
                 <img src="<?= $this->asset('images/foal.jpg') ?>" class="d-block w-100 img-fluid" alt="Poulain couché dans l'herbe">
             </div>
         </div>

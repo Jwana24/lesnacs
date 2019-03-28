@@ -23,7 +23,7 @@
         <div class="collapse navbar-collapse" id="navbarsExample04">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= $this->router->generate('accueil') ?>">Accueil</a>
+                    <a class="nav-link" href="<?= $this->router->generate('accueil') ?>"><?= $this->translation('Accueil') ?></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<?= $this->router->generate('article_list') ?>">Articles</a>
@@ -39,10 +39,10 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ion-icon style="color: white" name="person"></ion-icon></a>
                         <div class="dropdown-menu" aria-labelledby="dropdown04">
-                            <a class="dropdown-item" href="<?= $this->router->generate('deconnexion') ?>">Déconnexion</a>
-                            <a class="dropdown-item" href="<?= $this->router->generate('member_show', ['id' => $this->member->get_id()]) ?>">Profil de <?= $this->member->get_username() ?></a>
+                            <a class="dropdown-item" href="<?= $this->router->generate('deconnexion') ?>"><?= $this->translation('Déconnexion') ?></a>
+                            <a class="dropdown-item" href="<?= $this->router->generate('member_show', ['id' => $this->member->get_id()]) ?>"><?= $this->translation('Profil de ') ?><?= $this->member->get_username() ?></a>
                             <?php if($this->is_granted(['ROLE_ADMIN'])): ?>
-                                <a class="dropdown-item" href="<?= $this->router->generate('member_list') ?>">Liste des membres</a>
+                                <a class="dropdown-item" href="<?= $this->router->generate('member_list') ?>"><?= $this->translation('Liste des membres') ?></a>
                             <?php endif ?>
                         </div>
                     </li>
@@ -50,8 +50,8 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ion-icon class="icon" style="color: white" name="globe"></ion-icon></a>
                         <div class="dropdown-menu" aria-labelledby="dropdown04">
-                            <!-- <a class="dropdown-item" href="{{ path('translation', {'_language':'fr_FR', 'last_path':last_path}) }}">Français</a>
-                            <a class="dropdown-item" href="{{ path('translation', {'_language':'en', 'last_path':last_path}) }}">Anglais</a> -->
+                            <a class="dropdown-item lang-link" data-locale="fr" href="#">Français</a>
+                            <a class="dropdown-item lang-link" data-locale="en" href="#">Anglais</a>
                         </div>
                     </li>
                 <?php else: ?>
@@ -67,7 +67,7 @@
             </ul>
 
             <form class="form-inline my-2 my-md-0" action="{{ path('search', {'pageArticle': 1,'pagePost': 1}) }}" method="get">
-                <input class="form-control" name="itemSearch" type="text" placeholder="Recherche">
+                <input class="form-control" name="itemSearch" type="text" placeholder="<?= $this->translation('Recherche') ?>">
             </form>
         </div>
     </nav>
