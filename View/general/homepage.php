@@ -7,15 +7,15 @@
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <span class="text-pug">Bienvenue sur le site "Les Nouveaux Animaux de Compagnie"</span>
-                <img src="http://localhost/images/pug.jpg" class="d-block w-100 img-fluid" alt="Un carlin enroulé dans une couverture">
+                <img src="<?= $this->asset('images/pug.jpg') ?>" class="d-block w-100 img-fluid" alt="Un carlin enroulé dans une couverture">
             </div>
             <div class="carousel-item">
                 <span class="text-cat">Retrouvez tous nos articles animaliers</span>
-                <img src="http://localhost/images/cat.jpg" class="d-block w-100 img-fluid" alt="Profil d'un chat">
+                <img src="<?= $this->asset('images/cat.jpg') ?>" class="d-block w-100 img-fluid" alt="Profil d'un chat">
             </div>
             <div class="carousel-item">
                 <span class="text-foal">N'hésitez pas à faire un tour sur notre forum</span>
-                <img src="http://localhost/images/foal.jpg" class="d-block w-100 img-fluid" alt="Poulain couché dans l'herbe">
+                <img src="<?= $this->asset('images/foal.jpg') ?>" class="d-block w-100 img-fluid" alt="Poulain couché dans l'herbe">
             </div>
         </div>
 
@@ -39,7 +39,7 @@
             <article class="article">
 
                 <div class="div-img">
-                    <img src="http://localhost/<?= $article->get_image() ?>">
+                    <img src="<?= $this->asset($article->get_image()) ?>">
                 </div>
 
                 <div class="containt-article">

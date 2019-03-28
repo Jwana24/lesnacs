@@ -7,7 +7,7 @@
         <section class="container-article">
             <article class="article-show">
 
-                <img class="image" src="http://localhost/<?= $article->get_image() ?>" alt="Image de l'article">
+                <img class="image" src="<?= $this->asset($article->get_image()) ?>" alt="Image de l'article">
                 <h2 class="title title-article"><?= $article->get_title_article() ?></h2>
                 <!-- {% if app.session.get('_locale') == 'fr_FR' %} -->
                 <p class="date"><?= $article->get_date_article() ?></p>
@@ -205,11 +205,11 @@
     <?php endif ?>
 </script>
 
-<script src="http://localhost/js/editArticle.js"></script>
-<script src="http://localhost/js/editComment.js"></script>
-<script src="http://localhost/js/editResponse.js"></script>
-<script src="http://localhost/js/likeArticle.js"></script>
-<script src="http://localhost/js/toggle-response.js"></script>
-<script src="http://localhost/js/textTransform.js"></script>
+<script src="<?= $this->asset('js/editArticle.js') ?>"></script>
+<script src="<?= $this->asset('js/editComment.js') ?>"></script>
+<script src="<?= $this->asset('js/editResponse.js') ?>"></script>
+<script src="<?= $this->asset('js/likeArticle.js') ?>"></script>
+<script src="<?= $this->asset('js/toggle-response.js') ?>"></script>
+<script src="<?= $this->asset('js/textTransform.js') ?>"></script>
 
 <?php require '../View/footer.php' ?>

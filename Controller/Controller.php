@@ -12,7 +12,8 @@ class Controller
         $this->member = isset($_SESSION['member']) ? unserialize($_SESSION['member']) : NULL;
         $_SESSION['success'] = $_SESSION['success'] ?? '';
         $_SESSION['error'] = $_SESSION['error'] ?? [];
-        $this->lang = $_SESSION['lang'] ?? 'fr_FR';
+        $this->defaultLang();
+        var_dump($_SERVER);
     }
     
     public function tokenSession()
@@ -23,6 +24,11 @@ class Controller
             $this->member->set_token_session(password_hash(uniqid(), PASSWORD_BCRYPT));
             $memberManager->edit($this->member);
         }
+    }
+
+    public function asset($path)
+    {
+        return $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['SERVER_NAME'].'/'.$path;
     }
 
     public function is_granted(array $role)
@@ -86,5 +92,17 @@ class Controller
     {
         require '../languages.php';
         return $languages[$this->lang][$trans] ?? $trans;
+    }
+
+    public function defaultLang()
+    {
+        if($this->member != NULL)
+        {
+            $this->lang = $this->member->get_locale() ?? 'fr';
+        }
+        else
+        {
+            $this->lang = 'fr';
+        }
     }
 }

@@ -6,16 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title><?= $titlePage ?? 'Le site LesNACs' ?></title>
      <!-- Bootstrap links, CSS content to Bootstrap -->
-     <link rel="stylesheet" href="http://localhost/css/bootstrap.min.css">
+     <link rel="stylesheet" href="<?= $this->asset('css/bootstrap.min.css') ?>">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    <link rel="stylesheet" href="http://localhost/css/style.css">
-    <link rel="icon" type="image/png" href="http://localhost/images/icone-site-lesnac-16px.svg" />
-    <script src="http://localhost/js/main.js"></script>
+    <link rel="stylesheet" href="<?= $this->asset('css/style.css') ?>">
+    <link rel="icon" type="image/png" href="<?= $this->asset('images/icone-site-lesnac-16px.svg') ?>" />
+    <script src="<?= $this->asset('js/main.js') ?>"></script>
 </head>
 <body>
     
     <nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
-        <a class="navbar-brand" href="<?= $this->router->generate('accueil') ?>"><img class="logo-site" src="http://localhost/images/logo-site-lesnac.svg" alt="Logo du site Les Nacs"></a>
+        <a class="navbar-brand" href="<?= $this->router->generate('accueil') ?>"><img class="logo-site" src="<?= $this->asset('images/logo-site-lesnac.svg') ?>" alt="Logo du site Les Nacs"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>

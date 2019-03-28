@@ -43,7 +43,7 @@
         <?php endif ?>
     </div>
 
-    <script src="http://localhost/js/scrollBtn.js"></script>
+    <script src="<?= $this->asset('js/scrollBtn.js') ?>"></script>
 </main>
 
 <div class="showMessage"></div>

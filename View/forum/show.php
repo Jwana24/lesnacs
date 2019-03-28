@@ -212,10 +212,10 @@
     <?php endif ?>
 </script>
 
-<script src="http://localhost/js/editPost.js"></script>
-<script src="http://localhost/js/editComment.js"></script>
-<script src="http://localhost/js/editResponse.js"></script>
-<script src="http://localhost/js/toggle-response.js"></script>
-<script src="http://localhost/js/textTransform.js"></script>
+<script src="<?= $this->asset('js/editPost.js') ?>"></script>
+<script src="<?= $this->asset('js/editComment.js') ?>"></script>
+<script src="<?= $this->asset('js/editResponse.js') ?>"></script>
+<script src="<?= $this->asset('js/toggle-response.js') ?>"></script>
+<script src="<?= $this->asset('js/textTransform.js') ?>"></script>
 
 <?php require '../View/footer.php' ?>

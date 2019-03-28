@@ -67,8 +67,8 @@
         <?php endif ?>
     </script>
 
-    <script src="http://localhost/js/category.js"></script>
-    <script src="http://localhost/js/scrollBtn.js"></script>
+    <script src="<?= $this->asset('js/category.js') ?>"></script>
+    <script src="<?= $this->asset('js/scrollBtn.js') ?>"></script>
 
 </main>
 
