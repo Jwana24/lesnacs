@@ -50,8 +50,8 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ion-icon class="icon" style="color: white" name="globe"></ion-icon></a>
                         <div class="dropdown-menu" aria-labelledby="dropdown04">
-                            <a class="dropdown-item lang-link" data-locale="fr" href="#">Français</a>
-                            <a class="dropdown-item lang-link" data-locale="en" href="#">Anglais</a>
+                            <a class="dropdown-item lang-link" data-locale="fr" href="#"><?= $this->translation('Français') ?></a>
+                            <a class="dropdown-item lang-link" data-locale="en" href="#"><?= $this->translation('Anglais') ?></a>
                         </div>
                     </li>
                 <?php else: ?>

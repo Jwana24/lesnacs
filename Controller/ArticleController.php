@@ -78,7 +78,7 @@ class ArticleController extends Controller
 
     public function list()
     {
-        $titlePage = 'Tous nos articles';
+        $titlePage = $this->translation('Tous nos articles');
         $articleManager = new ArticleManager();
         $articles = $articleManager->list();
 

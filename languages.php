@@ -2,6 +2,9 @@
 
 $languages = [
     'en' => [
+        // TITLE'S PAGES
+        'Tous nos articles' => 'All our articles',
+
         // NAVBAR
         'Bienvenue sur le site "Les Nouveaux Animaux de Compagnie"' => 'Welcome on the site "Les Nouveaux Animaux de Compagnie"',
         'Accueil' => 'Homepage',
@@ -11,8 +14,12 @@ $languages = [
         'Anglais' => 'English',
         'Recherche' => 'Search',
 
-        // ADMIN PAGE
+        // ADMIN PAGES
+        // general
         'Liste des membres' => 'Members list',
+        // add article
+        'Titre de l\'article' => 'Article title',
+        'Revenir à la liste des articles' => 'Return to the articles list',
 
         // SLIDER
         'Bienvenue sur le site "Les Nouveaux Animaux de Compagnie"' => 'Welcome to the site "Les Nouveaux Animaux de Compagnie"',
@@ -34,6 +41,45 @@ $languages = [
         'Mentions légales' => 'Legal notices',
         'Mon profil' => 'My profile',
         'Les sites que l\'on vous recommande' => 'The sites we recommend',
-        'Site LesNac créé par ' => 'LesNac site create by '
+        'Site LesNac créé par ' => 'LesNac site create by ',
+
+        // LIST ARTICLES PAGE - LIST FORUM PAGE
+        'Voir' => 'See',
+        'Revenir à l\'accueil' => 'Return to the homepage',
+        
+        // LIST ARTICLES PAGE
+        'Les articles' => 'The articles',
+        'Ajouter un article' => 'Add article',
+
+        // LIST FORUM PAGE
+        'Les posts' => 'The posts',
+        'Ajouter un post' => 'Add post',
+        // animals category
+        'Catégorie' => 'Category',
+        'Ajouter un post' => 'Add post',
+        'mammifères' => 'mammals',
+        'amphibiens' => 'amphibia',
+        'oiseaux' => 'birds',
+        'poissons' => 'fishs',
+
+        // ARTICLE PAGE (show)
+        'Supprimer article' => 'Delete article',
+        'Editer article' => 'Edit article',
+
+        // FORUM PAGE (show)
+        'Post résolu' => 'Post resolved',
+        'Supprimer post' => 'Delete post',
+        'Editer post' => 'Edit post',
+        'Résoudre' => 'Resolved',
+        'Revenir à la liste des posts' => 'Return to the posts list',
+        
+        // ARTICLE PAGE - FORUM PAGE (show)
+        'Commenter' => 'Comment',
+        'Editer commentaire' => 'Edit comment',
+        'Supprimer commentaire' => 'Delete comment',
+        'Editer réponse' => 'Edit response',
+        'Supprimer réponse' => 'Delete response',
+        'Répondre' => 'Reply',
+        'Annuler' => 'Cancel'
     ]
 ];

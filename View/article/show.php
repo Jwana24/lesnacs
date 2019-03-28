@@ -48,7 +48,7 @@
                         <?php if($this->is_granted(['ROLE_USER'])): ?>
 
                             <a class="btn-site" href="#">
-                            <label for="toggle-comment">Commenter</label>
+                            <label for="toggle-comment"><?= $this->translation('Commenter') ?></label>
                             </a>
 
                         <?php else: ?>
@@ -64,12 +64,12 @@
                             <form action="<?= $this->router->generate('delete_article') ?>" method="post">
                                 <input type="hidden" name="token_session" value="<?= $this->member->get_token_session() ?>">
                                 <input type="hidden" name="id" value="<?= $article->get_id() ?>">
-                                <input class="btn-site" value="Supprimer article" type="submit">
+                                <input class="btn-site" value="<?= $this->translation('Supprimer article') ?>" type="submit">
                             </form>
 
-                            <a class="btn-site btn-edit-article" data-locale="fr" data-toggle="false" data-id="<?= $article->get_id() ?>">Editer article</a>
+                            <a class="btn-site btn-edit-article" data-locale="<?= $this->lang ?>" data-toggle="false" data-id="<?= $article->get_id() ?>"><?= $this->translation('Editer article') ?></a>
 
-                            <a class="btn-site cancel-article" href="#">Annuler</a>
+                            <a class="btn-site cancel-article" href="#"><?= $this->translation('Annuler') ?></a>
 
                         <?php endif ?>
                     </div>
@@ -86,7 +86,7 @@
                     <input type="hidden" name="token_session" value="<?= $this->member->get_token_session() ?>">
                     <input type="hidden" name="form" value="form-comment">
                     <input class="message-comment-article" type="text" name="text_comment">
-                    <input class="btn-site" type="submit" value="Envoyer">
+                    <input class="btn-site" type="submit" value="<?= $this->translation('Envoyer') ?>">
                 </form>
             <?php endif ?>
 
@@ -110,22 +110,22 @@
 
                         <div class="btn-comment">
                             <?php if($this->voter($comment)): ?>
-                                <a class="btn-site btn-edit-comment" data-locale="{{ app.session.get('_locale') }}" data-toggle="false" data-id="<?= $comment->get_id() ?>">Editer commentaire</a>
+                                <a class="btn-site btn-edit-comment" data-locale="<?= $this->lang ?>" data-toggle="false" data-id="<?= $comment->get_id() ?>"><?= $this->translation('Editer commentaire') ?></a>
 
-                                <a class="btn-site cancel-comment cancel-comment<?= $comment->get_id() ?>" href="#">Annuler</a>
+                                <a class="btn-site cancel-comment cancel-comment<?= $comment->get_id() ?>" href="#"><?= $this->translation('Annuler') ?></a>
 
                                 <form action="<?= $this->router->generate('delete_comment') ?>" method="post">
                                     <input type="hidden" name="token_session" value="<?= $this->member->get_token_session() ?>">
                                     <input type="hidden" name="form" value="delete-comment-art">
                                     <input type="hidden" name="id" value="<?= $comment->get_id() ?>">
                                     <input type="hidden" name="idSubject" value="<?= $article->get_id() ?>">
-                                    <input class="btn-site" value="Supprimer commentaire" type="submit">
+                                    <input class="btn-site" value="<?= $this->translation('Supprimer commentaire') ?>" type="submit">
                                 </form>
                             <?php endif ?>
                         </div>
 
                         <?php if($this->is_granted(['ROLE_USER'])): ?>
-                            <a class="btn-site response-btn" href="#" data-id="<?= $comment->get_id() ?>">Répondre</a>
+                            <a class="btn-site response-btn" href="#" data-id="<?= $comment->get_id() ?>"><?= $this->translation('Répondre') ?></a>
                         <?php endif ?>
                     </article>
 
@@ -146,16 +146,16 @@
 
                             <div class="btn-response">
                                 <?php if($this->voter($response)): ?>
-                                    <a class="btn-site btn-edit-response" data-locale="{{ app.session.get('_locale') }}" data-toggle="false" data-id="<?= $response->get_id() ?>">Editer réponse</a>
+                                    <a class="btn-site btn-edit-response" data-locale="<?= $this->lang ?>" data-toggle="false" data-id="<?= $response->get_id() ?>"><?= $this->translation('Editer réponse') ?></a>
                                     
-                                    <a class="btn-site cancel-response cancel-response<?= $response->get_id() ?>" href="#">Annuler</a>
+                                    <a class="btn-site cancel-response cancel-response<?= $response->get_id() ?>" href="#"><?= $this->translation('Annuler') ?></a>
 
                                     <form action="<?= $this->router->generate('delete_comment') ?>" method="post">
                                         <input type="hidden" name="token_session" value="<?= $this->member->get_token_session() ?>">
                                         <input type="hidden" name="form" value="delete-response-art">
                                         <input type="hidden" name="id" value="<?= $response->get_id() ?>">
                                         <input type="hidden" name="idSubject" value="<?= $article->get_id() ?>">
-                                        <input class="btn-site" type="submit" value="Supprimer réponse">
+                                        <input class="btn-site" type="submit" value="<?= $this->translation('Supprimer réponse') ?>">
                                     </form>
                                 <?php endif ?>
                             </div>
@@ -175,14 +175,14 @@
                         <input type="hidden" name="form" value="form-response">
                         <input type="hidden" name="id_comment" value="">
                         <textarea class="message-edit-response" name="text_comment"></textarea>
-                        <input class="btn-site btn-send-response" type="submit" value="Envoyer">
+                        <input class="btn-site btn-send-response" type="submit" value="<?= $this->translation('Envoyer') ?>">
                     </form>
                 </div>
             <?php endif ?>
 
             <div class="link-article-page">
-                <a class="btn-site link-return-articles" href="<?= $this->router->generate('article_list') ?>">Revenir à la liste des articles</a>
-                <a class="btn-site link-return-homepage" href="<?= $this->router->generate('accueil') ?>">Revenir à l'accueil</a>
+                <a class="btn-site link-return-articles" href="<?= $this->router->generate('article_list') ?>"><?= $this->translation('Revenir à la liste des articles') ?></a>
+                <a class="btn-site link-return-homepage" href="<?= $this->router->generate('accueil') ?>"><?= $this->translation('Revenir à l\'accueil') ?></a>
             </div>
 
         </div>
