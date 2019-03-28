@@ -190,6 +190,22 @@ class PostManager extends Manager
         return $request->fetchAll(PDO::FETCH_CLASS, 'Post');
     }
 
+    public function setNullById($id)
+    {
+        $request = $this->_bdd->prepare('UPDATE post SET id_member_FK = NULL WHERE id_member_FK = :id');
+
+        if($request->execute([
+            'id' => $post->get_member()->get_id()
+        ]))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public function delete($id)
     {
         $request = $this->_bdd->prepare('DELETE FROM post WHERE id = :id');

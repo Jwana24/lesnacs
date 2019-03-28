@@ -24,7 +24,7 @@ if(document.querySelector('.btn-edit-post'))
         {
             let data = new FormData(formEdit);
             
-            fetch('http://localhost/post/edit/'+e.target.dataset['id']+'/', {method: 'POST', body: data}).then(promise => promise.text()).then(promise =>
+            fetch('http://localhost/post/edition/'+e.target.dataset['id']+'/', {method: 'POST', body: data}).then(promise => promise.text()).then(promise =>
             {
                 let statut = JSON.parse(promise).statut;
                 let errors = (JSON.parse(promise).error != undefined) ? JSON.parse(promise).error : null;

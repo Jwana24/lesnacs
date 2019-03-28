@@ -176,6 +176,18 @@ class MemberController extends Controller
         }
     }
 
+    public function show($params)
+    {
+        extract($params);
+        $memberManager = new MemberManager();
+        $member = $memberManager->show($id);
+        // $titlePage = $member->get_title_member();
+
+        ob_start();
+        require '../View/member/show.php';
+        echo ob_get_clean();
+    }
+
     public function editProfile()
     {
         $errors = [];
@@ -346,5 +358,45 @@ class MemberController extends Controller
         $_SESSION['success'] = 'Vous êtes déconnecté';
 
         header('Location:../index.php');
+    }
+
+    public function delete($params)
+    {
+        extract($params);
+        $memberManager = new MemberManager();
+        $errors = [];
+
+        if(!empty($_POST))
+        {
+            $post = array_map('trim', array_map('strip_tags', $_POST));
+
+            if(!isset($post['token_session']) || $post['token_session'] != $this->member->get_token_session())
+            {
+                $errors[] = 'Une erreur s\'est produite';
+            }
+
+            if(!isset($post['id']) || !is_numeric($post['id']))
+            {
+                $errors[] = 'Une erreur s\'est produite';
+            }
+
+            if(count($errors) == 0)
+            {
+                if($memberManager->delete($post['id']))
+                {
+                    $memberManager->setNullById($post['id']);
+                    $this->addMessages('Le compte a été supprimé', 'success');
+                }
+                else
+                {
+                    $this->addMessages('Erreur lors de la suppression du compte', 'error');
+                }
+            }
+            else
+            {
+                $this->addMessages('Une erreur s\'est produite', 'error');
+            }
+            header('Location: http://localhost/accueil/');
+        }
     }
 }

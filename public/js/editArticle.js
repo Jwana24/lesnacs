@@ -27,7 +27,7 @@ if(document.querySelector('.btn-edit-article'))
             let data = new FormData(formEdit); // instantiate formData object with the formEdit in parameters
             
             // Make an Ajax request on the edit article page, we spend data of the form, we return a promise (a tool for managing asynchronous operations)
-            fetch('http://localhost/article/edit/'+e.target.dataset['id']+'/', {method: 'POST', body: data}).then(promise => promise.text()).then(promise =>
+            fetch('http://localhost/article/edition/'+e.target.dataset['id']+'/', {method: 'POST', body: data}).then(promise => promise.text()).then(promise =>
             {
                 let statut = JSON.parse(promise).statut;
                 let errors = (JSON.parse(promise).error != undefined) ? JSON.parse(promise).error : null;

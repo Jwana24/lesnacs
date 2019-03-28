@@ -28,7 +28,7 @@ if(document.querySelector('.btn-edit-member'))
         else if(e.target.dataset['toggle'] == 'true')
         {
             let data = new FormData(formEdit);
-            fetch('/members/'+e.target.dataset['id']+'/edit', {method: 'POST', body: data}).then(promise => promise.text()).then(promise =>
+            fetch('/profil/edition/'+e.target.dataset['id']+'/edit', {method: 'POST', body: data}).then(promise => promise.text()).then(promise =>
             {
                 let member = JSON.parse(promise).content;
                 let statut = JSON.parse(promise).statut;
