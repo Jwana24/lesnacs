@@ -47,7 +47,7 @@
                     <!-- {% if app.session.get('_locale') == 'fr_FR' %} -->
                     <p class="date-article"><?= $article->get_date_article() ?></p>
                     <p class="text-article"><?= $article->get_text_article() ?></p>
-                    <a class="btn-site" href="<?= $this->router->generate('article_show', ['id' => $article->get_id()]) ?>">En voir plus</a>
+                    <a class="btn-site" href="<?= $this->router->generate('article_show', ['id' => $article->get_id()]) ?>"><?= $this->translation('En voir plus') ?></a>
                 </div>
                 
             </article>
@@ -57,19 +57,19 @@
     <aside id="contacts" class="sidebox">
         <h4>Contacts</h4>
             <form method="post">
-                <label for="lastName">Nom</label>
+                <label for="lastName"><?= $this->translation('Nom') ?></label>
                 <input id="lastName" type="text">
 
-                <label for="firstName">Prénom</label>
+                <label for="firstName"><?= $this->translation('Prénom') ?></label>
                 <input id="firstName" type="text">
 
-                <label for="mail">Adresse e-mail</label>
+                <label for="mail"><?= $this->translation('Adresse e-mail') ?></label>
                 <input id="mail" type="mail">
 
-                <label for="message">Message</label>
+                <label for="message"><?= $this->translation('Message') ?></label>
                 <input class="area-message" id="message" type="text">
 
-                <input class="btn-site btn-submit-contact" type="submit" value="Envoyer">
+                <input class="btn-site btn-submit-contact" type="submit" value="<?= $this->translation('Envoyer') ?>">
             </form>
     </aside>
 
