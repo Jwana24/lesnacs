@@ -22,6 +22,7 @@ class Controller
             $memberManager = new MemberManager();
             $this->member->set_token_session(password_hash(uniqid(), PASSWORD_BCRYPT));
             $memberManager->edit($this->member);
+            $_SESSION['member'] = serialize($this->member);
         }
     }
 

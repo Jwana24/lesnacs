@@ -37,7 +37,7 @@ class MemberManager extends Manager
         $request = $this->_bdd->prepare('SELECT * FROM member WHERE member.id = :id');
         $request->bindValue(':id', (int)$id, PDO::PARAM_INT);
         $request->execute();
-        return $request->fetchAll(PDO::FETCH_CLASS);
+        return $request->fetchAll(PDO::FETCH_CLASS, 'Member')[0];
     }
 
     public function edit(Member $member)

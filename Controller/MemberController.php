@@ -36,6 +36,7 @@ class MemberController extends Controller
                     // We verify if the password in "post" and the password in the "member" (hashed password) is the same
                     if(password_verify($post['password'], $member->get_password()))
                     {
+                        // Create the member in the session
                         $_SESSION['member'] = serialize($member);
                         // Return our js messages in an json object
                         echo json_encode(['statut' => 'success']);
@@ -81,7 +82,7 @@ class MemberController extends Controller
             {
                 if($_FILES['avatar']['name'] != '')
                 {
-                    // Verify if 'avatar' exist, if there are errors in the upload and if the size is greather than 50mo
+                    // Verify if 'avatar' exist, if there are errors in the upload and if the size is greather than 400ko
                     if(!isset($_FILES['avatar']) || $_FILES['avatar']['error'] != UPLOAD_ERR_OK || $_FILES['avatar']['size'] > 400000)
                     {
                         $errors[] = 'L\'avatar n\'a pas pu être téléchargé '.$_FILES['avatar']['error'];
@@ -188,76 +189,131 @@ class MemberController extends Controller
         echo ob_get_clean();
     }
 
-    public function editProfile()
+    public function edit($params)
     {
-        $errors = [];
-
+        extract($params);
         $memberManager = new MemberManager();
-
-        $member = $memberManager->show($_SESSION['id']);
-        // $token = new token($bdd, $_SESSION['id']);
-
-        // if(empty($_POST))
-        // {
-        //     $token->tokenEdit();
-        // }
+        $errors = [];
 
         if(!empty($_POST))
         {
-            $post = array_map('htmlspecialchars', $_POST);
+            $post = array_map('trim', array_map('strip_tags', $_POST));
 
-            if(isset($post['last_name']) && isset($post['first_name']) && isset($post['password']) && isset($post['password2']) && isset($post['username']) && isset($post['mail']) && isset($post['description']) && isset($post['token_session']))
+            if(!isset($post['username']) || !preg_match('#^[A-z0-9-_ ]{2,50}$#', $post['username']))
             {
-                if($membre->get_token_session() != $post['token_session'])
-                {
-                    $errors[] = 'Oups ! Il y a eu une erreur !';
-                }
+                $errors[] = 'Votre pseudo doit faire entre 2 et 50 caractères et ne doit pas contenir de caractères spéciaux (sauf espace, "_" et "-")';
+            }
 
-                // $token->tokenEdit();
-
-                if(!preg_match('#^[A-z0-9-_ ]{4,50}$#', $post['last_name']))
+            if(!empty($_FILES))
+            {
+                if($_FILES['avatar']['name'] != '')
                 {
-                    $errors[] = 'Votre pseudo doit faire entre 4 et 50 caractères et ne doit pas contenir de caractères spéciaux (sauf espace, "_" et "-")';
-                }
-
-                if(!preg_match('#^[A-z0-9-_ ]{4,50}$#', $post['first_name']))
-                {
-                    $errors[] = 'Votre pseudo doit faire entre 4 et 50 caractères et ne doit pas contenir de caractères spéciaux (sauf espace, "_" et "-")';
-                }
-
-                if(!preg_match('#^[A-z0-9-_ ]{4,50}$#', $post['username']))
-                {
-                    $errors[] = 'Votre pseudo doit faire entre 4 et 50 caractères et ne doit pas contenir de caractères spéciaux (sauf espace, "_" et "-")';
-                }
-
-                if(!preg_match('#^((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@\#\$\%]).{8,})$#', $post['password']))
-                {
-                    $errors[] = 'Votre mot de passe doit contenir au minimum 8 caractères, au moins un chiffre, une lettre et un caractère spécial tel que @, #, $, %';
-                }
-
-                if(!preg_match('#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,5}$#', $post['mail']))
-                {
-                    $errors[] = 'Votre email n\'est pas valide';
-                }
-
-                if(count($errors) == 0)
-                {
-                    if($post['password'] == $post['password2'])
+                    if(!isset($_FILES['avatar']) || $_FILES['avatar']['error'] != UPLOAD_ERR_OK || $_FILES['avatar']['size'] > 400000)
                     {
-                        $mp_hashed = password_hash($post['password'], PASSWORD_BCRYPT);
-                        $member->set_last_name($post['last_name']);
-                        $member->set_first_name($post['first_name']);
-                        $member->set_username($post['username']);
-                        $member->set_mail($post['mail']);
-                        $member->set_description($post['description']);
-                        $memberManager->edit($member);
-                        $success = 'Le profil a bien été édité';
+                        $errors[] = 'L\'avatar n\'a pas pu être téléchargé '.$_FILES['avatar']['error'];
+                    }
+    
+                    if(count($errors) == 0)
+                    {
+                        $fileExtension = explode('.', $_FILES['avatar']['name'])[1];
+    
+                        if(in_array($fileExtension ,['jpg', 'jpeg', 'gif', 'svg', 'png']))
+                        {
+                            $username = str_replace( 
+                                ['À','Á','Â','Ã','Ä','Å','Ç','È','É','Ê','Ë','Ì','Í','Î','Ï','Ò','Ó','Ô','Õ','Ö','Ù','Ú','Û','Ü','Ý','à','á','â','ã','ä','å','ç','è','é','ê','ë','ì','í','î','ï','ð','ò','ó','ô','õ','ö','ù','ú','û','ü','ý','ÿ',' '],
+                                ['A','A','A','A','A','A','C','E','E','E','E','I','I','I','I','O','O','O','O','O','U','U','U','U','Y','a','a','a','a','a','a','c','e','e','e','e','i','i','i','i','o','o','o','o','o','o','u','u','u','u','y','y',''],
+                                $post['username']);
+                            $fileName = 'avatars/'. $username. '.'. $fileExtension;
+    
+                            if(move_uploaded_file($_FILES['avatar']['tmp_name'], $fileName))
+                            {
+                                if($this->member->get_username() != $username)
+                                {
+                                    if(file_exists($this->member->get_avatar()))
+                                    {
+                                        unlink($this->member->get_avatar());
+                                    }
+                                }
+                                $avatar = $fileName;
+                            }
+                        }
                     }
                 }
             }
-        }
 
-        $member = $memberManager->show($_SESSION['id']);
+            if(!isset($post['last_name']) || !preg_match('#^[A-z0-9-_ ]{4,50}$#', $post['last_name']))
+            {
+                $errors[] = 'Votre nom n\'est pas valide, il ne doit contenir aucun accent';
+            }
+
+            if(!isset($post['first_name']) || !preg_match('#^[A-z0-9-_ ]{4,50}$#', $post['first_name']))
+            {
+                $errors[] = 'Votre prénom n\'est pas valide';
+            }
+
+            if(!isset($post['password']))
+            {
+                $errors[] = 'Oups ! Il y a eu une erreur !';
+            }
+
+            if(!isset($post['password2']) || $post['password'] != $post['password2'])
+            {
+                $errors[] = 'Le mot de passe n\'a pas pu être confirmé';
+            }
+
+            if(!isset($post['mail']) || !preg_match('#^[A-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,5}$#', $post['mail']))
+            {
+                $errors[] = 'Votre email n\'est pas valide';
+            }
+
+            if($this->member->get_token_session() != $post['token_session'])
+            {
+                $errors[] = 'Oups ! Il y a eu une erreur !';
+            }
+            
+            if(!empty($post['password']))
+            {
+                if(preg_match('#^((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@\#\$\%]).{8,})$#', $post['password']))
+                {
+                    $this->member->set_password(password_hash($post['password'], PASSWORD_BCRYPT));
+                }
+                else
+                {
+                    $errors[] = 'Votre mot de passe doit contenir au minimum 8 caractères, au moins un chiffre, une lettre et un caractère spécial tel que @, #, $, %';
+                }
+            }
+
+            if(count($errors) == 0)
+            {
+                $this->member->set_last_name($post['last_name']);
+                $this->member->set_first_name($post['first_name']);
+                $this->member->set_username($post['username']);
+                $this->member->set_mail($post['mail']);
+                $this->member->set_description($post['description']);
+                $this->member->set_avatar($avatar ?? $this->member->get_avatar());
+
+                $memberManager->edit($this->member);
+
+                $_SESSION['member'] = serialize($this->member);
+                
+                echo json_encode(['content' => [
+                    'first_name' => $this->member->get_first_name(),
+                    'last_name' => $this->member->get_last_name(),
+                    'username' => $this->member->get_username(),
+                    'mail' => $this->member->get_mail(),
+                    'description' => $this->member->get_description(),
+                    'avatar' => $this->member->get_avatar()
+                ],
+                'statut' => 'success']);
+
+                $this->tokenSession();
+                $this->addMessages('Le profil a bien été édité', 'success');
+            }
+            else
+            {
+                echo json_encode(['statut' => 'error', 'error' => $errors]);
+            }
+        }
     }
 
     public function editAvatar()
@@ -384,7 +440,8 @@ class MemberController extends Controller
             {
                 if($memberManager->delete($post['id']))
                 {
-                    $memberManager->setNullById($post['id']);
+                    $postManager = new PostManager();
+                    $postManager->setNullById($post['id']);
                     $this->addMessages('Le compte a été supprimé', 'success');
                 }
                 else

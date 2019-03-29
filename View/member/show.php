@@ -35,7 +35,7 @@
                         <input type="password" class="form-control" name="password" placeholder="Mot de passe">
                     </div>
                     <div class="form-group col-md-6">
-                        <input type="password" class="form-control" name="password_verify" placeholder="Confirmation mot de passe">
+                        <input type="password" class="form-control" name="password2" placeholder="Confirmation mot de passe">
                     </div>
                 </div>
 
@@ -56,7 +56,7 @@
     </section>
 
     <div class="link-article-page">
-        <a class="btn-site btn-edit-member" data-locale="{{ app.session.get('_locale') }}" data-toggle="false" data-id="<?= $this->member->get_id() ?>" href="<?= $this->router->generate('edit_member', ['id' => $this->member->get_id()]) ?>">Editer mon profil</a>
+        <a class="btn-site btn-edit-member" data-locale="<?= $this->lang ?>" data-tokencsrf="<?= $this->member->get_token_session() ?>" data-toggle="false" data-id="<?= $this->member->get_id() ?>" href="<?= $this->router->generate('edit_member', ['id' => $this->member->get_id()]) ?>">Editer mon profil</a>
 
         <a class="btn-site cancel-member" href="#">Annuler</a>
 
@@ -85,6 +85,6 @@
 
 </main>
 
-<script src="<?= asset('js/editMember.js') ?>"></script>
+<script src="<?= $this->asset('js/editMember.js') ?>"></script>
 
 <?php require '../View/footer.php' ?>

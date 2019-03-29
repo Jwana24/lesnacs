@@ -29,6 +29,7 @@ class CommentController extends Controller
             {
                 $errors[] = 'Erreur sur le contenu';
             }
+            
             if(count($errors) == 0)
             {
                 $comment

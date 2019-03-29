@@ -28,26 +28,29 @@ if(document.querySelector('.btn-edit-member'))
         else if(e.target.dataset['toggle'] == 'true')
         {
             let data = new FormData(formEdit);
-            fetch('/profil/edition/'+e.target.dataset['id']+'/edit', {method: 'POST', body: data}).then(promise => promise.text()).then(promise =>
+            data.append('token_session', e.target.dataset['tokencsrf']);
+
+            fetch('/profil/edition/'+e.target.dataset['id']+ '/', {method: 'POST', body: data}).then(promise => promise.text()).then(promise =>
             {
                 let member = JSON.parse(promise).content;
                 let statut = JSON.parse(promise).statut;
+                let errors = (JSON.parse(promise).error != undefined) ? JSON.parse(promise).error : null;
 
                 if(statut == 'success')
                 {
-                    showMessage('success', 'Le profil a bien été édité !');
+                    showMessage('success', ['Le profil a bien été édité !']);
+                    username.innerText = member['username'];
+                    lastName.innerText = trans(e.target.dataset['locale'], 'Nom : ','Last name : ') + member['last_name'];
+                    firstName.innerText = trans(e.target.dataset['locale'], 'Prénom : ','First name : ') + member['first_name'];
+                    mail.innerText = trans(e.target.dataset['locale'], 'Email : ','Mail : ') + member['mail'];
+                    description.innerText = 'Description : ' + member['description'];
+                    avatar.src = '/' + member['avatar'];
                 }
                 else if(statut == 'error')
                 {
-                    showMessage('error', 'Une erreur c\'est produite :(');
+                    showMessage('error', errors);
                 }
 
-                username.innerText = member['username'];
-                lastName.innerText = trans(e.target.dataset['locale'], 'Nom : ','Last name : ') + member['last_name'];
-                firstName.innerText = trans(e.target.dataset['locale'], 'Prénom : ','First name : ') + member['first_name'];
-                mail.innerText = trans(e.target.dataset['locale'], 'Email : ','Mail : ') + member['mail'];
-                description.innerText = 'Description : ' + member['description'];
-                avatar.src = '/' + member['avatar'];
             });
 
             infoProfile.style.display = 'initial';

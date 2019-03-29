@@ -195,7 +195,7 @@ class PostManager extends Manager
         $request = $this->_bdd->prepare('UPDATE post SET id_member_FK = NULL WHERE id_member_FK = :id');
 
         if($request->execute([
-            'id' => $post->get_member()->get_id()
+            'id' => $id
         ]))
         {
             return true;
