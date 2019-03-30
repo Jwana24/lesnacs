@@ -9,7 +9,6 @@
 
                 <img class="image" src="<?= $this->asset($article->get_image()) ?>" alt="Image de l'article">
                 <h2 class="title title-article"><?= $article->get_title_article() ?></h2>
-                <!-- {% if app.session.get('_locale') == 'fr_FR' %} -->
                 <p class="date"><?= $article->get_date_article() ?></p>
                 <div class="text text-article"><?= $article->get_text_article() ?></div>
                 
@@ -67,7 +66,7 @@
                                 <input class="btn-site" value="<?= $this->translation('Supprimer article') ?>" type="submit">
                             </form>
 
-                            <a class="btn-site btn-edit-article" data-locale="<?= $this->lang ?>" data-toggle="false" data-id="<?= $article->get_id() ?>"><?= $this->translation('Editer article') ?></a>
+                            <a><i class="btn-edit-article fas fa-pencil-alt" data-locale="<?= $this->lang ?>" data-toggle="false" data-id="<?= $article->get_id() ?>"></i></a>
 
                             <a class="btn-site cancel-article" href="#"><?= $this->translation('Annuler') ?></a>
 

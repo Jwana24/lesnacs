@@ -1,11 +1,11 @@
 <?php require '../View/header.php' ?>
 
-<main class="main-profile">
+<main class="main-profile container-fluid">
 
     <section class="container-profile">
         <article class="profile-show">
 
-            <img class="rounded avatar" alt="Votre avatar" src="<?= $this->asset($this->member->get_avatar()) ?>"/>
+            <img class="rounded-circle avatar" alt="Votre avatar" src="<?= $this->asset($this->member->get_avatar()) ?>"/>
             <div class="info-profile">
                 <h3 class="username-profile"><?= $this->member->get_username() ?></h3>
                 <p class="member-lastName">Nom : <?= $this->member->get_last_name() ?></p>
@@ -53,21 +53,26 @@
             </form>
         
         </article>
+
+        <div class="link-article-page d-flex flex-row bd-highlight mb-3">
+            <a href="<?= $this->router->generate('edit_member', ['id' => $this->member->get_id()]) ?>"><i class="btn-edit-member fas fa-pencil-alt" data-locale="<?= $this->lang ?>" data-tokencsrf="<?= $this->member->get_token_session() ?>" data-toggle="false" data-id="<?= $this->member->get_id() ?>"></i></a>
+    
+            <a href="#"><i class="cancel-member fas fa-times" style="color:red;"></i></a>
+    
+            <form action="<?= $this->router->generate('delete_member') ?>" method="post">
+                <input type="hidden" name="token_session" value="<?= $this->member->get_token_session() ?>">
+                <input type="hidden" name="id" value="<?= $this->member->get_id() ?>">
+                <!-- <i class="far fa-trash-alt"></i> -->
+                <input class="btn-site" type="submit" value="<?= $this->translation('Supprimer le compte') ?>">
+            </form>
+
+            <div class="link-accueil">
+                <a class="btn-site link-return-homepage" href="<?= $this->router->generate('accueil') ?>">Revenir à l'accueil</a>
+            </div>
+        </div>
+    
     </section>
 
-    <div class="link-article-page">
-        <a class="btn-site btn-edit-member" data-locale="<?= $this->lang ?>" data-tokencsrf="<?= $this->member->get_token_session() ?>" data-toggle="false" data-id="<?= $this->member->get_id() ?>" href="<?= $this->router->generate('edit_member', ['id' => $this->member->get_id()]) ?>">Editer mon profil</a>
-
-        <a class="btn-site cancel-member" href="#">Annuler</a>
-
-        <a class="btn-site link-return-homepage" href="<?= $this->router->generate('accueil') ?>">Revenir à l'accueil</a>
-
-        <form action="<?= $this->router->generate('delete_member') ?>" method="post">
-            <input type="hidden" name="token_session" value="<?= $this->member->get_token_session() ?>">
-            <input type="hidden" name="id" value="<?= $this->member->get_id() ?>">
-            <input class="btn-site" type="submit" value="<?= $this->translation('Supprimer le compte') ?>">
-        </form>
-    </div>
 
     <div class="showMessage"></div>
 

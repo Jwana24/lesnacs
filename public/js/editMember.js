@@ -22,7 +22,8 @@ if(document.querySelector('.btn-edit-member'))
             formEdit.style.display = 'initial';
             cancelButton.style.display = 'inline-block';
             e.target.dataset['toggle'] = 'true';
-            e.target.innerText = trans(e.target.dataset['locale'], 'Enregistrer', 'Save');
+            e.target.classList.remove('fa-pencil-alt');
+            e.target.classList.add('fa-check');
         }
 
         else if(e.target.dataset['toggle'] == 'true')
@@ -39,12 +40,13 @@ if(document.querySelector('.btn-edit-member'))
                 if(statut == 'success')
                 {
                     showMessage('success', ['Le profil a bien été édité !']);
+                    console.log(e.target.dataset['locale']);
                     username.innerText = member['username'];
                     lastName.innerText = trans(e.target.dataset['locale'], 'Nom : ','Last name : ') + member['last_name'];
                     firstName.innerText = trans(e.target.dataset['locale'], 'Prénom : ','First name : ') + member['first_name'];
                     mail.innerText = trans(e.target.dataset['locale'], 'Email : ','Mail : ') + member['mail'];
                     description.innerText = 'Description : ' + member['description'];
-                    avatar.src = '/' + member['avatar'];
+                    avatar.src = 'http://localhost/' + member['avatar'] + '?a=' + Math.random();
                 }
                 else if(statut == 'error')
                 {
@@ -57,7 +59,8 @@ if(document.querySelector('.btn-edit-member'))
             formEdit.style.display = 'none';
             cancelButton.style.display = 'none';
             e.target.dataset['toggle'] = 'false';
-            e.target.innerText = trans(e.target.dataset['locale'], 'Editer mon profil', 'Edit profile');
+            e.target.classList.remove('fa-check');
+            e.target.classList.add('fa-pencil-alt');
         }
 
         cancelButton.addEventListener('click', (f) =>
@@ -68,7 +71,8 @@ if(document.querySelector('.btn-edit-member'))
             formEdit.style.display = 'none';
             cancelButton.style.display = 'none';
             e.target.dataset['toggle'] = 'false';
-            e.target.innerText = trans(e.target.dataset['locale'], 'Editer mon profil', 'Edit profile');
+            e.target.classList.remove('fa-check');
+            e.target.classList.add('fa-pencil-alt');
         });
     });
 }

@@ -39,7 +39,7 @@
                 </div>
             </p>
         </div>
-        <p>© <?= $this->translation('Site LesNac créé par ') ?>Johanna DETRIEUX</p>
+        <p class="copyright">© <?= $this->translation('Site LesNac créé par ') ?>Johanna DETRIEUX</p>
     </div>
 </footer>
 

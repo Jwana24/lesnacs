@@ -82,8 +82,8 @@ class MemberController extends Controller
             {
                 if($_FILES['avatar']['name'] != '')
                 {
-                    // Verify if 'avatar' exist, if there are errors in the upload and if the size is greather than 400ko
-                    if(!isset($_FILES['avatar']) || $_FILES['avatar']['error'] != UPLOAD_ERR_OK || $_FILES['avatar']['size'] > 400000)
+                    // Verify if 'avatar' exist, if there are errors in the upload and if the size is greather than 5mo
+                    if(!isset($_FILES['avatar']) || $_FILES['avatar']['error'] != UPLOAD_ERR_OK || $_FILES['avatar']['size'] > 5000000)
                     {
                         $errors[] = 'L\'avatar n\'a pas pu être téléchargé '.$_FILES['avatar']['error'];
                     }
@@ -208,7 +208,7 @@ class MemberController extends Controller
             {
                 if($_FILES['avatar']['name'] != '')
                 {
-                    if(!isset($_FILES['avatar']) || $_FILES['avatar']['error'] != UPLOAD_ERR_OK || $_FILES['avatar']['size'] > 400000)
+                    if(!isset($_FILES['avatar']) || $_FILES['avatar']['error'] != UPLOAD_ERR_OK || $_FILES['avatar']['size'] > 5000000)
                     {
                         $errors[] = 'L\'avatar n\'a pas pu être téléchargé '.$_FILES['avatar']['error'];
                     }
@@ -306,7 +306,6 @@ class MemberController extends Controller
                 ],
                 'statut' => 'success']);
 
-                $this->tokenSession();
                 $this->addMessages('Le profil a bien été édité', 'success');
             }
             else
