@@ -9,6 +9,7 @@
 .main-profile i
 {
     font-size: 25px;
+    color: #0984e3;
 }
 
 .container-profile
@@ -54,11 +55,13 @@
 .btn-edit-member
 {
     color: black;
+    cursor: pointer;
 }
 
 .cancel-member
 {
     margin-left: 10px;
+    cursor: pointer;
 }
 
 .main-profile .link-article-page

@@ -45,6 +45,7 @@
 .main-article i
 {
     font-size: 20px;
+    color: #0984e3;
 }
 
 .btn-delete-article,
@@ -84,6 +85,7 @@ ion-icon[name=heart-empty]
 {
     font-size: 30px;
     margin-right: 10px;
+    cursor: pointer;
 }
 
 .like,
@@ -201,7 +203,6 @@ ion-icon[name=heart-empty]
     z-index: 2;
     width: 30px;
     position: absolute;
-    /* left: -10px; */
 }
 
 .content-comment-edit,

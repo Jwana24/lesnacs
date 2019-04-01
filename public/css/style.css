@@ -134,7 +134,7 @@ footer .logo-30MAmis:hover
 
 .fa-check
 {
-    color: green;
+    color: green !important;
 }
 
 .btn-site,

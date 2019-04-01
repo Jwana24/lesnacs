@@ -63,8 +63,13 @@ $languages = [
         'poissons' => 'fishs',
 
         // ARTICLE PAGE (show)
-        'Supprimer article' => 'Delete article',
-        'Editer article' => 'Edit article',
+        'Commenter l\'article' => 'Comment article',
+        'Supprimer l\'article' => 'Delete article',
+        'Editer l\'article' => 'Edit article',
+        'Editer le commentaire' => 'Edit comment',
+        'Supprimer le commentaire' => 'Delete comment',
+        'Editer la réponse' => 'Edit response',
+        'Supprimer la réponse' => 'Delete response',
 
         // FORUM PAGE (show)
         'Post résolu' => 'Post resolved',
@@ -81,6 +86,11 @@ $languages = [
         'Editer réponse' => 'Edit response',
         'Supprimer réponse' => 'Delete response',
         'Répondre' => 'Reply',
-        'Annuler' => 'Cancel'
+        'Annuler' => 'Cancel',
+
+        // PROFILE PAGE
+        'Email' => 'Mail',
+        'Supprimer le compte' => 'Delete account',
+        'Editer le compte' => 'Edit account'
     ]
 ];
