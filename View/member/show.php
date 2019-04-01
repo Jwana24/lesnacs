@@ -7,11 +7,13 @@
 
             <img class="rounded-circle avatar" alt="Votre avatar" src="<?= $this->asset($this->member->get_avatar()) ?>"/>
             <div class="info-profile">
-                <h3 class="username-profile"><?= $this->member->get_username() ?></h3>
-                <p class="member-lastName">Nom : <?= $this->member->get_last_name() ?></p>
-                <p class="member-firstName">Prénom : <?= $this->member->get_first_name() ?></p>
-                <p class="member-mail">Email : <?= $this->member->get_mail() ?></p>
-                <p class="member-description">Description : <?= $this->member->get_description() ?></p>
+                <div class="row">
+                    <h3 class="username-profile col-12"><?= $this->member->get_username() ?></h3>
+                    <p class="member-lastName col-md-6 col-12">Nom : <?= $this->member->get_last_name() ?></p>
+                    <p class="member-firstName col-md-6 col-12">Prénom : <?= $this->member->get_first_name() ?></p>
+                    <p class="member-mail col-12">Email : <?= $this->member->get_mail() ?></p>
+                    <p class="member-description col-12">Description : <?= $this->member->get_description() ?></p>
+                </div>
             </div>
 
             <form class="form-edit-member" method="post" enctype="multipart/form-data">
@@ -57,18 +59,17 @@
         <div class="link-article-page d-flex flex-row bd-highlight mb-3">
             <a href="<?= $this->router->generate('edit_member', ['id' => $this->member->get_id()]) ?>"><i class="btn-edit-member fas fa-pencil-alt" data-locale="<?= $this->lang ?>" data-tokencsrf="<?= $this->member->get_token_session() ?>" data-toggle="false" data-id="<?= $this->member->get_id() ?>"></i></a>
     
-            <a href="#"><i class="cancel-member fas fa-times" style="color:red;"></i></a>
+            <a href="#"><i class="cancel-member fas fa-times"></i></a>
     
             <form action="<?= $this->router->generate('delete_member') ?>" method="post">
                 <input type="hidden" name="token_session" value="<?= $this->member->get_token_session() ?>">
                 <input type="hidden" name="id" value="<?= $this->member->get_id() ?>">
-                <!-- <i class="far fa-trash-alt"></i> -->
-                <input class="btn-site" type="submit" value="<?= $this->translation('Supprimer le compte') ?>">
-            </form>
 
-            <div class="link-accueil">
-                <a class="btn-site link-return-homepage" href="<?= $this->router->generate('accueil') ?>">Revenir à l'accueil</a>
-            </div>
+                <div class="container-delete-account">
+                    <i class="icone-delete-account far fa-trash-alt"></i>
+                    <input class="btn-delete-account" type="submit" onclick="return confirm('Etes-vous sûr de vouloir supprimer votre profil ?');" value="<?= $this->translation('Supprimer le compte') ?>">
+                </div>
+            </form>
         </div>
     
     </section>
@@ -91,5 +92,6 @@
 </main>
 
 <script src="<?= $this->asset('js/editMember.js') ?>"></script>
+<script src="<?= $this->asset('js/avatar.js') ?>"defer></script>
 
 <?php require '../View/footer.php' ?>

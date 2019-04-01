@@ -20,8 +20,8 @@ if(document.querySelectorAll('.btn-edit-comment'))
                 cancelBtn.style.display = 'initial';
                 formEdit.style.display = 'initial';
                 e.target.dataset['toggle'] = 'true';
-                
-                e.target.innerText = trans(e.target.dataset['locale'], 'Enregistrer', 'Save');
+                e.target.classList.remove('fa-pencil-alt');
+                e.target.classList.add('fa-check');
             }
             else if(e.target.dataset['toggle'] == 'true')
             {
@@ -52,14 +52,16 @@ if(document.querySelectorAll('.btn-edit-comment'))
                 cancelBtn.style.display = 'none';
                 e.target.dataset['toggle'] = 'false';
                 
-                if(document.body.clientWidth < 415)
-                {
-                    e.target.innerText = trans(e.target.dataset['locale'], 'Editer', 'Edit');
-                }
-                else
-                {
-                    e.target.innerText = trans(e.target.dataset['locale'], 'Editer le commentaire', 'Edit comment');
-                }
+                // if(document.body.clientWidth < 415)
+                // {
+                //     e.target.innerText = trans(e.target.dataset['locale'], 'Editer', 'Edit');
+                // }
+                // else
+                // {
+                //     e.target.innerText = trans(e.target.dataset['locale'], 'Editer le commentaire', 'Edit comment');
+                // }
+                e.target.classList.remove('fa-check');
+                e.target.classList.add('fa-pencil-alt');
             }
 
             cancelBtn.addEventListener('click', (f) =>
@@ -68,18 +70,20 @@ if(document.querySelectorAll('.btn-edit-comment'))
                 cancelBtn.style.display = 'none';
                 e.target.dataset['toggle'] = 'false';
                 
-                if(document.body.clientWidth < 415)
-                {
-                    e.target.innerText = trans(e.target.dataset['locale'], 'Editer', 'Edit');
-                }
-                else
-                {
-                    e.target.innerText = trans(e.target.dataset['locale'], 'Editer le commentaire', 'Edit comment');
-                }
+                // if(document.body.clientWidth < 415)
+                // {
+                //     e.target.innerText = trans(e.target.dataset['locale'], 'Editer', 'Edit');
+                // }
+                // else
+                // {
+                //     e.target.innerText = trans(e.target.dataset['locale'], 'Editer le commentaire', 'Edit comment');
+                // }
 
                 paragraph.style.display = 'block';
                 formEdit.style.display = 'none';
                 editTextarea.value = paragraph.innerText;
+                e.target.classList.remove('fa-check');
+                e.target.classList.add('fa-pencil-alt');
             });
         });
     });

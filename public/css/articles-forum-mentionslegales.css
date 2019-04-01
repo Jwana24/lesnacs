@@ -1,0 +1,402 @@
+/* ARTICLES PAGE (COMMENTS & RESPONSES) + FORUM POSTS PAGE (COMMENTS & RESPONSES) + LEGAL NOTICES PAGE */
+/* Show */
+
+.main-article,
+.main-forum,
+.container-notices
+{
+    flex-direction: column;
+    background-color: #FBFBFB;
+}
+
+.article-page,
+.forum-page,
+.legal-notices-page
+{
+    width: 70%;
+    height: 100%;
+    margin: 0 auto;
+    background-color: white;
+}
+
+.article-show,
+.forum-show,
+.notices-show
+{
+    width: 80%;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.article-show img
+{
+    position: relative;
+    left: -12.5%;
+    width: 125%;
+    margin: 0 auto;
+}
+
+.forum-show .title,
+.notices-show h3
+{
+    padding-top: 40px;
+}
+
+.main-article i
+{
+    font-size: 20px;
+}
+
+.btn-delete-article,
+.icone-delete-article
+{
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: translateX(25%);
+}
+
+.btn-delete-article
+{
+    opacity: 0;
+    z-index: 1;
+    width: 30px;
+    position: absolute;
+    left: -10px;
+}
+
+.article-page .container-btn-article,
+.forum-page .container-btn-post
+{
+    width: 100%;
+    position: relative;
+    margin-top: 30px;
+}
+
+ion-icon[name=heart]
+{
+    color: #e74c3c;
+}
+
+ion-icon[name=heart],
+ion-icon[name=heart-empty]
+{
+    font-size: 30px;
+    margin-right: 10px;
+}
+
+.like,
+.article-page .like-article,
+.btn-admin-article,
+.btn-admin-post
+{
+    display: flex;
+}
+
+.article-page .like-article,
+.btn-admin-article,
+.btn-admin-post
+{
+    position: absolute;
+}
+
+.article-page .like-article
+{
+    left: 0;
+    top: 0;
+}
+
+.article-page .like-article form,
+.article-page .like-article a,
+.article-page .btn-admin-article a,
+.article-page .btn-admin-article input[type=submit],
+.forum-page .btn-comment-post a,
+.forum-page .btn-admin-post a,
+.forum-page .btn-admin-post input[type=submit]
+{
+    height: 36.4px;
+}
+
+.article-page .like-article a
+{
+    display: inline-block;
+    padding: 0;
+}
+
+.article-page .like-article a label
+{
+    padding: 7px;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+}
+
+/* Dynamics comments, article page + post page + edit member profile */
+
+.form-edit-comment,
+.form-edit-response,
+.form-edit-comment-post,
+.form-edit-response-post,
+.form-edit-member,
+.form-edit-article,
+.form-edit-post,
+.cancel-comment,
+.cancel-response,
+.cancel-comment-post,
+.cancel-response-post,
+.cancel-member,
+.cancel-article,
+.cancel-post
+{
+    display: none;
+}
+
+
+/* --- */
+
+.container-comment-article
+{
+    position: relative;
+}
+
+.icone-comment-article,
+.btn-comment-article
+{
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.btn-comment-article
+{
+    z-index: 1;
+    cursor: pointer;
+}
+
+.container-delete-comment,
+.container-delete-response
+{
+    position: relative;
+}
+
+.btn-delete-comment,
+.btn-delete-response,
+.icone-delete-comment,
+.icone-delete-response
+{
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: translateX(25%);
+}
+
+.btn-delete-comment,
+.btn-delete-response
+{
+    opacity: 0;
+    z-index: 2;
+    width: 30px;
+    position: absolute;
+    /* left: -10px; */
+}
+
+.content-comment-edit,
+.content-response-edit,
+.content-comment-edit-post,
+.content-response-edit-post,
+.response-article .btn-response,
+.response-post .btn-response
+{
+    margin-bottom: 20px;
+}
+
+.article-page #toggle-comment:checked ~ .form-comment-article,
+.forum-page #toggle-comment:checked ~ .form-comment-post
+{
+    display: inherit;
+}
+
+.article-page input[type=checkbox],
+.forum-page input[type=checkbox],
+.article-page .form-comment-article,
+.forum-page .form-comment-post
+{
+    display: none;
+}
+
+.article-page .btn-admin-article,
+.forum-page .btn-admin-post
+{
+    right: 0;
+    top: 0;
+    height: 45px;
+}
+
+.article-page .btn-admin-article a,
+.forum-page .btn-admin-post a
+{
+    margin-left: 20px;
+}
+
+.article-page .form-comment-article,
+.forum-page .form-comment-post
+{
+    margin-top: 80px !important;
+}
+
+.article-page .form-comment-article,
+.forum-page .form-comment-post,
+.article-page .article-comment,
+.forum-page .post-comment
+{
+    width: 80%;
+    margin: 0 auto;
+}
+
+.forum-page .form-comment-post
+{
+    margin-top: 20px;
+}
+
+.article-page .form-comment-article .message-comment-article,
+.forum-page .form-comment-post .message-comment-post
+{
+    width: 100%;
+    bottom: 40px;
+}
+
+.article-page .form-comment-article .message-comment-article,
+.forum-page .form-comment-post .message-comment-post,
+.article-page .article-comment .text-article-comment,
+.article-page .article-comment .text-article-response,
+.contain-form-response textarea,
+.forum-page .post-comment .text-post-comment,
+.forum-page .post-comment .text-post-response,
+.content-comment-edit,
+.content-response-edit,
+.content-comment-edit-post,
+.content-response-edit-post
+{
+    border-radius: 10px;
+}
+
+.article-page .article-comment,
+.forum-page .post-comment
+{
+    padding: 20px 0 20px 0;
+}
+
+.article-page .article-comment .date,
+.forum-page .post-comment .date
+{
+    font-style: italic;
+    font-weight: 300;
+    margin: 30px 0 5px 0;
+}
+
+.article-page .article-comment .text-article-comment,
+.contain-form-response textarea,
+.forum-page .post-comment .text-post-comment,
+.content-comment-edit,
+.content-comment-edit-post
+{
+    width: 80%;
+}
+
+.article-page .article-comment .text-article-comment,
+.article-page .article-comment .text-article-response,
+.contain-form-response textarea,
+.forum-page .post-comment .text-post-comment,
+.forum-page .post-comment .text-post-response,
+.content-comment-edit,
+.content-response-edit,
+.content-comment-edit-post,
+.content-response-edit-post
+{
+    border: #dfe6e9 solid 0.3px;
+    background-color: #dfe6e9;
+    padding: 7px;
+    font-size: 14px;
+    font-weight: 100;
+}
+
+.article-page .article-comment .username,
+.article-page .article-comment .date-response,
+.article-page .article-comment .btn-edit-response,
+.contain-form-response,
+.forum-page .post-comment .username,
+.forum-page .post-comment .date-response,
+.forum-page .post-comment .btn-edit-response,
+.article-page .article-comment .text-article-response,
+.forum-page .post-comment .text-post-response,
+.content-response-edit,
+.content-response-edit-post
+{
+    margin-left: 50px;
+}
+
+.response-btn,
+.btn-response .btn-edit-response,
+.btn-comment .btn-edit-comment,
+.cancel-comment,
+.cancel-response,
+.cancel-comment-post,
+.cancel-response-post
+{
+    margin: 0 10px 10px 0;
+}
+
+.btn-edit-comment,
+.response-btn,
+.btn-edit-response
+{
+    cursor: pointer;
+}
+
+.article-page .article-comment .username-comment,
+.forum-page .post-comment .username-comment,
+.cancel-response,
+.cancel-response-post
+{
+    margin-left: 0;
+}
+
+.article-page .article-comment .text-article-response,
+.forum-page .post-comment .text-post-response,
+.content-response-edit,
+.content-response-edit-post
+{
+    width: 75%;
+}
+
+.article-page .article-comment .btn-comment,
+.forum-page .post-comment .btn-comment,
+.response-article .btn-response,
+.response-post .btn-response
+{
+    display: flex;
+}
+
+.link-return-articles,
+.link-return-posts
+{
+    margin: 20px 10px 0 0;
+}
+
+
+/* Responses comments article */
+
+.contain-form-response form
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.contain-form-response input[type=submit]
+{
+    width: 10%;
+}

@@ -1,3 +1,8 @@
+@import url('profile.css');
+@import url('modals.css');
+@import url('articles-forum-mentionslegales.css');
+@import url('homepage.css');
+
 @font-face
 {
     font-family: 'Segoe UI' !important;
@@ -122,6 +127,16 @@ footer .logo-30MAmis:hover
 
 /* BUTTON STYLE FOR ALL THE SITE */
 
+.fa-times
+{
+    color: red;
+}
+
+.fa-check
+{
+    color: green;
+}
+
 .btn-site,
 .btn-site:visited,
 .btn-site:active
@@ -201,127 +216,6 @@ footer .logo-30MAmis:hover
 }
 
 
-/* MODAL INSCRIPTION (ON ALL THE PAGES) */
-
-.modal_inscription,
-.modal_connection
-{
-    display: none;
-    z-index: 10;
-    position: fixed;
-    width: 30vw;
-    height: 85vh;
-    top: 55vh;
-    left: 50vw;
-    transform: translate(-50%, -50%);
-    background-color: rgba(178, 190, 195, .70);
-    border-radius: 10px;
-}
-
-.modal_connection
-{
-    height: 45vh;
-}
-
-.center_modal_inscription,
-.center_modal_connection
-{
-    position: relative;
-    background-color: white;
-    margin: auto;
-    width: 80%;
-    height: 95%;
-    border-radius: 10px;
-}
-
-.center_modal_connection
-{
-    height: 85%;
-}
-
-.center_modal_inscription h4,
-.center_modal_connection h4
-{
-    margin: 20px 0 30px 0;
-    text-align: center;
-    font-weight: 700;
-}
-
-.center_modal_inscription form[name=member],
-.center_modal_connection form[name=member-co]
-{
-    display: flex;
-    flex-direction: column;
-    width: 80%;
-    height: 80%;
-    margin: 0 auto;
-}
-
-.center_modal_inscription form[name=member] div,
-.center_modal_connection form[name=member-co] div
-{
-    width: 100%;
-    margin: 0 auto;
-}
-
-#member div,
-#member-co div
-{
-    margin-bottom: 5px;
-}
-
-.center_modal_inscription form[name=member] input,
-.center_modal_connection form[name=member-co] input
-{
-    width: 100%;
-    padding: 7px;
-    border-radius: 5px;
-}
-
-.center_modal_inscription form[name=member] input[type=file]
-{
-    padding-left: 0;
-}
-
-.center_modal_inscription form[name=member] label[for=member_avatar]
-{
-    margin-top: 10px;
-    margin-bottom: 0;
-}
-
-.center_modal_inscription form[name=member] input[type=submit],
-.center_modal_connection form[name=member-co] input[type=submit]
-{
-    align-self: center;
-    margin-top: 20px;
-    border-radius: 0;
-    border: none;
-    background-color: #0984e3;
-    color: white;
-}
-
-.center_modal_inscription form[name=member] input[type=submit]:hover,
-.center_modal_connection form[name=member-co] input[type=submit]:hover
-{
-    background-color: #273c75;
-}
-
-.cross-close,
-.cross-close-co
-{
-    font-size: 20px;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-}
-
-.cross-close:hover,
-.cross-close-co:hover
-{
-    font-size: 30px;
-}
-
-
 /* CONNECTION PAGE */
 
 .content-form-co
@@ -329,222 +223,11 @@ footer .logo-30MAmis:hover
     margin-top: 30vh;
 }
 
-
-/* HOME PAGE */
-
-.carousel-item
-{
-    position: relative;
-}
-
-.carousel-item span
-{
-    position: absolute;
-    width: 400px;
-    height: 400px;
-    font-size: 2.5rem;
-    top: 100px;
-    left: 100px;
-    color: #fff;
-    text-shadow: 3px 3px 2px #7f8c8d;
-}
-
-.carousel-item .span-cat
-{
-    color: #7f8c8d;
-}
-
-.carousel-item img
-{
-    object-fit: contain;
-}
-
-.homepage,
-.article-box,
-.article-box .article
-{
-    display: flex;
-}
-
-.homepage
-{
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
-    position: relative;
-    padding: 0;
-}
-
-.sidebox
-{
-    right: 0;
-    width: 375px;
-    padding: 40px;
-    background: #FBFBFB;
-    position: absolute;
-}
-
-.sidebox h4
-{
-    font-size: 30px;
-    margin: 15px 0;
-}
-
-.sidebox form
-{
-    font-size: 17px;
-}
-
-.homepage,
-.sidebox form input,
-.sidebox .area-message
-{
-    width: 100%;
-}
-
-.article-box,
-.sidebox
-{
-    height: 100%;
-}
-
-.article-box
-{
-    flex-direction: column;
-    width: 70%;
-}
-
-.article-box .article
-{
-    margin-bottom: 50px;
-}
-
-.article-box .article .div-img img
-{
-    width: 200px;
-}
-
-.article-box,
-.article-box .article .containt-article
-{
-    margin-left: 20px;
-}
-
-.article:first-child,
-.btn-submit-contact
-{
-    margin-top: 20px;
-}
-
-.article-box .title-article,
-.article-box .text-article
-{
-    word-wrap: break-word;
-}
-
-.article-box .title-article
-{
-    font-size: 30px;
-    font-weight: 600;
-}
-
-.article-box .date-article
-{
-    font-style: italic;
-    font-size: 14px;
-    font-weight: 100;
-}
-
-.article-box .text-article
-{
-    font-size: 18px;
-    font-weight: 100;
-}
-
-.message-cookie
-{
-    z-index: 10;
-    position: fixed;
-    bottom: 0;
-    right: 0;
-}
-
-
 /* LOGIN PAGE */
 
 .login-container
 {
     margin-top: 100px;
-}
-
-
-/* PROFILE PAGE */
-
-.main-profile
-{
-    margin-top: 10px;
-    /* margin-left: 350px; */
-    background-color: #FBFBFB;
-}
-
-.main-profile i
-{
-    font-size: 25px;
-}
-
-.container-profile
-{
-    width: 70%;
-    height: 100%;
-    margin: 0 auto;
-    background-color: white;
-}
-
-.profile-show
-{
-    display: flex;
-}
-
-.avatar
-{
-    object-fit: cover;
-    width: 300px;
-    height: 300px;
-}
-
-.info-profile
-{
-    margin: 60px 0 0 50px;
-}
-
-.username-profile
-{
-    font-weight: 800;
-    margin-bottom: 40px;
-}
-
-.btn-edit-member
-{
-    color: black;
-}
-
-.fa-check
-{
-    color: green;
-}
-
-.main-profile .link-article-page
-{
-    margin: 20px 0 10px 60px;
-}
-
-.btn-delete-member
-{
-    margin-top: 20px;
-}
-
-/* Dynamics edit member */
-.form-edit-member
-{
-    margin: 15px 0 0 20px;
 }
 
 
@@ -670,331 +353,6 @@ footer .logo-30MAmis:hover
 }
 
 
-/* ARTICLES PAGE (COMMENTS & RESPONSES) + FORUM POSTS PAGE (COMMENTS & RESPONSES) + LEGAL NOTICES PAGE */
-/* Show */
-
-.main-article,
-.main-forum,
-.container-notices
-{
-    flex-direction: column;
-    background-color: #FBFBFB;
-}
-
-.article-page,
-.forum-page,
-.legal-notices-page
-{
-    width: 70%;
-    height: 100%;
-    margin: 0 auto;
-    background-color: white;
-}
-
-.article-show,
-.forum-show,
-.notices-show
-{
-    width: 80%;
-    height: 100%;
-    margin: 0 auto;
-}
-
-.article-show img
-{
-    position: relative;
-    left: -12.5%;
-    width: 125%;
-    margin: 0 auto;
-}
-
-.forum-show .title,
-.notices-show h3
-{
-    padding-top: 40px;
-}
-
-.article-page .container-btn-article,
-.forum-page .container-btn-post
-{
-    width: 100%;
-    position: relative;
-    margin-top: 30px;
-}
-
-ion-icon[name=heart]
-{
-    color: #e74c3c;
-}
-
-ion-icon[name=heart],
-ion-icon[name=heart-empty]
-{
-    font-size: 30px;
-    margin-right: 10px;
-}
-
-.like,
-.article-page .like-article,
-.btn-admin-article,
-.btn-admin-post
-{
-    display: flex;
-}
-
-.article-page .like-article,
-.btn-admin-article,
-.btn-admin-post
-{
-    position: absolute;
-}
-
-.article-page .like-article
-{
-    left: 0;
-    top: 0;
-}
-
-.article-page .like-article form,
-.article-page .like-article a,
-.article-page .btn-admin-article a,
-.article-page .btn-admin-article input[type=submit],
-.forum-page .btn-comment-post a,
-.forum-page .btn-admin-post a,
-.forum-page .btn-admin-post input[type=submit]
-{
-    height: 36.4px;
-}
-
-.article-page .like-article a
-{
-    display: inline-block;
-    padding: 0;
-}
-
-.article-page .like-article a label
-{
-    padding: 7px;
-    display: inline-block;
-    width: 100%;
-    height: 100%;
-}
-
-/* Dynamics comments, article page + post page + edit member profile */
-
-.form-edit-comment,
-.form-edit-response,
-.form-edit-comment-post,
-.form-edit-response-post,
-.form-edit-member,
-.form-edit-article,
-.form-edit-post,
-.cancel-comment,
-.cancel-response,
-.cancel-comment-post,
-.cancel-response-post,
-.cancel-member,
-.cancel-article,
-.cancel-post
-{
-    display: none;
-}
-
-
-/* --- */
-
-
-.content-comment-edit,
-.content-response-edit,
-.content-comment-edit-post,
-.content-response-edit-post,
-.response-article .btn-response,
-.response-post .btn-response
-{
-    margin-bottom: 20px;
-}
-
-.article-page #toggle-comment:checked ~ .form-comment-article,
-.forum-page #toggle-comment:checked ~ .form-comment-post
-{
-    display: inherit;
-}
-
-.article-page input[type=checkbox],
-.forum-page input[type=checkbox],
-.article-page .form-comment-article,
-.forum-page .form-comment-post
-{
-    display: none;
-}
-
-.article-page .btn-admin-article,
-.forum-page .btn-admin-post
-{
-    right: 0;
-    top: 0;
-    height: 45px;
-}
-
-.article-page .btn-admin-article a,
-.forum-page .btn-admin-post a
-{
-    margin-left: 20px;
-}
-
-.article-page .form-comment-article,
-.forum-page .form-comment-post
-{
-    margin-top: 80px !important;
-}
-
-.article-page .form-comment-article,
-.forum-page .form-comment-post,
-.article-page .article-comment,
-.forum-page .post-comment
-{
-    width: 80%;
-    margin: 0 auto;
-}
-
-.forum-page .form-comment-post
-{
-    margin-top: 20px;
-}
-
-.article-page .form-comment-article .message-comment-article,
-.forum-page .form-comment-post .message-comment-post
-{
-    width: 100%;
-    bottom: 40px;
-}
-
-.article-page .form-comment-article .message-comment-article,
-.forum-page .form-comment-post .message-comment-post,
-.article-page .article-comment .text-article-comment,
-.article-page .article-comment .text-article-response,
-.contain-form-response textarea,
-.forum-page .post-comment .text-post-comment,
-.forum-page .post-comment .text-post-response,
-.content-comment-edit,
-.content-response-edit,
-.content-comment-edit-post,
-.content-response-edit-post
-{
-    border-radius: 10px;
-}
-
-.article-page .article-comment,
-.forum-page .post-comment
-{
-    padding: 20px 0 20px 0;
-}
-
-.article-page .article-comment .date,
-.forum-page .post-comment .date
-{
-    font-style: italic;
-    font-weight: 300;
-    margin: 30px 0 5px 0;
-}
-
-.article-page .article-comment .text-article-comment,
-.contain-form-response textarea,
-.forum-page .post-comment .text-post-comment,
-.content-comment-edit,
-.content-comment-edit-post
-{
-    width: 80%;
-}
-
-.article-page .article-comment .text-article-comment,
-.article-page .article-comment .text-article-response,
-.contain-form-response textarea,
-.forum-page .post-comment .text-post-comment,
-.forum-page .post-comment .text-post-response,
-.content-comment-edit,
-.content-response-edit,
-.content-comment-edit-post,
-.content-response-edit-post
-{
-    border: #dfe6e9 solid 0.3px;
-    background-color: #dfe6e9;
-    padding: 7px;
-    font-size: 14px;
-    font-weight: 100;
-}
-
-.article-page .article-comment .username,
-.article-page .article-comment .date-response,
-.article-page .article-comment .btn-edit-response,
-.contain-form-response,
-.forum-page .post-comment .username,
-.forum-page .post-comment .date-response,
-.forum-page .post-comment .btn-edit-response,
-.article-page .article-comment .text-article-response,
-.forum-page .post-comment .text-post-response,
-.content-response-edit,
-.content-response-edit-post
-{
-    margin-left: 50px;
-}
-
-.response-btn,
-.btn-response .btn-edit-response,
-.btn-comment .btn-edit-comment,
-.cancel-comment,
-.cancel-response,
-.cancel-comment-post,
-.cancel-response-post
-{
-    margin: 0 10px 10px 0;
-}
-
-.article-page .article-comment .username-comment,
-.forum-page .post-comment .username-comment,
-.cancel-response,
-.cancel-response-post
-{
-    margin-left: 0;
-}
-
-.article-page .article-comment .text-article-response,
-.forum-page .post-comment .text-post-response,
-.content-response-edit,
-.content-response-edit-post
-{
-    width: 75%;
-}
-
-.article-page .article-comment .btn-comment,
-.forum-page .post-comment .btn-comment,
-.response-article .btn-response,
-.response-post .btn-response
-{
-    display: flex;
-}
-
-.link-return-articles,
-.link-return-posts
-{
-    margin: 20px 10px 0 0;
-}
-
-
-/* Responses comments article */
-
-.contain-form-response form
-{
-    display: flex;
-    flex-direction: column;
-}
-
-.contain-form-response input[type=submit]
-{
-    width: 10%;
-}
-
-
 /* FORUM (POSTS LISTS) */
 
 .navigation > div
@@ -1111,6 +469,11 @@ ion-icon[name=heart-empty]
     .btn-site
     {
         font-size: 12px;
+    }
+
+    footer
+    {
+        text-shadow: 1px 1px 1px black;
     }
 
     /* HOMEPAGE */
@@ -1385,11 +748,11 @@ ion-icon[name=heart-empty]
 
     /* PROFILE PAGE */
 
-    .main-profile
+    .container-profile
     {
-        margin: 0 0 20px 20px;
+        width: 100%;
     }
-    
+
     .profile-show
     {
         flex-direction: column;
@@ -1397,7 +760,6 @@ ion-icon[name=heart-empty]
 
     .avatar
     {
-        margin-left: -12px;
         height: 100%;
         width: 100%;
     }
@@ -1410,6 +772,14 @@ ion-icon[name=heart-empty]
     .info-profile
     {
         margin-top: 30px;
+    }
+
+    .main-profile .link-article-page
+    {
+        border-top: 3px solid #FBFBFB;
+        padding-top: 20px;
+        justify-content: center;
+        margin: 0;
     }
 
 

@@ -46,8 +46,9 @@
                     <div class="like-article">
                         <?php if($this->is_granted(['ROLE_USER'])): ?>
 
-                            <a class="btn-site" href="#">
-                            <label for="toggle-comment"><?= $this->translation('Commenter') ?></label>
+                            <a class="container-comment-article">
+                                <label class="btn-comment-article" title="Commenter article" for="toggle-comment"></label>
+                                <i class="icone-comment-article far fa-comment-dots"></i>
                             </a>
 
                         <?php else: ?>
@@ -63,12 +64,16 @@
                             <form action="<?= $this->router->generate('delete_article') ?>" method="post">
                                 <input type="hidden" name="token_session" value="<?= $this->member->get_token_session() ?>">
                                 <input type="hidden" name="id" value="<?= $article->get_id() ?>">
-                                <input class="btn-site" value="<?= $this->translation('Supprimer article') ?>" type="submit">
+
+                                <div class="container-delete-article">
+                                    <i class="icone-delete-article far fa-trash-alt"></i>
+                                    <input class="btn-delete-article" onclick="return confirm('Etes-vous sûr de vouloir supprimer l\'article ?');" title="Supprimer article" type="submit">
+                                </div>
                             </form>
 
-                            <a><i class="btn-edit-article fas fa-pencil-alt" data-locale="<?= $this->lang ?>" data-toggle="false" data-id="<?= $article->get_id() ?>"></i></a>
+                            <a><i class="btn-edit-article fas fa-pencil-alt" title="Editer article" data-locale="<?= $this->lang ?>" data-toggle="false" data-id="<?= $article->get_id() ?>" style="cursor:pointer;"></i></a>
 
-                            <a class="btn-site cancel-article" href="#"><?= $this->translation('Annuler') ?></a>
+                            <a><i class="cancel-article fas fa-times" title="Annuler" style="color:red; cursor:pointer;"></i></a>
 
                         <?php endif ?>
                     </div>
@@ -109,22 +114,26 @@
 
                         <div class="btn-comment">
                             <?php if($this->voter($comment)): ?>
-                                <a class="btn-site btn-edit-comment" data-locale="<?= $this->lang ?>" data-toggle="false" data-id="<?= $comment->get_id() ?>"><?= $this->translation('Editer commentaire') ?></a>
-
-                                <a class="btn-site cancel-comment cancel-comment<?= $comment->get_id() ?>" href="#"><?= $this->translation('Annuler') ?></a>
+                                <a><i class="btn-edit-comment fas fa-pencil-alt" title="Editer commentaire" data-locale="<?= $this->lang ?>" data-toggle="false" data-id="<?= $comment->get_id() ?>"></i></a>
+                                
+                                <a><i class="fas fa-times cancel-comment cancel-comment<?= $comment->get_id() ?>" title="Annuler" style="color:red; cursor:pointer;"></i></a>
 
                                 <form action="<?= $this->router->generate('delete_comment') ?>" method="post">
                                     <input type="hidden" name="token_session" value="<?= $this->member->get_token_session() ?>">
                                     <input type="hidden" name="form" value="delete-comment-art">
                                     <input type="hidden" name="id" value="<?= $comment->get_id() ?>">
                                     <input type="hidden" name="idSubject" value="<?= $article->get_id() ?>">
-                                    <input class="btn-site" value="<?= $this->translation('Supprimer commentaire') ?>" type="submit">
+
+                                    <div class="container-delete-comment">
+                                        <i class="icone-delete-comment far fa-trash-alt"></i>
+                                        <input class="btn-delete-comment" onclick="return confirm('Etes-vous sûr de vouloir supprimer ce commentaire ?');" title="Supprimer commentaire" type="submit">
+                                    </div>
                                 </form>
                             <?php endif ?>
                         </div>
 
                         <?php if($this->is_granted(['ROLE_USER'])): ?>
-                            <a class="btn-site response-btn" href="#" data-id="<?= $comment->get_id() ?>"><?= $this->translation('Répondre') ?></a>
+                            <a><i class="response-btn fas fa-reply fa-rotate-180" title="Répondre" data-id="<?= $comment->get_id() ?>"></i></a>
                         <?php endif ?>
                     </article>
 
@@ -145,16 +154,20 @@
 
                             <div class="btn-response">
                                 <?php if($this->voter($response)): ?>
-                                    <a class="btn-site btn-edit-response" data-locale="<?= $this->lang ?>" data-toggle="false" data-id="<?= $response->get_id() ?>"><?= $this->translation('Editer réponse') ?></a>
+                                    <a><i class="btn-edit-response fas fa-pencil-alt" title="Editer réponse" data-locale="<?= $this->lang ?>" data-toggle="false" data-id="<?= $response->get_id() ?>"></i></a>
                                     
-                                    <a class="btn-site cancel-response cancel-response<?= $response->get_id() ?>" href="#"><?= $this->translation('Annuler') ?></a>
+                                    <a><i class="fas fa-times cancel-response cancel-response<?= $response->get_id() ?>" title="Annuler" style="color:red; cursor:pointer;"></i></a>
 
                                     <form action="<?= $this->router->generate('delete_comment') ?>" method="post">
                                         <input type="hidden" name="token_session" value="<?= $this->member->get_token_session() ?>">
                                         <input type="hidden" name="form" value="delete-response-art">
                                         <input type="hidden" name="id" value="<?= $response->get_id() ?>">
                                         <input type="hidden" name="idSubject" value="<?= $article->get_id() ?>">
-                                        <input class="btn-site" type="submit" value="<?= $this->translation('Supprimer réponse') ?>">
+
+                                        <div class="container-delete-response">
+                                            <i class="icone-delete-response far fa-trash-alt"></i>
+                                            <input class="btn-delete-response" title="Supprimer réponse" type="submit" onclick="return confirm('Etes-vous sûr de vouloir supprimer cette réponse ?');">
+                                        </div>
                                     </form>
                                 <?php endif ?>
                             </div>

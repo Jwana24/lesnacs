@@ -1,0 +1,99 @@
+/* PROFILE PAGE */
+
+.main-profile
+{
+    margin-top: 10px;
+    background-color: #FBFBFB;
+}
+
+.main-profile i
+{
+    font-size: 25px;
+}
+
+.container-profile
+{
+    width: 70%;
+    height: 100%;
+    margin: 0 auto;
+    background-color: white;
+}
+
+.profile-show
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.avatar
+{
+    object-fit: cover;
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+}
+
+.info-profile
+{
+    margin: 60px 25px 0 25px;
+}
+
+.username-profile
+{
+    font-weight: 800;
+    margin-bottom: 40px;
+}
+
+.member-description
+{
+    width: 100%;
+    word-wrap: break-word;
+}
+
+.btn-edit-member
+{
+    color: black;
+}
+
+.cancel-member
+{
+    margin-left: 10px;
+}
+
+.main-profile .link-article-page
+{
+    margin: 20px 0 10px 60px;
+    padding-bottom: 20px;
+}
+
+.container-delete-account
+{
+    position: relative;
+    height: 100%;
+    width: 50px;
+    margin-left: 10px;
+}
+
+.btn-delete-account,
+.icone-delete-account
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: translateX(25%);
+}
+
+.btn-delete-account
+{
+    opacity: 0;
+    z-index: 1;
+}
+
+/* Dynamics edit member */
+.form-edit-member
+{
+    margin: 15px 0 0 20px;
+}

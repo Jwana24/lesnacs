@@ -1,0 +1,136 @@
+/* HOME PAGE */
+
+.carousel-item
+{
+    position: relative;
+}
+
+.carousel-item span
+{
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    font-size: 2.5rem;
+    top: 100px;
+    left: 100px;
+    color: #fff;
+    text-shadow: 3px 3px 2px #7f8c8d;
+}
+
+.carousel-item .span-cat
+{
+    color: #7f8c8d;
+}
+
+.carousel-item img
+{
+    object-fit: contain;
+}
+
+.homepage,
+.article-box,
+.article-box .article
+{
+    display: flex;
+}
+
+.homepage
+{
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+    position: relative;
+    padding: 0;
+}
+
+.sidebox
+{
+    right: 0;
+    width: 375px;
+    padding: 40px;
+    background: #FBFBFB;
+    position: absolute;
+}
+
+.sidebox h4
+{
+    font-size: 30px;
+    margin: 15px 0;
+}
+
+.sidebox form
+{
+    font-size: 17px;
+}
+
+.homepage,
+.sidebox form input,
+.sidebox .area-message
+{
+    width: 100%;
+}
+
+.article-box,
+.sidebox
+{
+    height: 100%;
+}
+
+.article-box
+{
+    flex-direction: column;
+    width: 70%;
+}
+
+.article-box .article
+{
+    margin-bottom: 50px;
+}
+
+.article-box .article .div-img img
+{
+    width: 200px;
+}
+
+.article-box,
+.article-box .article .containt-article
+{
+    margin-left: 20px;
+}
+
+.article:first-child,
+.btn-submit-contact
+{
+    margin-top: 20px;
+}
+
+.article-box .title-article,
+.article-box .text-article
+{
+    word-wrap: break-word;
+}
+
+.article-box .title-article
+{
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.article-box .date-article
+{
+    font-style: italic;
+    font-size: 14px;
+    font-weight: 100;
+}
+
+.article-box .text-article
+{
+    font-size: 18px;
+    font-weight: 100;
+}
+
+.message-cookie
+{
+    z-index: 10;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}

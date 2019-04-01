@@ -452,6 +452,7 @@ class MemberController extends Controller
             {
                 $this->addMessages('Une erreur s\'est produite', 'error');
             }
+            unset($_SESSION['member']);
             header('Location: http://localhost/accueil/');
         }
     }
