@@ -491,6 +491,7 @@ footer .logo-30MAmis:hover
     .carousel-item
     {
         height: 35vh;
+        background-color: white;
     }
 
     .carousel-item span
@@ -555,7 +556,7 @@ footer .logo-30MAmis:hover
     .sidebox
     {
         position: initial;
-        width: 100vw;
+        width: calc(100vw - 80px);
     }
 
     .article-box .text-article,

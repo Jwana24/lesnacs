@@ -65,7 +65,7 @@
 
                                 <a class="btn-site btn-edit-post"  data-locale="<?= $this->lang ?>" data-toggle="false" data-id="<?= $postF->get_id() ?>"><?= $this->translation('Editer post') ?></a>
 
-                                <a class="btn-site cancel-post" href="#"><?= $this->translation('Annuler') ?></a>
+                                <a class="cancel-post" href="#"><?= $this->translation('Annuler') ?></a>
                             </div>
 
 

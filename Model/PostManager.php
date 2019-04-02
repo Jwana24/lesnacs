@@ -29,33 +29,49 @@ class PostManager extends Manager
 
     public function get($id)
     {
-        $request = $this->_bdd->prepare('SELECT * FROM comment WHERE id_post_FK = :id');
+        $request = $this->_bdd->prepare('SELECT
+        comment.id as comId,
+        comment.text_comment,
+        comment.date_comment,
+        comment.id_member_FK as comIdMemberFK,
+        comment.id_parent,
+        comMember.id as comMemberId,
+        comMember.username as comMemberUsername,
+        member.*,
+        post.*
+        FROM post
+        LEFT JOIN member
+        ON post.id_member_FK = member.id
+        LEFT JOIN (comment, member as comMember)
+        ON post.id = comment.id_post_FK AND comment.id_member_FK = comMember.id
+        WHERE post.id = :id');
+
         $request->bindValue(':id', (int)$id, PDO::PARAM_INT);
         $request->execute();
+        $results = $request->fetchAll(PDO::FETCH_ASSOC);
+        $firstResult = $results[0];
 
-        if($request->rowCount() > 0)
+        $member = new Member();
+        $member
+            ->set_id($firstResult['id_member_FK'])
+            ->set_username($firstResult['username']);
+                
+        $post = new Post();
+        $post
+            ->set_id($firstResult['id'])
+            ->set_title_post($firstResult['title_post'])
+            ->set_text_post($firstResult['text_post'])
+            ->set_text_post_notags(strip_tags($firstResult['text_post']))
+            ->set_date_post($firstResult['date_post'])
+            ->set_categorie($firstResult['categorie'])
+            ->set_resolve($firstResult['resolve'])
+            ->set_comments([])
+            ->set_member($member);
+
+        if($firstResult['comId'] !== NULL)
         {
-            $request = $this->_bdd->prepare('SELECT
-            comment.id as comId,
-            comment.text_comment,
-            comment.date_comment,
-            comment.id_member_FK as comIdMemberFK,
-            comment.id_parent,
-            comMember.id as comMemberId,
-            comMember.username as comMemberUsername,
-            member.*,
-            post.*
-            FROM post
-            INNER JOIN (comment, member, member as comMember)
-            ON (post.id = comment.id_post_FK AND comment.id_member_FK = member.id AND comment.id_member_FK = comMember.id)
-            WHERE post.id = :id');
-
-            $request->bindValue(':id', (int)$id, PDO::PARAM_INT);
-            $request->execute();
-            $results = $request->fetchAll(PDO::FETCH_ASSOC);
-
             $comments = [];
-
+    
             $arrayComments = [];
             $arrayResponses = [];
 
@@ -70,7 +86,7 @@ class PostManager extends Manager
                     $arrayResponses[] = $result;
                 }
             }
-            
+
             foreach($arrayComments as $comment)
             {
                 $responses = [];
@@ -112,53 +128,10 @@ class PostManager extends Manager
 
                 $comments[] = $finalComment;
             }
-
-            $firstResult = $results[0];
-            $member = new Member();
-            $member
-                ->set_id($firstResult['id_member_FK'])
-                ->set_username($firstResult['username']);
-                
-            $post = new Post();
-            $post
-                ->set_id($firstResult['id'])
-                ->set_title_post($firstResult['title_post'])
-                ->set_text_post($firstResult['text_post'])
-                ->set_text_post_notags(strip_tags($firstResult['text_post']))
-                ->set_date_post($firstResult['date_post'])
-                ->set_categorie($firstResult['categorie'])
-                ->set_resolve($firstResult['resolve'])
-                ->set_comments($comments)
-                ->set_member($member);
+            $post->set_comments($comments);
+        }
 
             return $post;
-        }
-        else
-        {
-            $request = $this->_bdd->prepare('SELECT *, post.id FROM post INNER JOIN member ON member.id = post.id_member_FK WHERE post.id = :id');
-            $request->bindValue(':id', (int)$id, PDO::PARAM_INT);
-            $request->execute();
-            $result = $request->fetch(PDO::FETCH_ASSOC);
-
-            $member = new Member();
-            $member
-                ->set_id($result['id_member_FK'])
-                ->set_username($result['username']);
-
-            $post = new Post();
-            $post
-                ->set_id($result['id'])
-                ->set_title_post($result['title_post'])
-                ->set_text_post($result['text_post'])
-                ->set_text_post_notags(strip_tags($result['text_post']))
-                ->set_date_post($result['date_post'])
-                ->set_categorie($result['categorie'])
-                ->set_resolve($result['resolve'])
-                ->set_member($member)
-                ->set_comments([]);
-
-            return $post;
-        }
     }
 
     public function edit(Post $post)
