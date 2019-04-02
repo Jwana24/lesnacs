@@ -18,7 +18,8 @@ if(document.querySelector('.btn-edit-post'))
             formEdit.style.display = 'initial';
             cancelButton.style.display = 'inline-block';
             e.target.dataset['toggle'] = 'true';
-            e.target.innerText = trans(e.target.dataset['locale'], 'Enregistrer', 'Save');
+            e.target.classList.remove('fa-pencil-alt');
+            e.target.classList.add('fa-check');
         }
         else if(e.target.dataset['toggle'] == 'true')
         {
@@ -52,15 +53,8 @@ if(document.querySelector('.btn-edit-post'))
             formEdit.style.display = 'none';
             cancelButton.style.display = 'none';
             e.target.dataset['toggle'] = 'false';
-
-            if(document.body.clientWidth < 415)
-            {
-                e.target.innerText = trans(e.target.dataset['locale'], 'Editer', 'Edit');
-            }
-            else
-            {
-                e.target.innerText = trans(e.target.dataset['locale'], 'Editer le post', 'Edit post');
-            }
+            e.target.classList.remove('fa-check');
+            e.target.classList.add('fa-pencil-alt');
         }
 
         cancelButton.addEventListener('click', (f) =>
@@ -72,15 +66,8 @@ if(document.querySelector('.btn-edit-post'))
             formEdit.style.display = 'none';
             cancelButton.style.display = 'none';
             e.target.dataset['toggle'] = 'false';
-            
-            if(document.body.clientWidth < 415)
-            {
-                e.target.innerText = trans(e.target.dataset['locale'], 'Editer', 'Edit');
-            }
-            else
-            {
-                e.target.innerText = trans(e.target.dataset['locale'], 'Editer le post', 'Edit post');
-            }
+            e.target.classList.remove('fa-check');
+            e.target.classList.add('fa-pencil-alt');
         });
     })
 }

@@ -73,8 +73,9 @@ $languages = [
 
         // FORUM PAGE (show)
         'Post résolu' => 'Post resolved',
-        'Supprimer post' => 'Delete post',
-        'Editer post' => 'Edit post',
+        'Supprimer le post' => 'Delete post',
+        'Editer le post' => 'Edit post',
+        'Commenter le post' => 'Comment post',
         'Résoudre' => 'Resolved',
         'Ce membre n\'existe plus' => 'This member doesn\'t exist anymore',
         'Revenir à la liste des posts' => 'Return to the posts list',

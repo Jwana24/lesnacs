@@ -5,14 +5,14 @@
     <div class="forum-page">
         <section class="container-forum">
             <article class="forum-show">
-                <h2 class="title title-post"><?= $postF->get_title_post() ?>
+                <h2 class="title title-post"><?= $postF->get_title_post() ?> </h2>
 
+                <h2 class="text-resolve">
                     <?php if($postF->get_resolve() == 'resolve'): ?>
-                        <span><br>[<?= $this->translation('Post résolu') ?>]</span>
+                        <span>[<?= $this->translation('Post résolu') ?>]</span>
                     <?php endif ?>
-
                 </h2>
-                <!-- {% if app.session.get('_locale') == 'fr_FR' %} -->
+
                 <p class="date"><?= $postF->get_date_post() ?></p>
 
                 <?php if($postF->get_id_member_FK() != 'NULL'): ?>
@@ -40,9 +40,12 @@
                     <div class="btn-comment-post">
                         <?php if($postF->get_resolve() != 'resolve'): ?>
                             <?php if($this->is_granted(['ROLE_USER'])): ?>
-                                <a class="btn-site" href="#">
-                                    <label for="toggle-comment"><?= $this->translation('Commenter') ?></label>
+
+                                <a class="container-comment-post">
+                                    <label class="label-comment-post" title="<?= $this->translation('Commenter le post') ?>" for="toggle-comment"></label>
+                                    <i class="icone-comment-post far fa-comment-dots"></i>
                                 </a>
+
                             <?php else: ?>
 
                                 <p>Vous devez être connecté pour pouvoir liker ou commenter un post</p>
@@ -58,22 +61,23 @@
                             <form action="<?= $this->router->generate('delete_post') ?>" method="post">
                                 <input type="hidden" name="token_session" value="<?= $this->member->get_token_session() ?>">
                                 <input type="hidden" name="id" value="<?= $postF->get_id() ?>">
-                                <input class="btn-site" value="<?= $this->translation('Supprimer post') ?>" type="submit">
+                                <div class="container-delete-post">
+                                    <i class="icone-delete-post far fa-trash-alt"></i>
+                                    <input class="btn-delete-post" onclick="return confirm('Etes-vous sûr de vouloir supprimer le post ?');" title="<?= $this->translation('Supprimer le post') ?>" type="submit">
+                                </div>
                             </form>
 
                             <div>
 
-                                <a class="btn-site btn-edit-post"  data-locale="<?= $this->lang ?>" data-toggle="false" data-id="<?= $postF->get_id() ?>"><?= $this->translation('Editer post') ?></a>
+                                <a><i class="btn-edit-post fas fa-pencil-alt" title="<?= $this->translation('Editer le post') ?>" data-locale="<?= $this->lang ?>" data-toggle="false" data-id="<?= $postF->get_id() ?>"style="cursor:pointer;"></i></a>
 
-                                <a class="cancel-post" href="#"><?= $this->translation('Annuler') ?></a>
+                                <a><i class="cancel-post fas fa-times" title="<?= $this->translation('Annuler') ?>" style="color:red; cursor:pointer;"></i></a>
                             </div>
 
-
-                            <?php if($this->voter($postF) && $postF->get_resolve() != 'resolve'): ?> <!-- the button is show only if the post is not resolved and if the connected user is Admin, or has the post -->
-                                <form method="post">
-                                    <input type="hidden" name="form" value="resolve">
-                                    <input class="btn-site btn-resolve" type="submit" value="<?= $this->translation('Résoudre') ?>">
-                                </form>
+                            <?php if($this->voter($postF) && $postF->get_resolve() != 'resolve'): ?> <!-- if the connected user is Admin, or has the post and the post is not resolved -->
+                                <i class="icone-resolve resolve fas fa-lock-open" data-locale="<?= $this->lang ?>" data-id="<?= $postF->get_id() ?>"></i>
+                            <?php else: ?>
+                                <i class="fas fa-lock"></i>
                             <?php endif ?>
 
                         <?php endif ?>
@@ -118,29 +122,31 @@
 
                         <div class="btn-comment">
                             <?php if($this->voter($comment)): ?>
-                                <a class="btn-site btn-edit-comment" data-locale="<?= $this->lang ?>" data-toggle="false" data-id="<?= $comment->get_id() ?>"><?= $this->translation('Editer commentaire') ?></a>
+                                <a><i class="btn-edit-comment fas fa-pencil-alt" title="<?= $this->translation('Editer le commentaire') ?>" data-locale="<?= $this->lang ?>" data-toggle="false" data-id="<?= $comment->get_id() ?>"></i></a>
 
-                                <a class="btn-site cancel-comment cancel-comment<?= $comment->get_id() ?>" href="#"><?= $this->translation('Annuler') ?></a>
+                                <a><i class="fas fa-times cancel-comment cancel-comment<?= $comment->get_id() ?>" title="<?= $this->translation('Annuler') ?>" style="color:red; cursor:pointer;"></i></a>
 
                                 <form action="<?= $this->router->generate('delete_comment') ?>" method="post">
                                     <input type="hidden" name="token_session" value="<?= $this->member->get_token_session() ?>">
                                     <input type="hidden" name="form" value="delete-comment-post">
                                     <input type="hidden" name="id" value="<?= $comment->get_id() ?>">
                                     <input type="hidden" name="idSubject" value="<?= $postF->get_id() ?>">
-                                    <input class="btn-site" value="<?= $this->translation('Supprimer commentaire') ?>" type="submit">
+                                    <div class="container-delete-comment">
+                                        <i class="icone-delete-comment far fa-trash-alt"></i>
+                                        <input class="btn-delete-comment" onclick="return confirm('Etes-vous sûr de vouloir supprimer ce commentaire ?');" title="<?= $this->translation('Supprimer le commentaire') ?>" type="submit">
+                                    </div>
                                 </form>
                             <?php endif ?>
                         </div>
                         
                         <?php if($this->is_granted(['ROLE_USER']) && $postF->get_resolve() != 'resolve'): ?>
-                            <a class="btn-site response-btn" href="#" data-id="<?= $comment->get_id() ?>"><?= $this->translation('Répondre') ?></a>
+                            <a class="btn-reply"><i class="response-btn fas fa-reply fa-rotate-180" title="<?= $this->translation('Répondre') ?>" data-id="<?= $comment->get_id() ?>"></i></a>
                         <?php endif ?>
                     </article>
 
                     <?php foreach($comment->get_responses() as $response): ?>
 
                         <article class="response-post">
-                            <!-- {% if app.session.get('_locale') == 'fr_FR' %} -->
                             <p class="date date-response"><?= $response->get_date_comment() ?></p>
                             <p class="username"><?= $response->get_member()->get_username() ?></p>
                             <p class="text-post-response content-response<?= $response->get_id() ?>"><?= $response->get_text_comment() ?></p>
@@ -154,16 +160,19 @@
 
                             <div class="btn-response">
                                 <?php if($this->voter($response)): ?>
-                                    <a class="btn-site btn-edit-response" data-locale="<?= $this->lang ?>" data-toggle="false" data-id="<?= $response->get_id() ?>"><?= $this->translation('Editer réponse') ?></a>
+                                    <a><i class="btn-edit-response fas fa-pencil-alt" title="<?= $this->translation('Editer la réponse') ?>" data-locale="<?= $this->lang ?>" data-toggle="false" data-id="<?= $response->get_id() ?>"></i></a>
                                     
-                                    <a class="btn-site cancel-response cancel-response<?= $response->get_id() ?>" href="#"><?= $this->translation('Annuler') ?></a>
+                                    <a><i class="fas fa-times cancel-response cancel-response<?= $response->get_id() ?>" title="<?= $this->translation('Annuler') ?>" style="color:red; cursor:pointer;"></i></a>
 
                                     <form action="<?= $this->router->generate('delete_comment') ?>" method="post">
                                         <input type="hidden" name="token_session" value="<?= $this->member->get_token_session() ?>">
                                         <input type="hidden" name="form" value="delete-response-post">
                                         <input type="hidden" name="id" value="<?= $response->get_id() ?>">
                                         <input type="hidden" name="idSubject" value="<?= $postF->get_id() ?>">
-                                        <input class="btn-site" type="submit" value="<?= $this->translation('Supprimer réponse') ?>">
+                                        <div class="container-delete-response">
+                                            <i class="icone-delete-response far fa-trash-alt"></i>
+                                            <input class="btn-delete-response" title="<?= $this->translation('Supprimer réponse') ?>" type="submit" onclick="return confirm('Etes-vous sûr de vouloir supprimer cette réponse ?');">
+                                        </div>
                                     </form>
                                 <?php endif ?>
                             </div>
@@ -217,5 +226,6 @@
 <script src="<?= $this->asset('js/editResponse.js') ?>"></script>
 <script src="<?= $this->asset('js/toggle-response.js') ?>"></script>
 <script src="<?= $this->asset('js/textTransform.js') ?>"></script>
+<script src="<?= $this->asset('js/resolvePost.js') ?>"></script>
 
 <?php require '../View/footer.php' ?>

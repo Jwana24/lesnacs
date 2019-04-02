@@ -34,7 +34,7 @@
                     <div class="member-like" data-like="false" style="display:none"></div>
                 <?php endif ?>
 
-                <div class="like" data-id="<?= $article->get_id() ?>">
+                <div class="like" data-tokencsrf="<?= $this->member->get_token_session() ?>" data-id="<?= $article->get_id() ?>">
                     <?php if($this->is_granted(['ROLE_USER'])): ?>
                         <ion-icon name="heart"></ion-icon>
                         <ion-icon name="heart-empty"></ion-icon>
@@ -100,7 +100,6 @@
             <?php foreach($article->get_comments() as $comment): ?>
                 <section class="comment-response-article">
                     <article class="comment-article">
-                        <!-- {% if app.session.get('_locale') == 'fr_FR' %} -->
                         <p class="date" style="margin-top:40px;"><?= $comment->get_date_comment() ?></p>
                         <p class="username username-comment"><?= $comment->get_member()->get_username() ?></p>
                         <p class="text-article-comment content-comment<?= $comment->get_id() ?>"><?= $comment->get_text_comment() ?></p>

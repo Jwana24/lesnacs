@@ -63,6 +63,14 @@ class PostController extends Controller
             if(!empty($_POST))
             {
                 $post = array_map('trim', array_map('strip_tags', $_POST));
+                
+                if(isset($post['resolve-post']) && $post['resolve-post'] == 'true')
+                {
+                    $postF->set_resolve('resolve');
+                    $postManager->edit($postF);
+                    echo json_encode(['content' => true]);
+                    return null;
+                }
 
                 if(isset($post['form']) && !empty($post['form']))
                 {
@@ -89,12 +97,6 @@ class PostController extends Controller
                             ->set_id_parent($post['id_comment']);
 
                         $commentManager->addResponsePost($comment);
-                    }
-                    // If we detect a 'resolve' value in the post, we update the field 'resolve' in the post on 'resolve'
-                    if($post['form'] == 'resolve')
-                    {
-                        $postF->set_resolve('resolve');
-                        $postManager->edit($postF);
                     }
                 }
             }

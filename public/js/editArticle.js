@@ -20,7 +20,6 @@ if(document.querySelector('.btn-edit-article'))
             formEdit.style.display = 'initial';
             cancelButton.style.display = 'inline-block';
             e.target.dataset['toggle'] = 'true';
-            // e.target.innerText = trans(e.target.dataset['locale'], 'Enregistrer', 'Save'); // a custom function to translate the word on the button
             e.target.classList.remove('fa-pencil-alt');
             e.target.classList.add('fa-check');
         }
@@ -58,7 +57,6 @@ if(document.querySelector('.btn-edit-article'))
             formEdit.style.display = 'none';
             cancelButton.style.display = 'none';
             e.target.dataset['toggle'] = 'false';
-            // e.target.innerText = trans(e.target.dataset['locale'], 'Editer l\'article', 'Edit article');
             e.target.classList.remove('fa-check');
             e.target.classList.add('fa-pencil-alt');
         }
@@ -72,7 +70,6 @@ if(document.querySelector('.btn-edit-article'))
             formEdit.style.display = 'none';
             cancelButton.style.display = 'none';
             e.target.dataset['toggle'] = 'false';
-            // e.target.innerText = trans(e.target.dataset['locale'], 'Editer l\'article', 'Edit article');
             e.target.classList.remove('fa-check');
             e.target.classList.add('fa-pencil-alt');
         });

@@ -374,6 +374,15 @@ footer .logo-30MAmis:hover
     margin-left: 20px;
 }
 
+.label-comment-post
+{
+    width: 20px;
+}
+
+.btn-comment-post
+{
+    display: flex;
+}
 
 /* ADD POST PAGE */
 
