@@ -75,7 +75,7 @@
                             </div>
 
                             <?php if($this->voter($postF) && $postF->get_resolve() != 'resolve'): ?> <!-- if the connected user is Admin, or has the post and the post is not resolved -->
-                                <i class="icone-resolve resolve fas fa-lock-open" data-locale="<?= $this->lang ?>" data-id="<?= $postF->get_id() ?>"></i>
+                                <i class="icone-resolve resolve fas fa-lock-open" data-locale="<?= $this->lang ?>" data-id="<?= $postF->get_id() ?>" style="cursor:pointer;" title="<?= $this->translation('Résoudre ce post') ?>"></i>
                             <?php else: ?>
                                 <i class="fas fa-lock"></i>
                             <?php endif ?>

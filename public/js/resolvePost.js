@@ -10,24 +10,37 @@ if(document.querySelector('.resolve'))
 
     function resolved(e)
     {
-        e.preventDefault();
-        let data = new FormData();
-
-        data.append('resolve-post', 'true');
-        fetch('/forum/' +resolve.dataset['id']+'/', {method: 'POST', body:data}).then(promise => promise.text()).then(promise =>
+        if(confirm('Etes-vous sûr de vouloir résoudre le post ?'))
         {
-            let isResolved = JSON.parse(promise);
-
-            if(isResolved.content)
+            e.preventDefault();
+            let data = new FormData();
+    
+            data.append('resolve-post', 'true');
+            fetch('/forum/' +resolve.dataset['id']+'/', {method: 'POST', body:data}).then(promise => promise.text()).then(promise =>
             {
-                e.target.classList.remove('icone-resolve', 'resolve', 'fa-lock-open');
-                e.target.classList.add('fa-lock');
-                textPostResolved.innerHTML = `<span>[${trans(e.target.dataset['locale'], 'Post résolu', 'Post resolved')}]</span>`;
-                commentBtn.remove();
-                replyBtn.remove();
+                let isResolved = JSON.parse(promise);
+    
+                if(isResolved.content)
+                {
+                    e.target.classList.remove('icone-resolve', 'resolve', 'fa-lock-open');
+                    e.target.classList.add('fa-lock');
+                    e.target.setAttribute('title', '');
+                    e.target.setAttribute('style', 'cursor:initial');
+                    textPostResolved.innerHTML = `<span>[${trans(e.target.dataset['locale'], 'Post résolu', 'Post resolved')}]</span>`;
 
-                resolve.removeEventListener('click', resolved);
-            }
-        })
+                    if(document.querySelector('.container-comment-post'))
+                    {
+                        commentBtn.remove();
+                    }
+                    
+                    if(document.querySelector('.btn-reply'))
+                    {
+                        replyBtn.remove();
+                    }
+
+                    resolve.removeEventListener('click', resolved);
+                }
+            })
+        }
     }
 }
