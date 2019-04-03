@@ -2,6 +2,16 @@
 
 class AdminSecurityController extends Controller
 {
+    public function __construct($router)
+    {
+        parent::__construct($router);
+
+        if(!$this->is_granted([]))
+        {
+            header('Location:http://localhost/accueil/');
+        }
+    }
+
     // Members list
     public function list()
     {

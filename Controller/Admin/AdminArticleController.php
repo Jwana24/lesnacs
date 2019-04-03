@@ -2,6 +2,16 @@
 
 class AdminArticleController extends Controller
 {
+    public function __construct($router)
+    {
+        parent::__construct($router);
+
+        if(!$this->is_granted([]))
+        {
+            header('Location:http://localhost/accueil/');
+        }
+    }
+
     public function add()
     {
         $titlePage = $this->translation('Ajouter un article');
@@ -186,6 +196,13 @@ class AdminArticleController extends Controller
                 $this->addMessages($this->translation('Une erreur s\'est produite'), 'error');
             }
         }
-        header('Location: http://localhost/article/');
+        if(!$this->is_granted([]))
+        {
+            header('Location:http://localhost/accueil/');
+        }
+        else
+        {
+            header('Location: http://localhost/article/');
+        }
     }
 }
