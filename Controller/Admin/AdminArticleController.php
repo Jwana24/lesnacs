@@ -173,16 +173,16 @@ class AdminArticleController extends Controller
             {
                 if($articleManager->delete($post['id']))
                 {
-                    $this->addMessages('L\'article a été supprimé', 'success');
+                    $this->addMessages($this->translation('L\'article a été supprimé'), 'success');
                 }
                 else
                 {
-                    $this->addMessages('Erreur lors de la suppression de l\'article', 'error');
+                    $this->addMessages($this->translation('Erreur lors de la suppression de l\'article'), 'error');
                 }
             }
             else
             {
-                $this->addMessages('Une erreur s\'est produite', 'error');
+                $this->addMessages($this->translation('Une erreur s\'est produite'), 'error');
             }
         }
         header('Location: http://localhost/article/');

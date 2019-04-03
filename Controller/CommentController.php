@@ -82,16 +82,16 @@ class CommentController extends Controller
             {
                 if($commentManager->delete($post['id']))
                 {
-                    $this->addMessages('Le commentaire a été supprimé', 'success');
+                    $this->addMessages($this->translation('Le commentaire a été supprimé'), 'success');
                 }
                 else
                 {
-                    $this->addMessages('Erreur lors de la suppression du commentaire', 'error');
+                    $this->addMessages($this->translation('Erreur lors de la suppression du commentaire'), 'error');
                 }
             }
             else
             {
-                $this->addMessages('Une erreur s\'est produite', 'error');
+                $this->addMessages($this->translation('Une erreur s\'est produite'), 'error');
             }
         }
 

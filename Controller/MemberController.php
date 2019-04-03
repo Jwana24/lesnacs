@@ -40,25 +40,25 @@ class MemberController extends Controller
                         $_SESSION['member'] = serialize($member);
                         // Return our js messages in an json object
                         echo json_encode(['statut' => 'success']);
-                        $this->addMessages('Vous êtes connecté !', 'success');
+                        $this->addMessages($this->translation('Vous êtes connecté !'), 'success');
                     }
                     else
                     {
                         echo json_encode(['statut' => 'error']);
-                        $this->addMessages('Erreur d\'authentification', 'error');
+                        $this->addMessages($this->translation('Erreur d\'authentification'), 'error');
                     }
                 }
                 else
                 {
                     echo json_encode(['statut' => 'error']);
-                    $this->addMessages('Une erreur s\'est produite :(', 'error');
+                    $this->addMessages($this->translation('Une erreur s\'est produite'), 'error');
                 }
 
             }
             else
             {
                 echo json_encode(['statut' => 'error']);
-                $this->addMessages('Une erreur s\'est produite :(', 'error');
+                $this->addMessages($this->translation('Une erreur s\'est produite'), 'error');
             }
         }
     }
@@ -306,7 +306,7 @@ class MemberController extends Controller
                 ],
                 'statut' => 'success']);
 
-                $this->addMessages('Le profil a bien été édité', 'success');
+                $this->addMessages($this->translation('Le profil a bien été édité'), 'success');
             }
             else
             {
@@ -441,16 +441,16 @@ class MemberController extends Controller
                 {
                     $postManager = new PostManager();
                     $postManager->setNullById($post['id']);
-                    $this->addMessages('Le compte a été supprimé', 'success');
+                    $this->addMessages($this->translation('Le compte a été supprimé'), 'success');
                 }
                 else
                 {
-                    $this->addMessages('Erreur lors de la suppression du compte', 'error');
+                    $this->addMessages($this->translation('Erreur lors de la suppression du compte'), 'error');
                 }
             }
             else
             {
-                $this->addMessages('Une erreur s\'est produite', 'error');
+                $this->addMessages($this->translation('Une erreur s\'est produite'), 'error');
             }
             unset($_SESSION['member']);
             header('Location: http://localhost/accueil/');

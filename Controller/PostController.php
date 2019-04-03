@@ -210,16 +210,16 @@ class PostController extends Controller
             {
                 if($postManager->delete($post['id']))
                 {
-                    $this->addMessages('Le post a été supprimé', 'success');
+                    $this->addMessages($this->translation('Le post a été supprimé'), 'success');
                 }
                 else
                 {
-                    $this->addMessages('Erreur lors de la suppression du post', 'error');
+                    $this->addMessages($this->translation('Erreur lors de la suppression du post'), 'error');
                 }
             }
             else
             {
-                $this->addMessages('Une erreur s\'est produite', 'error');
+                $this->addMessages($this->translation('Une erreur s\'est produite'), 'error');
             }
         }
         header('Location: http://localhost/forum/');

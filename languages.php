@@ -2,6 +2,10 @@
 
 $languages = [
     'en' => [
+        // GENERAL
+        'Une erreur s\'est produite' => 'An error has been detected',
+        'Erreur d\'authentification' => 'Invalid credentials', // during the login
+
         // TITLE'S PAGES
         'Tous nos articles' => 'All our articles',
 
@@ -50,10 +54,12 @@ $languages = [
         // LIST ARTICLES PAGE
         'Les articles' => 'The articles',
         'Ajouter un article' => 'Add article',
+        'L\'article a été supprimé' => 'The article has been deleted',
 
         // LIST FORUM PAGE
         'Les posts' => 'The posts',
         'Ajouter un post' => 'Add post',
+        'Le post a été supprimé' => 'The post has been deleted',
         // animals category
         'Catégorie' => 'Category',
         'Ajouter un post' => 'Add post',
@@ -68,17 +74,22 @@ $languages = [
         'Editer l\'article' => 'Edit article',
         'Editer le commentaire' => 'Edit comment',
         'Supprimer le commentaire' => 'Delete comment',
+        'Le commentaire a été supprimé' => 'The comment has been deleted',
+        'Erreur lors de la suppression du commentaire' => 'Error during deleting comment',
         'Editer la réponse' => 'Edit response',
         'Supprimer la réponse' => 'Delete response',
+        'Erreur lors de la suppression de l\'article' => 'Error during deleting article',
 
         // FORUM PAGE (show)
         'Post résolu' => 'Post resolved',
+        'Résoudre ce post' => 'Resolve this post',
         'Supprimer le post' => 'Delete post',
         'Editer le post' => 'Edit post',
         'Commenter le post' => 'Comment post',
         'Résoudre' => 'Resolved',
         'Ce membre n\'existe plus' => 'This member doesn\'t exist anymore',
         'Revenir à la liste des posts' => 'Return to the posts list',
+        'Erreur lors de la suppression du post' => 'Error during deleting post',
         
         // ARTICLE PAGE - FORUM PAGE (show)
         'Commenter' => 'Comment',
@@ -92,6 +103,10 @@ $languages = [
         // PROFILE PAGE
         'Email' => 'Mail',
         'Supprimer le compte' => 'Delete account',
-        'Editer le compte' => 'Edit account'
+        'Editer le compte' => 'Edit account',
+        'Le profil a bien été édité' => 'The profile has been edited',
+        'Le compte a été supprimé' => 'The account has been deleted', // appear on the homepage
+        'Erreur lors de la suppression du compte' => 'Error for delete account', // appear on the homepage
+        'Vous êtes connecté !' => 'You are login !' // appear on the homepage
     ]
 ];

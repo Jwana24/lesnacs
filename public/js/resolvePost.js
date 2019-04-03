@@ -10,7 +10,7 @@ if(document.querySelector('.resolve'))
 
     function resolved(e)
     {
-        if(confirm('Etes-vous sûr de vouloir résoudre le post ?'))
+        if(confirm(trans(e.target.dataset['locale'], 'Etes-vous sûr de vouloir résoudre le post ?', 'Do you want to resolve this post ?')))
         {
             e.preventDefault();
             let data = new FormData();
