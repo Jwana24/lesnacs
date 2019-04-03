@@ -259,9 +259,14 @@ footer .logo-30MAmis:hover
 /* ARTICLE PAGE (COMMENTS & RESPONSES) */
 /* Admin */
 
+.add-article-page
+{
+    padding-top: 80px;
+}
+
 .form-add-article
 {
-    margin-top: 100px;
+    padding-top: 100px;
 }
 
 
@@ -385,6 +390,11 @@ footer .logo-30MAmis:hover
 }
 
 /* ADD POST PAGE */
+
+.add-post-page
+{
+    padding-top: 80px;
+}
 
 .btn-send-new-post,
 .btn-send-new-article,

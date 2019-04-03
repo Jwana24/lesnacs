@@ -15,7 +15,7 @@
 
                 <p class="date"><?= $postF->get_date_post() ?></p>
 
-                <?php if($postF->get_id_member_FK() != 'NULL'): ?>
+                <?php if($postF->get_id_member_FK() != NULL): ?>
                     <p class="username"><?= $postF->get_member()->get_username() ?></p>
                 <?php else: ?>
 

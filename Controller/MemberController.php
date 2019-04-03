@@ -182,7 +182,7 @@ class MemberController extends Controller
         extract($params);
         $memberManager = new MemberManager();
         $member = $memberManager->show($id);
-        // $titlePage = $member->get_title_member();
+        $titlePage = $this->translation('Profil de ').$this->member->get_username();
 
         ob_start();
         require '../View/member/show.php';

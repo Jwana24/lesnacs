@@ -4,6 +4,7 @@ class PostController extends Controller
 {
     public function add()
     {
+        $titlePage = $this->translation('Ajouter un post');
         $postManager = new PostManager();
         $errors = [];
 
@@ -110,7 +111,7 @@ class PostController extends Controller
 
     public function list()
     {
-        $titlePage = 'Tous les posts de notre forum';
+        $titlePage = $this->translation('Tous les posts de notre forum');
         $postManager = new PostManager();
 
         if(!empty($_POST))

@@ -2,9 +2,9 @@
 
 class Like
 {
-    private $id = '';
-    private $id_member_FK = '';
-    private $id_article_FK = '';
+    private $id;
+    private $id_member_FK;
+    private $id_article_FK;
 
     /**
      * Get the value of _id

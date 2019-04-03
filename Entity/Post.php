@@ -2,16 +2,16 @@
 
 class Post
 {
-    private $id = '';
-    private $title_post = '';
-    private $text_post = '';
-    private $text_post_notags = '';
-    private $date_post = '';
-    private $categorie = '';
-    private $resolve = '';
-    private $id_member_FK = '';
-    private $comments = '';
-    private $member = '';
+    private $id;
+    private $title_post;
+    private $text_post;
+    private $text_post_notags;
+    private $date_post;
+    private $categorie;
+    private $resolve;
+    private $id_member_FK;
+    private $comments;
+    private $member;
 
 
     /**

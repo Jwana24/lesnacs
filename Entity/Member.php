@@ -3,19 +3,19 @@
 // We create a class "membre" with all the informations which we have need compared to our fields in the database
 class Member
 {
-    private $id = '';
-    private $last_name = '';
-    private $first_name = '';
-    private $username = '';
-    private $password = '';
-    private $mail = '';
-    private $roles = '';
-    private $avatar = '';
-    private $token_session = '';
-    private $token_password = '';
-    private $date_inscription = '';
-    private $description = '';
-    private $locale = '';
+    private $id;
+    private $last_name;
+    private $first_name;
+    private $username;
+    private $password;
+    private $mail;
+    private $roles;
+    private $avatar;
+    private $token_session;
+    private $token_password;
+    private $date_inscription;
+    private $description;
+    private $locale;
 
 
 

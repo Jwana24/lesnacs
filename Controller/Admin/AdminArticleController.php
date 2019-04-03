@@ -4,6 +4,7 @@ class AdminArticleController extends Controller
 {
     public function add()
     {
+        $titlePage = $this->translation('Ajouter un article');
         $articleManager = new ArticleManager();
 
         $errors = [];

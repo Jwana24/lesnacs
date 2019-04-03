@@ -5,6 +5,7 @@ class AdminSecurityController extends Controller
     // Members list
     public function list()
     {
+        $titlePage = $this->translation('Liste des membres');
         $memberManager = new MemberManager();
         $members = $memberManager->list();
 

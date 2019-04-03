@@ -2,15 +2,15 @@
 
 class Comment
 {
-    private $id = '';
-    private $text_comment = '';
-    private $date_comment = '';
-    private $id_member_FK = '';
-    private $id_article_FK = '';
-    private $id_post_FK = '';
-    private $id_parent = '';
-    private $member = '';
-    private $responses = '';
+    private $id;
+    private $text_comment;
+    private $date_comment;
+    private $id_member_FK;
+    private $id_article_FK;
+    private $id_post_FK;
+    private $id_parent;
+    private $member;
+    private $responses;
 
 
     /**

@@ -8,6 +8,7 @@ $languages = [
 
         // TITLE'S PAGES
         'Tous nos articles' => 'All our articles',
+        'Tous les posts de notre forum' => 'All posts on our forum',
 
         // NAVBAR
         'Bienvenue sur le site "Les Nouveaux Animaux de Compagnie"' => 'Welcome on the site "Les Nouveaux Animaux de Compagnie"',

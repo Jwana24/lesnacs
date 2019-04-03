@@ -2,13 +2,13 @@
 
 class Article
 {
-    private $id = '';
-    private $title_article = '';
-    private $text_article = '';
-    private $text_article_notags = '';
-    private $date_article = '';
-    private $image = '';
-    private $comments = '';
+    private $id;
+    private $title_article;
+    private $text_article;
+    private $text_article_notags;
+    private $date_article;
+    private $image;
+    private $comments;
 
 
     /**

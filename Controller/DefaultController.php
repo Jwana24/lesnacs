@@ -14,6 +14,7 @@ class DefaultController extends Controller
 
     public function mentionsLegales()
     {
+        $titlePage = $this->translation('Mentions légales');
         // We create a cookie bandeau bound to the legacy notices's page, when the visitor go to this page, the cookie are accepted for 1 year
         setcookie('cookie-bandeauCookie', 'myseconddata', time() + 32140800, "/");
 
