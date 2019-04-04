@@ -7,6 +7,7 @@ class DefaultController extends Controller
         $titlePage = 'Le site LesNACs';
         $articleManager = new ArticleManager();
         $articles = $articleManager->showLast();
+
         ob_start();
         require '../View/general/homepage.php';
         echo ob_get_clean();

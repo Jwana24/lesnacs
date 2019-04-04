@@ -5,11 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title><?= $titlePage ?? 'Le site LesNACs' ?></title>
-     <!-- Bootstrap links, CSS content to Bootstrap -->
-     <link rel="stylesheet" href="<?= $this->asset('css/bootstrap.min.css') ?>">
+
+    <!-- Bootstrap links, CSS content to Bootstrap -->
+    <link rel="stylesheet" href="<?= $this->asset('css/bootstrap.min.css') ?>">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+    <!-- My css -->
     <link rel="stylesheet" href="<?= $this->asset('css/style.css') ?>">
     <link rel="icon" type="image/png" href="<?= $this->asset('images/icone-site-lesnac-16px.svg') ?>" />
+
+    <!-- Quill editor css -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <!-- Include the Quill library -->
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script src="<?= $this->asset('js/main.js') ?>"></script>
 </head>
 <body>

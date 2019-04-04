@@ -44,9 +44,8 @@
 
                 <div class="containt-article">
                     <h2 class="title-article"><?= $article->get_title_article() ?></h2>
-                    <!-- {% if app.session.get('_locale') == 'fr_FR' %} -->
                     <p class="date-article"><?= $article->get_date_article() ?></p>
-                    <p class="text-article"><?= $article->get_text_article() ?></p>
+                    <div class="text-article"><?= $this->splitText($article->get_text_article(), 20) ?></div>
                     <a class="btn-site" href="<?= $this->router->generate('article_show', ['id' => $article->get_id()]) ?>"><?= $this->translation('En voir plus') ?></a>
                 </div>
                 

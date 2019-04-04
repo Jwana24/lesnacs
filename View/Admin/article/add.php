@@ -7,8 +7,8 @@
         <div class="form-group">
             <input class="form-control form-control-lg" type="text" name="title_article" placeholder="<?= $this->translation('Titre de l\'article') ?>">
         </div>
-        <div class="form-group">
-            <textarea class="form-control" name="text_article" id="editor1" rows="3"></textarea>
+        <div class="form-group" id="editor">
+            <textarea class="form-control" name="text_article" rows="3"></textarea>
         </div>
         <div class="form-group">
             <input class="form-control-file" name="image" type="file">

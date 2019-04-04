@@ -31,8 +31,8 @@
                         <input class="form-control" type="text" name="title_post" value="<?= $postF->get_title_post() ?>">
                     </div>
 
-                    <div class="form-group">
-                        <textarea class="form-control" id="editor1" name="text_post"><?= $postF->get_text_post() ?></textarea>
+                    <div class="form-group" id="editor">
+                        <textarea class="form-control" name="text_post"><?= $postF->get_text_post() ?></textarea>
                     </div>
                 </form>
 

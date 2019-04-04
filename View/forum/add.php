@@ -16,8 +16,8 @@
                 <option value="poissons">poissons</option>
             </select>
         </div>
-        <div class="form-group">
-            <textarea id="editor1" class="form-control" name="text_post" placeholder="Contenu du post" style="rows:3"></textarea>
+        <div class="form-group" id="editor">
+            <textarea class="form-control" name="text_post" placeholder="Contenu du post" style="rows:3"></textarea>
         </div>
         <div class="form-group">
             <input class="btn btn-primary btn-send-new-post" type="submit" value="Envoyer">

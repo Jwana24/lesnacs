@@ -43,29 +43,30 @@
     </div>
 </footer>
 
+<!-- My js for connection and inscription modals -->
 <?php if($this->member == NULL): ?>
     <script src="<?= $this->asset('js/registration.js') ?>"></script>
 <?php endif ?>
 
-<!-- Bootstrap links, content JS to Bootstrap -->
+<!-- Ionicons links -->
 <script src="https://unpkg.com/ionicons@4.5.5/dist/ionicons.js"></script>
+
+<!-- Bootstrap links, content JS to Bootstrap -->
 <script src="<?= $this->asset('js/jquery.js') ?>"></script>
 <script src="<?= $this->asset('js/popper.js') ?>"></script>
 <script src="<?= $this->asset('js/bootstrap.min.js') ?>"></script>
+
+<!-- My js (translate language in en) -->
 <script src="<?= $this->asset('js/languages.js') ?>"></script>
 
+<!-- Success and errors messages appearance (with Bootstrap) -->
 <script>$('.toast').toast('show')</script>
 
-<script src="<?= $this->asset('js/ckeditor/ckeditor.js') ?>"></script>
+<!-- Quill editor js -->
 <script>
-    if(document.querySelector('#editor1'))
-    {
-        let editor = CKEDITOR.replace('editor1');
-        editor.on('change', function(evt)
-        {
-            document.querySelector('#editor1').innerHTML = evt.editor.getData();
-        })
-    }
+  var quill = new Quill('#editor', {
+    theme: 'snow'
+  });
 </script>
 
 </body>

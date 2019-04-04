@@ -105,4 +105,11 @@ class Controller
             $this->lang = 'fr';
         }
     }
+
+    public function splitText($text, $nbWord)
+    {
+        $split = explode(' ', $text, $nbWord+1);
+        array_splice($split, $nbWord, 1);
+        return join(' ', $split);
+    }
 }

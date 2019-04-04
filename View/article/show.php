@@ -18,8 +18,8 @@
                         <input class="form-control" type="text" name="title_article" value="<?= $article->get_title_article() ?>">
                     </div>
 
-                    <div class="form-group">
-                        <textarea class="form-control" id="editor1" name="text_article"><?= $article->get_text_article() ?></textarea>
+                    <div class="form-group" id="editor">
+                        <?= $article->get_text_article() ?>
                     </div>
 
                     <div class="form-group">
@@ -71,7 +71,7 @@
                                 </div>
                             </form>
 
-                            <a><i class="btn-edit-article fas fa-pencil-alt" title="<?= $this->translation('Editer l\'article') ?>" data-locale="<?= $this->lang ?>" data-toggle="false" data-id="<?= $article->get_id() ?>" style="cursor:pointer;"></i></a>
+                            <a><i class="btn-edit-article fas fa-pencil-alt" title="<?= $this->translation('Editer l\'article') ?>" data-locale="<?= $this->lang ?>" data-toggle="false" data-tokencsrf="<?= $this->member->get_token_session() ?>" data-id="<?= $article->get_id() ?>" style="cursor:pointer;"></i></a>
 
                             <a><i class="cancel-article fas fa-times" title="<?= $this->translation('Annuler') ?>" style="color:red; cursor:pointer;"></i></a>
 
