@@ -127,6 +127,13 @@
     font-weight: 100;
 }
 
+.article-box .text-article
+{
+    white-space: initial;
+    padding: 0 0 20px 0;
+    height: initial;
+}
+
 .message-cookie
 {
     z-index: 10;
@@ -135,7 +142,8 @@
     right: 0;
 }
 
-.article-box .text-article ul
+.article-box .text-article ul,
+.article-box .text-article ol
 {
-    margin-left: 18px;
+    padding-left: 5px;
 }

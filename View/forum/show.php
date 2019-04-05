@@ -15,8 +15,10 @@
 
                 <p class="date"><?= $postF->get_date_post() ?></p>
 
-                <?php if($postF->get_id_member_FK() != NULL): ?>
+                <?php if($postF->get_member()->get_id() != NULL): ?>
+
                     <p class="username"><?= $postF->get_member()->get_username() ?></p>
+
                 <?php else: ?>
 
                     <p class="member-not-exist">[Ce membre n'existe plus]</p>
@@ -24,7 +26,7 @@
                 <?php endif ?>
 
                 <p class="category-post"><?= $this->translation('Catégorie') ?> : <?= $this->translation($postF->get_categorie()) ?></p>
-                <div class="text text-post"><?= $postF->get_text_post() ?></div>
+                <div class="text ql-editor text-post"><?= $postF->get_text_post() ?></div>
 
                 <form class="form-edit-post" data-id="<?= $postF->get_id() ?>" method="post">
                     <div class="form-group">
@@ -32,7 +34,7 @@
                     </div>
 
                     <div class="form-group" id="editor">
-                        <textarea class="form-control" name="text_post"><?= $postF->get_text_post() ?></textarea>
+                        <?= $postF->get_text_post() ?>
                     </div>
                 </form>
 
@@ -69,9 +71,9 @@
 
                             <div>
 
-                                <a><i class="btn-edit-post fas fa-pencil-alt" title="<?= $this->translation('Editer le post') ?>" data-locale="<?= $this->lang ?>" data-toggle="false" data-id="<?= $postF->get_id() ?>"style="cursor:pointer;"></i></a>
+                                <a><i class="btn-edit-post fas fa-pencil-alt" title="<?= $this->translation('Editer le post') ?>" data-locale="<?= $this->lang ?>" data-toggle="false" data-tokencsrf="<?= $this->member->get_token_session() ?>" data-id="<?= $postF->get_id() ?>"style="cursor:pointer;"></i></a>
 
-                                <a><i class="cancel-post fas fa-times" title="<?= $this->translation('Annuler') ?>" style="color:red; cursor:pointer;"></i></a>
+                                <a><i class="cancel-post fas fa-times" title="<?= $this->translation('Annuler') ?>" style="color:red; cursor:pointer; padding-right:20px;"></i></a>
                             </div>
 
                             <?php if($this->voter($postF) && $postF->get_resolve() != 'resolve'): ?> <!-- if the connected user is Admin, or has the post and the post is not resolved -->

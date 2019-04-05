@@ -10,7 +10,7 @@
                 <img class="image" src="<?= $this->asset($article->get_image()) ?>" alt="Image de l'article">
                 <h2 class="title title-article"><?= $article->get_title_article() ?></h2>
                 <p class="date"><?= $article->get_date_article() ?></p>
-                <div class="text text-article"><?= $article->get_text_article() ?></div>
+                <div class="text ql-editor text-article"><?= $article->get_text_article() ?></div>
                 
                 <form class="form-edit-article" method="post" enctype="multipart/form-data">
 
@@ -34,12 +34,12 @@
                     <div class="member-like" data-like="false" style="display:none"></div>
                 <?php endif ?>
 
-                <div class="like" data-tokencsrf="<?= $this->member->get_token_session() ?>" data-id="<?= $article->get_id() ?>">
+                <div class="like" data-tokencsrf="<?= (isset($this->member)) ? $this->member->get_token_session() : '' ?>" data-id="<?= $article->get_id() ?>">
                     <?php if($this->is_granted(['ROLE_USER'])): ?>
                         <ion-icon name="heart"></ion-icon>
                         <ion-icon name="heart-empty"></ion-icon>
                     <?php endif ?>
-                <p class="nb-like-article"><?= $nbLike ?> likes</p>
+                    <p class="nb-like-article"><?= $nbLike ?> likes</p>
                 </div>
 
                 <div class="container-btn-article">

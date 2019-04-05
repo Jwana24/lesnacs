@@ -337,6 +337,18 @@ footer .logo-30MAmis:hover
     font-weight: 600;
 }
 
+.list-articles .text-article-card
+{
+    padding: 12px 0;
+    white-space: initial;
+}
+
+.list-articles .text-article-card ul,
+.list-articles .text-article-card ol
+{
+    padding-left: 5px;
+}
+
 .list-articles .link-homepage
 {
     margin: 20px 0 20px 20px;

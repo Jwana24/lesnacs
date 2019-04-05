@@ -274,6 +274,21 @@ ion-icon[name=heart-empty]
     bottom: 40px;
 }
 
+.forum-page .text-post,
+.article-page .text-article
+{
+    padding: 12px 0;
+    white-space: initial;
+}
+
+.forum-page .text-post ol,
+.forum-page .text-post ul,
+.article-page .text-article ol,
+.article-page .text-article ul
+{
+    padding-left: 5px;
+}
+
 .article-page .form-comment-article .message-comment-article,
 .forum-page .form-comment-post .message-comment-post,
 .article-page .article-comment .text-article-comment,

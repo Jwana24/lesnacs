@@ -64,9 +64,17 @@
 
 <!-- Quill editor js -->
 <script>
-  var quill = new Quill('#editor', {
+  var quill = new Quill('#editor',
+  {
     theme: 'snow'
   });
+
+  var quill1 = new Quill('#editor1',
+  {
+    modules: {toolbar: false},
+    theme: 'snow'
+  });
+  quill1.enable(false);
 </script>
 
 </body>

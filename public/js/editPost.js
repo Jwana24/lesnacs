@@ -23,7 +23,10 @@ if(document.querySelector('.btn-edit-post'))
         }
         else if(e.target.dataset['toggle'] == 'true')
         {
+            let editor = document.querySelector('#editor');
             let data = new FormData(formEdit);
+            data.append('token_session', e.target.dataset['tokencsrf']);
+            data.append('text_post', editor.children[0].innerHTML);
             
             fetch('http://localhost/post/edition/'+e.target.dataset['id']+'/', {method: 'POST', body: data}).then(promise => promise.text()).then(promise =>
             {

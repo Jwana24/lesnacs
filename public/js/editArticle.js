@@ -25,9 +25,10 @@ if(document.querySelector('.btn-edit-article'))
         }
         else if(e.target.dataset['toggle'] == 'true')
         {
+            let editor = document.querySelector('#editor');
             let data = new FormData(formEdit); // instantiate formData object with the formEdit in parameters
             data.append('token_session', e.target.dataset['tokencsrf']);
-            data.append('text_article', JSON.stringify(quill.getContents()));
+            data.append('text_article', editor.children[0].innerHTML);
 
             // Make an Ajax request on the edit article page, we spend data of the form, we return a promise (a tool for managing asynchronous operations)
             fetch('http://localhost/article/edition/'+e.target.dataset['id']+'/', {method: 'POST', body: data}).then(promise => promise.text()).then(promise =>
