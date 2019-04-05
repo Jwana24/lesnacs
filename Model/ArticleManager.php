@@ -177,4 +177,13 @@ class ArticleManager extends Manager
             return false;
         }
     }
+
+    public function searchArticle($search)
+    {
+        return $this->_bdd->query('SELECT * FROM article WHERE title_article
+        LIKE "%'.$search.'%"
+        OR text_article_notags
+        LIKE "%'.$search.'%"',
+        PDO::FETCH_CLASS, 'Article')->fetchAll();
+    }
 }

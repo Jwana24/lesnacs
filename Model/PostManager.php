@@ -191,4 +191,13 @@ class PostManager extends Manager
             return false;
         }
     }
+
+    public function searchPost($search)
+    {
+        return $this->_bdd->query('SELECT * FROM post WHERE title_post
+        LIKE "%'.$search.'%"
+        OR text_post_notags
+        LIKE "%'.$search.'%"',
+        PDO::FETCH_CLASS, 'Post')->fetchAll();
+    }
 }
