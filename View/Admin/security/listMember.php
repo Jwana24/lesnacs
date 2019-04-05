@@ -20,7 +20,7 @@
                         <td><?= $member->get_last_name() ?></td>
                         <td><?= $member->get_first_name() ?></td>
                         <td><?= $member->get_mail() ?></td>
-                        <td><?= $member->get_description() ?></td>
+                        <td><?= $this->splitText($member->get_description(), 10) ?></td>
                         <td><a class="btn btn-light" href="<?= $this->router->generate('member_show', ['id' => $member->get_id()]) ?>">Voir</a></td>
                     </tr>
                 <?php endforeach ?>

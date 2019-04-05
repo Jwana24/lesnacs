@@ -16,7 +16,7 @@
 
                 <div id="collapse<?= $article->get_id() ?>" class="collapse" aria-labelledby="heading<?= $article->get_id() ?>" data-parent="#accordionExample">
                     <div class="card-body">
-                        <div class="ql-editor text-article-card"><?= $article->get_text_article() ?></div>
+                        <div class="ql-editor text-article-card"><?= $this->splitText($article->get_text_article(), 15) ?></div>
                         <a class="btn btn-primary" href="<?= $this->router->generate('article_show', ['id' => $article->get_id()]) ?>"><?= $this->translation('Voir') ?></a>
                     </div>
                 </div>
