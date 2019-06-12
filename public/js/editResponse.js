@@ -28,7 +28,7 @@ if(document.querySelectorAll('.btn-edit-response'))
             else if(e.target.dataset['toggle'] == 'true')
             {
                 let data = new FormData(formEdit);
-                fetch('http://localhost/commentaire/edition/'+e.target.dataset['id']+'/', {method: 'POST', body: data}).then(promise => promise.text()).then(promise =>
+                fetch('http://lesnacs.fr/commentaire/edition/'+e.target.dataset['id']+'/', {method: 'POST', body: data}).then(promise => promise.text()).then(promise =>
                 {
                     let statut = JSON.parse(promise).statut;
                     let errors = (JSON.parse(promise).error != undefined) ? JSON.parse(promise).error : null;

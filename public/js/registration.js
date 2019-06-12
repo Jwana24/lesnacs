@@ -22,7 +22,7 @@ formContainerInsc.addEventListener('submit',(e) =>
 
     let data = new FormData(e.target);
 
-    fetch('http://localhost/inscription/', {method: 'POST', body: data}).then(promise => promise.text()).then(promise =>
+    fetch('http://lesnacs.fr/inscription/', {method: 'POST', body: data}).then(promise => promise.text()).then(promise =>
     {
         modalInsc.style.display = 'none';
 
@@ -102,7 +102,7 @@ formContainerCo.addEventListener('submit',(e) =>
 
     let data = new FormData(e.target);
 
-    fetch('http://localhost/connexion/', {method: 'POST', body: data}).then(promise => promise.text()).then(promise =>
+    fetch('http://lesnacs.fr/connexion/', {method: 'POST', body: data}).then(promise => promise.text()).then(promise =>
     {
 
         modalCo.style.display = 'none';

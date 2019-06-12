@@ -5,7 +5,7 @@ class MemberController extends Controller
     public function logout()
     {
         unset($_SESSION['member']);
-        header('Location: http://localhost/accueil/');
+        header('Location: http://lesnacs.fr/accueil/');
     }
 
     public function login()
@@ -453,7 +453,7 @@ class MemberController extends Controller
                 $this->addMessages($this->translation('Une erreur s\'est produite'), 'error');
             }
             unset($_SESSION['member']);
-            header('Location: http://localhost/accueil/');
+            header('Location: http://lesnacs.fr/accueil/');
         }
     }
 }

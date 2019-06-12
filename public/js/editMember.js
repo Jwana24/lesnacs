@@ -46,7 +46,7 @@ if(document.querySelector('.btn-edit-member'))
                     firstName.innerText = trans(e.target.dataset['locale'], 'Prénom : ','First name : ') + member['first_name'];
                     mail.innerText = trans(e.target.dataset['locale'], 'Email : ','Mail : ') + member['mail'];
                     description.innerText = 'Description : ' + member['description'];
-                    avatar.src = 'http://localhost/' + member['avatar'] + '?a=' + Math.random();
+                    avatar.src = 'http://lesnacs.fr/' + member['avatar'] + '?a=' + Math.random();
                 }
                 else if(statut == 'error')
                 {

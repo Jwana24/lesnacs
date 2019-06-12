@@ -43,7 +43,7 @@ class PostController extends Controller
             {
                 $errors[] = 'Le post n\'a pas pu être créé';
             }
-            header('Location: http://localhost/forum/');
+            header('Location: http://lesnacs.fr/forum/');
         }
 
         ob_start();
@@ -223,6 +223,6 @@ class PostController extends Controller
                 $this->addMessages($this->translation('Une erreur s\'est produite'), 'error');
             }
         }
-        header('Location: http://localhost/forum/');
+        header('Location: http://lesnacs.fr/forum/');
     }
 }

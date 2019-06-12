@@ -28,7 +28,7 @@ if(document.querySelector('.btn-edit-post'))
             data.append('token_session', e.target.dataset['tokencsrf']);
             data.append('text_post', editor.children[0].innerHTML);
             
-            fetch('http://localhost/post/edition/'+e.target.dataset['id']+'/', {method: 'POST', body: data}).then(promise => promise.text()).then(promise =>
+            fetch('http://lesnacs.fr/post/edition/'+e.target.dataset['id']+'/', {method: 'POST', body: data}).then(promise => promise.text()).then(promise =>
             {
                 let statut = JSON.parse(promise).statut;
                 let errors = (JSON.parse(promise).error != undefined) ? JSON.parse(promise).error : null;

@@ -8,7 +8,7 @@ class AdminSecurityController extends Controller
 
         if(!$this->is_granted([]))
         {
-            header('Location:http://localhost/accueil/');
+            header('Location:http://lesnacs.fr/accueil/');
         }
     }
 

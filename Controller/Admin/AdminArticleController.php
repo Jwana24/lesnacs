@@ -8,7 +8,7 @@ class AdminArticleController extends Controller
 
         if(!$this->is_granted([]))
         {
-            header('Location:http://localhost/accueil/');
+            header('Location:http://lesnacs.fr/accueil/');
         }
     }
 
@@ -75,7 +75,7 @@ class AdminArticleController extends Controller
             {
                 $errors[] = 'L\'article n\'a pas pu être créé';
             }
-            header('Location: http://localhost/article/');
+            header('Location: http://lesnacs.fr/article/');
         }
         ob_start();
         require '../View/Admin/article/add.php';
@@ -198,11 +198,11 @@ class AdminArticleController extends Controller
         }
         if(!$this->is_granted([]))
         {
-            header('Location:http://localhost/accueil/');
+            header('Location:http://lesnacs.fr/accueil/');
         }
         else
         {
-            header('Location: http://localhost/article/');
+            header('Location: http://lesnacs.fr/article/');
         }
     }
 }

@@ -99,11 +99,11 @@ class CommentController extends Controller
         {
             if($post['form'] == 'delete-comment-art' || $post['form'] == 'delete-response-art')
             {
-                header('Location: http://localhost/article/'.$post['idSubject'].'/');
+                header('Location: http://lesnacs.fr/article/'.$post['idSubject'].'/');
             }
             else if($post['form'] == 'delete-comment-post' || $post['form'] == 'delete-response-post')
             {
-                header('Location: http://localhost/forum/'.$post['idSubject'].'/');
+                header('Location: http://lesnacs.fr/forum/'.$post['idSubject'].'/');
             }
         }
     }
