@@ -1,0 +1,392 @@
+/* MEDIA QUERY */
+
+@media all and (max-width: 900px)
+{
+    .modal_connection,
+    .modal_inscription
+    {
+        width: 50vw !important;
+    }
+
+    .modal_connection
+    {
+        height: 25vh;
+    }
+
+    .modal_inscription
+    {
+        height: 45vh;
+    }
+
+    /* Show article */
+    .link-article-page
+    {
+        margin-top: 20px;
+    }
+
+    .btn-send-response
+    {
+        width: 15% !important;
+    }
+}
+
+@media all and (max-width: 415px)
+{
+    .btn-site
+    {
+        font-size: 12px;
+    }
+
+    footer
+    {
+        text-shadow: 1px 1px 1px black;
+    }
+
+    /* HOMEPAGE */
+
+    .slider-content
+    {
+        padding-top: 60px;
+    }
+
+    .slide
+    {
+        width: 100%;
+    }
+
+    .carousel-item
+    {
+        height: 35vh;
+        background-color: white;
+    }
+
+    .carousel-item span
+    {
+        font-size: 15px;
+        left: 10px;
+        top: 35px !important;
+        height: 45px !important;
+    }
+
+    .text-pug
+    {
+        width: 40% !important;
+    }
+
+    .text-foal
+    {
+        width: 50% !important;
+    }
+
+    .text-cat
+    {
+        word-break: break-word;
+        width: 60% !important;
+    }
+
+    .carousel-control-prev
+    {
+        left: 50vw !important;
+        transform: translate(-100%, 0) !important;
+        opacity: 1;
+    }
+
+    .carousel-control-next
+    {
+        right: 50vw !important;
+        transform: translate(100%, 0) !important;
+        opacity: 1;
+    }
+
+    .carousel-control-prev,
+    .carousel-control-next
+    {
+        height: 45px !important;
+        top: 170px;
+    }
+
+    .homepage,
+    .article-box .article
+    {
+        flex-direction: column;
+    }
+
+    .homepage,
+    .article-box .article
+    {
+        align-items: center;
+    }
+
+    .article-box
+    {
+        margin-left: 0;
+    }
+
+    .article-box .article .div-img
+    {
+        margin-bottom: 20px;
+    }
+
+    .article-box .article img
+    {
+        width: 100% !important;
+    }
+
+    .sidebox
+    {
+        position: initial;
+        width: calc(100vw - 80px);
+    }
+
+    .article-box .text-article,
+    .article-box .title-article
+    {
+        word-wrap: break-word;
+    }
+
+    .article-box .title-article
+    {
+        font-size: 18px;
+    }
+
+    .article-box .text-article
+    {
+        font-size: 15px !important;
+    }
+
+    .article-box .article .containt-article
+    {
+        width: 100%;
+    }
+
+    .sidebox form input[type=submit]
+    {
+        width: 30%;
+        margin-left: calc(70% - 1px);
+    }
+
+    .sidebox h4
+    {
+        font-size: 22px;
+        font-weight: 500;
+    }
+
+    .sidebox form
+    {
+        font-size: 14px;
+    }
+
+    /* INDEX ARTICLES PAGE */
+
+    .container-arrows,
+    .container-arrows-forum
+    {
+        display: initial;
+    }
+
+    .articles-card-header
+    {
+        flex-direction: column;
+    }
+
+    /* SHOW ARTICLE PAGE + SHOW FORUM PAGE*/
+
+    .article-page .btn-site,
+    .forum-page .btn-site
+    {
+        height: 32px !important;
+    }
+
+    .article-show .text,
+    .article-show .title,
+    .forum-show .text,
+    .forum-show .title
+    {
+        word-wrap: break-word;
+    }
+
+    .article-show .title,
+    .forum-show .title
+    {
+        font-size: 18px;
+    }
+
+    .article-show .text-article,
+    .forum-show .text-post,
+    .category-post
+    {
+        font-size: 15px !important;
+    }
+
+    .form-edit-article input[type=file],
+    .form-edit-post input[type=file]
+    {
+        width: 100%;
+    }
+
+    .btn-edit-article,
+    .cancel-article,
+    .btn-edit-post,
+    .cancel-post
+    {
+        margin-left: 5px !important;
+    }
+
+    .container-btn-article,
+    .container-btn-post
+    {
+        display: flex;
+        flex-direction: column-reverse;
+        height: 80px;
+    }
+
+    .like-article .btn-like-article,
+    .like-article a,
+    .btn-admin-article input[type=submit],
+    .btn-admin-article a,
+    .btn-admin-post input[type=submit],
+    .btn-admin-post a,
+    .response-btn
+    {
+        margin-bottom: 20px;
+    }
+
+    .btn-admin-article,
+    .like-article,
+    .btn-admin-post
+    {
+        position: initial !important;
+    }
+
+    .article-page .form-comment-article,
+    .forum-page .form-comment-post,
+    .comment-article .date,
+    .comment-post .date
+    {
+        margin-top: 0 !important;
+    }
+
+    .article-page .article-comment .username,
+    .forum-page .post-comment .username
+    {
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    .article-page .article-comment .text-article-comment,
+    .forum-page .post-comment .text-post-comment
+    {
+        width: 95%;
+    }
+
+    .contain-form-response
+    {
+        width: 80%;
+        margin-left: 40px;
+    }
+
+    .contain-form-response input[type=submit]
+    {
+        width: 30%;
+        margin-bottom: 20px;
+    }
+
+    .response-article,
+    .response-post
+    {
+        margin-left: -10px;
+    }
+
+    .message-edit-response,
+    .content-comment-edit
+    {
+        width: 100% !important;
+    }
+
+    .cancel-response,
+    .btn-edit-response,
+    .cancel-response-post,
+    .cancel-comment-post,
+    .btn-edit-comment
+    {
+        margin-right: 2px !important;
+    }
+
+    .article-comment .link-return-articles,
+    .post-comment .link-return-posts
+    {
+        margin-top: 0 !important;
+        margin-bottom: 10px !important;
+    }
+
+    .article-comment .link-article-page a,
+    .forum-comment .link-post-page a
+    {
+        margin-left: 0;
+    }
+
+
+    /* PROFILE PAGE */
+
+    .container-profile
+    {
+        width: 100%;
+    }
+
+    .profile-show
+    {
+        flex-direction: column;
+    }
+
+    .avatar
+    {
+        height: 100%;
+        width: 100%;
+    }
+
+    .form-edit-member
+    {
+        margin: 15px 15px 0 0;
+    }
+
+    .info-profile
+    {
+        margin-top: 30px;
+    }
+
+    .main-profile .link-article-page
+    {
+        border-top: 3px solid #FBFBFB;
+        padding-top: 20px;
+        justify-content: center;
+        margin: 0;
+    }
+
+
+    /* CONNECTION MODAL */
+
+    .modal_connection
+    {
+        width: 100% !important;
+        height: 52%;
+    }
+
+
+    /* INSCRIPTION MODAL */
+
+    .modal_inscription
+    {
+        width: 100% !important;
+        height: 90%;
+        top: 55vh;
+    }
+
+    /* SEARCH PAGE */
+
+    .article-card-search,
+    .post-card-search
+    {
+        margin-left: 15px;
+        max-width: 100% !important;
+    }
+}

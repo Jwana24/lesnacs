@@ -145,6 +145,11 @@
                             <input type="password" name="password" placeholder="Mot de passe" required>
                         </div>
 
+                        <div class="autoCo">
+                            <input type="checkbox" id="autoCo" name="autoCo" value="ok">
+                            <label for="autoCo">Connexion automatique</label>
+                        </div>
+
                         <div>
                             <input type="submit" value="Se connecter">
                         </div>

@@ -5,6 +5,11 @@ $languages = [
         // GENERAL
         'Une erreur s\'est produite' => 'An error has been detected',
         'Erreur d\'authentification' => 'Invalid credentials', // during the login
+        // lost password
+        'Votre demande a bien été envoyé, vous recevrez bientôt un mail à l\'adresse ' => 'Your request has been sent, you will soon receive a mail at ', // when the member lost is password and send a request
+        'Il y a eu une erreur lors de l\'envoi du mail' => 'There was an error during the sending of the mail',
+        // reset password
+        'Votre mot de passe n\'a pas pu être réinitialisé' => 'Your password can not be reinitialized',
 
         // TITLE'S PAGES
         'Tous nos articles' => 'All our articles',

@@ -1,4 +1,7 @@
 <?php
+// For the "lostPassword" function, I installed a package : "PHPMailer" on "Composer" and I followed the instructions on GitHub
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 class MemberController extends Controller
 {
@@ -36,6 +39,17 @@ class MemberController extends Controller
                     // We verify if the password in "post" and the password in the "member" (hashed password) is the same
                     if(password_verify($post['password'], $member->get_password()))
                     {
+                        if(isset($post['autoCo']) && isset($post['username']) && isset($post['password']))
+                        {
+                            if($post['autoCo'] == 'ok')
+                            {
+                                // we keep the cookie 24H
+                                setcookie('username', $post['username'], time() + 3600*24, null, null, false, true);
+                                // the password is hashed
+                                $mp_hashed = password_hash($post['password'], PASSWORD_BCRYPT);
+                                setcookie('password', $mp_hashed, time() + 3600*24, null, null, false, true);
+                            }
+                        }
                         // Create the member in the session
                         $_SESSION['member'] = serialize($member);
                         // Return our js messages in an json object
@@ -61,6 +75,160 @@ class MemberController extends Controller
                 $this->addMessages($this->translation('Une erreur s\'est produite'), 'error');
             }
         }
+        else
+        {
+            header('Location:'.$this->router->generate('accueil'));
+        }
+    }
+
+    // If the member forgot his password, we send him a mail with a confirmation for changed the password
+    public function lostPassword()
+    {
+        $titlePage = $this->translation('Mot de passe oublié');
+        $memberManager = new MemberManager();
+        $errors = [];
+
+        if(!empty($_POST))
+        {
+            $post = array_map('trim', array_map('strip_tags', $_POST));
+
+            if(!isset($post['mail']) || !preg_match('#^[A-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,5}$#', $post['mail']))
+            {
+                $errors[] = 'Votre email n\'est pas valide';
+            }
+
+            if(count($errors) == 0)
+            {
+                $member = $memberManager->getByMail($post['mail']);
+                
+                if($member)
+                {
+                    $memberManager->tokenPassEdit($member);
+
+                    $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
+                    try
+                    {
+                        //Server settings
+                        // $mail->SMTPDebug = 2;                                 // Enable verbose debug output
+                        $mail->isSMTP();                                      // Set mailer to use SMTP
+                        $mail->Host = 'smtp.office365.com';                   // Specify main and backup SMTP servers
+                        $mail->SMTPAuth = true;                               // Enable SMTP authentication
+                        $mail->Username = 'johanna-24@hotmail.fr';            // SMTP username
+                        $mail->Password = 'croque';                           // SMTP password
+                        $mail->SMTPSecure = 'tls';                       // Enable TLS encryption, `ssl` also accepted
+                        $mail->Port = 587;                                    // TCP port to connect to
+
+                        //Recipients
+                        $mail->setFrom('johanna-24@hotmail.fr', 'Mailer');
+                        $mail->addAddress($member->get_mail(), $member->get_username());     // Add a recipient
+
+                        //Content
+                        $mail->isHTML(true);                                  // Set email format to HTML
+                        $mail->Subject = 'Demande de changement de votre mot de passe';
+                        $mail->Body    = 'Pour modifier votre mot de passe, cliquez <a href="'.$_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['SERVER_NAME'].'/reinitialisermotdepasse/'.$member->get_id().'/'.$member->get_token_password().'/">ici</a>';
+                        $mail->AltBody = 'Pour modifier votre mot de passe, cliquez ici '.$_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['SERVER_NAME'].'/reinitialisermotdepasse/'.$member->get_id().'/'.$member->get_token_password().'/';
+
+                        $mail->send();
+                        $this->addMessages('Votre demande a bien été envoyé, vous recevrez bientôt un mail à l\'adresse '.$member->get_mail(), 'success');
+                    }
+                    catch (Exception $e)
+                    {
+                        $this->addMessages('Il y a eu une erreur lors de l\'envoi du mail', 'error');
+                    }
+                }
+                else
+                {
+                    $this->addMessages('Une erreur s\'est produite', 'error');
+                }
+            }
+            else
+            {
+                foreach($errors as $error)
+                {
+                    $this->addMessages($error, 'error');
+                }
+            }
+        }
+        ob_start(); // execute the php script and stock it in the cache
+        require '../View/member/lostpassword.php';
+        echo ob_get_clean(); // get the elements in the cache and displays
+    }
+
+    // If the member forgot is password, we reset it
+    public function resetPassword($params)
+    {
+        extract($params);
+        $titlePage = $this->translation('Nouveau mot de passe');
+        $memberManager = new MemberManager();
+
+        $errors = [];
+
+        if(!empty($_POST))
+        {
+            $post = array_map('trim', array_map('strip_tags', $_POST));
+
+            if(isset($token) && isset($id) && isset($post['password']) && isset($post['password2']))
+            {
+                if(!isset($post['password']) || !preg_match('#^((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@\#\$\%]).{8,})$#', $post['password']))
+                {
+                    $errors[] = 'Votre mot de passe doit contenir au minimum 8 caractères, au moins un chiffre, une lettre et un caractère spécial tel que @, #, $, %';
+                }
+
+                if(!isset($post['password2']) || $post['password'] != $post['password2'])
+                {
+                    $errors[] = 'Le mot de passe n\'a pas pu être confirmé';
+                }
+
+                if(count($errors) == 0)
+                {
+                    
+                    if($post['password'] == $post['password2'])
+                    {
+                        $member = $memberManager->get($id);
+
+                        if($member)
+                        {
+                            if($token == $member->get_token_password())
+                            {
+                                $mp_hashed = password_hash($post['password'], PASSWORD_BCRYPT);
+                                $member->set_password($mp_hashed);
+                                $member->set_token_password('');
+
+                                if($memberManager->edit($member))
+                                {
+                                    $this->addMessages('Votre mot de passe a bien été réinitialisé', 'success');
+                                }
+                                else
+                                {
+                                    $this->addMessages('Votre mot de passe n\'a pas pu être réinitialisé', 'error');
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        $this->addMessages('Le mot de passe n\'a pas pu être confirmé', 'error');
+                    }
+                }
+                else
+                {
+                    foreach($errors as $error)
+                    {
+                        $this->addMessages($error, 'error');
+                    }
+                }
+            }
+            else
+            {
+                foreach($errors as $error)
+                {
+                    $this->addMessages($error, 'error');
+                }
+            }
+        }
+        ob_start();
+        require '../View/member/resetpassword.php';
+        echo ob_get_clean();
     }
 
     public function add()
@@ -338,7 +506,7 @@ class MemberController extends Controller
 
                 if($memberCo->get_token_session() != $post['token_session'])
                 {
-                    $errors[] = 'Oups ! Il y a eu une erreur !';
+                    $errors[] = 'Une erreur s\'est produite';
                 }
 
                 // $token->tokenEdit();

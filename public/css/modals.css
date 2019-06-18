@@ -33,7 +33,7 @@
 
 .center_modal_connection
 {
-    height: 85%;
+    height: 90%;
 }
 
 .center_modal_inscription h4,
@@ -86,11 +86,15 @@
     margin-bottom: 0;
 }
 
+.center_modal_inscription form[name=member] input[type=submit]
+{
+    margin-top: 20px;
+}
+
 .center_modal_inscription form[name=member] input[type=submit],
 .center_modal_connection form[name=member-co] input[type=submit]
 {
     align-self: center;
-    margin-top: 20px;
     border-radius: 0;
     border: none;
     background-color: #0984e3;
@@ -116,4 +120,23 @@
 .cross-close-co:hover
 {
     font-size: 30px;
+}
+
+.modal_connection .autoCo
+{
+    display: flex;
+    align-items: center;
+    width: 40%;
+}
+
+.modal_connection .autoCo input
+{
+    width: 5% !important;
+    height: 5%;
+    margin-right: 20px;
+}
+
+.modal_connection .autoCo label
+{
+    margin-top: 7px;
 }

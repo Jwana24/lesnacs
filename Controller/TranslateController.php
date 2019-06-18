@@ -11,7 +11,7 @@ class TranslateController extends Controller
             $memberManager = new MemberManager();
             $this->member->set_locale($lang);
             $memberManager->edit($this->member);
-            $_SESSION['member'] = serialize($this->member);
+            $_SESSION['member'] = serialize($this->member); // object member updated in session
         }
     }
 }

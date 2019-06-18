@@ -24,6 +24,7 @@ function classLoader($class)
 spl_autoload_register('classLoader');
 
 require '../AltoRouter.php';
+require '../vendor/autoload.php';
 $router = new AltoRouter();
 
 // Create route mapping
@@ -52,6 +53,7 @@ $router->map('GET|POST', '/connexion/', 'MemberController#login', 'connexion');
 $router->map('GET|POST', '/deconnexion/', 'MemberController#logout', 'deconnexion');
 $router->map('GET|POST', '/inscription/', 'MemberController#add', 'inscription');
 $router->map('GET|POST', '/motdepasseoublie/', 'MemberController#lostPassword', 'motdepasseoublie');
+$router->map('GET|POST', '/reinitialisermotdepasse/[i:id]/[a:token]/', 'MemberController#resetPassword', 'reset_password');
 $router->map('GET|POST', '/profil/[i:id]/', 'MemberController#show', 'member_show');
 $router->map('GET|POST', '/profil/edition/[i:id]/', 'MemberController#edit', 'edit_member');
 $router->map('GET|POST', '/profil/suppression/', 'MemberController#delete', 'delete_member');
@@ -71,5 +73,5 @@ if($route)
 }
 else
 {
-    echo '404 error';
+    header('Location:'.$router->generate('accueil'));
 }

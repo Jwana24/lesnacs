@@ -75,6 +75,22 @@ class MemberManager extends Manager
         return $request->fetchAll(PDO::FETCH_CLASS, 'Member')[0];
     }
 
+    public function get($id)
+    {
+        $request = $this->_bdd->prepare('SELECT * FROM member WHERE id = :id');
+        $request->bindValue(':id', (int)$id, PDO::PARAM_INT);
+        $request->execute();
+        return $request->fetchAll(PDO::FETCH_CLASS, 'Member')[0];
+    }
+
+    public function getByMail($mail)
+    {
+        $request = $this->_bdd->prepare('SELECT * FROM member WHERE mail = :mail');
+        $request->bindValue(':mail', (string)$mail);
+        $request->execute();
+        return $request->fetchAll(PDO::FETCH_CLASS, 'Member')[0];
+    }
+
     // We verify if the username or the mail already exist in the database
     public function verif($mail, $username)
     {
@@ -107,5 +123,25 @@ class MemberManager extends Manager
         {
             return false;
         }
+    }
+
+    public function tokenPassEdit(Member $member)
+    {
+        $token = $this->random(50);
+        $member->set_token_password($token); // change the value of the token in the member
+        $this->edit($member); // update the password token in the "member"
+    }
+
+    // Create a random token
+    public function random($var)
+    {
+        $string = "";
+        $chaine = "a0b1c2d3e4f5g6h7i8j9klmnpqrstuvwxy123456789";
+        srand((double)microtime()*1000000);
+        for($i=0; $i<$var; $i++)
+        {
+            $string .= $chaine[rand()%strlen($chaine)];
+        }
+        return $string;
     }
 }
