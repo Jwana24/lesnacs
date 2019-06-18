@@ -194,10 +194,10 @@ class PostManager extends Manager
 
     public function searchPost($search)
     {
-        return $this->_bdd->query('SELECT * FROM post WHERE title_post
+        $request = $this->_bdd->prepare('SELECT * FROM post WHERE title_post
         LIKE "%'.$search.'%"
-        OR text_post_notags
-        LIKE "%'.$search.'%"',
-        PDO::FETCH_CLASS, 'Post')->fetchAll();
+        OR text_post_notags LIKE "%'.$search.'%"');
+        $request->execute();
+        return $request->fetchAll(PDO::FETCH_CLASS, 'Post');
     }
 }

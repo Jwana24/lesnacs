@@ -180,10 +180,10 @@ class ArticleManager extends Manager
 
     public function searchArticle($search)
     {
-        return $this->_bdd->query('SELECT * FROM article WHERE title_article
+        $request = $this->_bdd->prepare('SELECT * FROM article WHERE title_article
         LIKE "%'.$search.'%"
-        OR text_article_notags
-        LIKE "%'.$search.'%"',
-        PDO::FETCH_CLASS, 'Article')->fetchAll();
+        OR text_article_notags LIKE "%'.$search.'%"');
+        $request->execute();
+        return $request->fetchAll(PDO::FETCH_CLASS, 'Article');
     }
 }

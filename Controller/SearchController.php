@@ -6,10 +6,14 @@ class SearchController extends Controller
     {
         extract($params);
         $articleManager = new ArticleManager();
-        $articleManager->searchArticle();
-        
         $postManager = new PostManager();
-        $postManager->searchPost();
+        
+        if(!empty($_GET['search']))
+        {
+            $search = trim(strip_tags($_GET['search']));
 
+            $articles = $articleManager->searchArticle($search);
+            $posts = $postManager->searchPost($search);
+        }
     }
 }

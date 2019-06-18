@@ -74,8 +74,8 @@
             
             </ul>
 
-            <form class="form-inline my-2 my-md-0" action="{{ path('search', {'pageArticle': 1,'pagePost': 1}) }}" method="get">
-                <input class="form-control" name="itemSearch" type="text" placeholder="<?= $this->translation('Recherche') ?>">
+            <form class="form-inline my-2 my-md-0" action="<?= $this->router->generate('recherche') ?>" method="get">
+                <input class="form-control" name="search" type="text" placeholder="<?= $this->translation('Recherche') ?>">
             </form>
         </div>
     </nav>
