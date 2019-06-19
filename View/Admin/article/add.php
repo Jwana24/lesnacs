@@ -4,15 +4,20 @@
 
     <form method="post" enctype="multipart/form-data">
         <input type="hidden" name="token_session" value="<?= $this->member->get_token_session() ?>">
+
         <div class="form-group">
             <input class="form-control form-control-lg" type="text" name="title_article" placeholder="<?= $this->translation('Titre de l\'article') ?>">
         </div>
+
         <div class="form-group" id="editor">
             <textarea class="form-control" name="text_article" rows="3"></textarea>
         </div>
+        <input type="hidden" id="textQuillInput" name="text_article">
+
         <div class="form-group">
             <input class="form-control-file" name="image" type="file">
         </div>
+
         <div class="form-group">
             <input class="btn btn-primary btn-send-new-article" type="submit" value="<?= $this->translation('Envoyer') ?>">
         </div>

@@ -11,8 +11,10 @@
 
                 <div class="card-body">
                     <h2 class="card-title"><?= $post->get_title_post() ?></h2>
-                    <!-- {% if app.session.get('_locale') == 'fr_FR' %} -->
-                    <p><?= $post->get_date_post() ?></p>
+                    <?php
+                        $date = new DateTime($post->get_date_post());
+                    ?>
+                    <p><?= $date->format('D d M Y') ?></p>
                     <a class="btn btn-primary" href="<?= $this->router->generate('post_show', ['id' => $post->get_id()]) ?>"><?= $this->translation('Voir') ?></a>
                 </div>
             </div>
@@ -24,6 +26,7 @@
         <div class="col-12">
             <form class="category" method="post">
                 <select class="select-category" name="Catégories">
+                    <option value="tout-voir"><?= $this->translation('tout voir') ?></option>
                     <option value="mammifères"><?= $this->translation('mammifères') ?></option>
                     <option value="reptiles"><?= $this->translation('reptiles') ?></option>
                     <option value="amphibiens"><?= $this->translation('amphibiens') ?></option>

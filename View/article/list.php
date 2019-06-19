@@ -10,7 +10,10 @@
                         <button class="btn btn-link btn-open" type="button" data-toggle="collapse" data-target="#collapse<?= $article->get_id() ?>" aria-expanded="false" aria-controls="collapse<?= $article->get_id() ?>">
                             <span class="article-card-title"><?= $article->get_title_article() ?></span>
                         </button>
-                        <span class="article-card-date"><?= $article->get_date_article() ?></span>
+                        <?php
+                            $date = new DateTime($article->get_date_article());
+                        ?>
+                        <span class="article-card-date"><?= $date->format('D d M Y') ?></span>
                     </h2>
                 </div>
 

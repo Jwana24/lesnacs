@@ -73,10 +73,11 @@ $languages = [
         // animals category
         'Catégorie' => 'Category',
         'Ajouter un post' => 'Add post',
+        'tout voir' => 'see all',
         'mammifères' => 'mammals',
         'amphibiens' => 'amphibia',
         'oiseaux' => 'birds',
-        'poissons' => 'fishs',
+        'poissons' => 'fishes',
 
         // ARTICLE PAGE (show)
         'Commenter l\'article' => 'Comment article',

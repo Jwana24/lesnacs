@@ -5,6 +5,19 @@
     position: relative;
 }
 
+.carousel-control-prev,
+.carousel-control-next
+{
+    opacity: 1;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon
+{
+    width: 70px;
+    height: 70px;
+}
+
 .carousel-item span
 {
     position: absolute;

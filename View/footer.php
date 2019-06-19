@@ -61,21 +61,7 @@
 
 <!-- Success and errors messages appearance (with Bootstrap) -->
 <script>$('.toast').toast('show')</script>
-
-<!-- Quill editor js -->
-<script>
-  var quill = new Quill('#editor',
-  {
-    theme: 'snow'
-  });
-
-  var quill1 = new Quill('#editor1',
-  {
-    modules: {toolbar: false},
-    theme: 'snow'
-  });
-  quill1.enable(false);
-</script>
+<script src="<?= $this->asset('js/useQuill.js') ?>"></script>
 
 </body>
 </html>

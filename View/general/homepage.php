@@ -44,7 +44,10 @@
 
                 <div class="containt-article">
                     <h2 class="title-article"><?= $article->get_title_article() ?></h2>
-                    <p class="date-article"><?= $article->get_date_article() ?></p>
+                    <?php
+                        $date = new DateTime($article->get_date_article());
+                    ?>
+                    <p class="date-article"><?= $date->format('D d M Y') ?></p>
                     <div class="ql-editor text-article"><?= $this->splitText($article->get_text_article(), 20) ?></div>
                     <a class="btn-site" href="<?= $this->router->generate('article_show', ['id' => $article->get_id()]) ?>"><?= $this->translation('En voir plus') ?></a>
                 </div>

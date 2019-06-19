@@ -4,9 +4,11 @@
     
     <form method="post">
         <input type="hidden" name="token_session" value="<?= $this->member->get_token_session() ?>">
+
         <div class="form-group">
             <input class="form-control form-control-lg" name="title_post" type="text" placeholder="Titre du post">
         </div>
+
         <div class="form-group">
             <select class="form-control form-control-sm" name="categorie">
                 <option value="mammifères">mammifères</option>
@@ -16,9 +18,12 @@
                 <option value="poissons">poissons</option>
             </select>
         </div>
+
         <div class="form-group" id="editor">
-            <textarea class="form-control" name="text_post" placeholder="Contenu du post" style="rows:3"></textarea>
+            <textarea class="form-control" placeholder="Contenu du post" style="rows:3"></textarea>
         </div>
+        <input type="hidden" id="textQuillInput" name="text_post">
+
         <div class="form-group">
             <input class="btn btn-primary btn-send-new-post" type="submit" value="Envoyer">
         </div>
