@@ -192,11 +192,12 @@ class PostManager extends Manager
         }
     }
 
-    public function searchPost($search)
+    public function searchPost($search, int $offset, int $limit = 8)
     {
+        $offsetLimit = ($offset == 0 && $limit == 0) ? '' : 'LIMIT '.$offset.', '.$limit;
         $request = $this->_bdd->prepare('SELECT * FROM post WHERE title_post
         LIKE "%'.$search.'%"
-        OR text_post_notags LIKE "%'.$search.'%"');
+        OR text_post_notags LIKE "%'.$search.'%" '.$offsetLimit);
         $request->execute();
         return $request->fetchAll(PDO::FETCH_CLASS, 'Post');
     }

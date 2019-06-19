@@ -34,7 +34,7 @@ $router->map('GET|POST', '/ajout-article/', 'AdminArticleController#add', 'add_a
 $router->map('GET|POST', '/article/[i:id]/', 'ArticleController#show', 'article_show');
 $router->map('GET|POST', '/article/edition/[i:id]/', 'AdminArticleController#edit', 'edit_article');
 $router->map('GET|POST', '/article/suppression/', 'AdminArticleController#delete', 'delete_article');
-// article route
+// forum route
 $router->map('GET|POST', '/forum/', 'PostController#list', 'post_list');
 $router->map('GET|POST', '/ajout-post/', 'PostController#add', 'add_post');
 $router->map('GET|POST', '/forum/[i:id]/', 'PostController#show', 'post_show');

@@ -76,6 +76,8 @@
 
             <form class="form-inline my-2 my-md-0" action="<?= $this->router->generate('recherche') ?>" method="get">
                 <input class="form-control" name="search" type="text" placeholder="<?= $this->translation('Recherche') ?>">
+                <input name="pageArticle" type="hidden" value="1">
+                <input name="pagePost" type="hidden" value="1">
             </form>
         </div>
     </nav>

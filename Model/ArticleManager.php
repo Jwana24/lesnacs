@@ -178,11 +178,12 @@ class ArticleManager extends Manager
         }
     }
 
-    public function searchArticle($search)
+    public function searchArticle($search, int $offset, int $limit = 8)
     {
+        $offsetLimit = ($offset == 0 && $limit == 0) ? '' : 'LIMIT '.$offset.', '.$limit;
         $request = $this->_bdd->prepare('SELECT * FROM article WHERE title_article
         LIKE "%'.$search.'%"
-        OR text_article_notags LIKE "%'.$search.'%"');
+        OR text_article_notags LIKE "%'.$search.'%" '.$offsetLimit);
         $request->execute();
         return $request->fetchAll(PDO::FETCH_CLASS, 'Article');
     }
