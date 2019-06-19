@@ -64,7 +64,7 @@
             </nav>
 
             <div class="title-article-search">
-                    <h5>Article(s) lié(s) à votre recherche : <?= $search ?></h5>
+                    <h5><?= $this->translation('Article(s) lié(s) à votre recherche') ?> : "<?= $search ?>"</h5>
             </div>
 
             <div class="row justify-content-md-center">
@@ -148,7 +148,7 @@
                 </nav>
 
             <div class="title-post-search">
-                    <h5>Post(s) lié(s) à votre recherche : <?= $search ?></h5>
+                    <h5><?= $this->translation('Post(s) lié(s) à votre recherche') ?> : "<?= $search ?>"</h5>
             </div>
 
             <div class="row justify-content-md-center">

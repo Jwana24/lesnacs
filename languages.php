@@ -31,6 +31,10 @@ $languages = [
         'Titre de l\'article' => 'Article title',
         'Revenir à la liste des articles' => 'Return to the articles list',
 
+        // SEARCH PAGE
+        'Post(s) lié(s) à votre recherche' => 'Search on post(s)',
+        'Article(s) lié(s) à votre recherche' => 'Search on article(s)',
+
         // SLIDER
         'Bienvenue sur le site "Les Nouveaux Animaux de Compagnie"' => 'Welcome to the site "Les Nouveaux Animaux de Compagnie"',
         'Retrouvez tous nos articles animaliers' => 'Find all our animal\'s articles',
