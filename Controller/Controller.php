@@ -15,6 +15,7 @@ class Controller
         $this->defaultLang();
     }
     
+    // If the member exist, updating the token in the database and in the session
     public function tokenSession()
     {
         if($this->member != NULL)
@@ -26,11 +27,13 @@ class Controller
         }
     }
 
+    // generate an url with the "http" and the root of the path
     public function asset($path)
     {
         return $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['SERVER_NAME'].'/'.$path;
     }
 
+    // Create authorization for an access (ex. edit article for admin)
     public function is_granted(array $role)
     {
         if($this->member != NULL)
@@ -48,6 +51,7 @@ class Controller
         return (isset($_COOKIE[$cookie])) ? true : false;
     }
 
+    // checking the membership of an object to a member (ex: a comment by a member)
     public function voter($subject)
     {
         if($this->member != NULL)
@@ -72,6 +76,7 @@ class Controller
         }
     }
 
+    // Stock messages in the session
     public function getMessage($type)
     {
         if($type == 'success')
@@ -106,10 +111,11 @@ class Controller
         }
     }
 
+    // Create an extract to a long text (ex: card articles on the homepage)
     public function splitText($text, $nbWord)
     {
-        $split = explode(' ', $text, $nbWord+1);
+        $split = explode(' ', strip_tags($text), $nbWord+1);
         array_splice($split, $nbWord, 1);
-        return join(' ', $split);
+        return join(' ', $split).'...';
     }
 }

@@ -10,7 +10,7 @@
             </div>
             <input class="btn btn-primary" type="submit" value="Continuer">
         </form>
-        <a class="btn-site lost_password_link" href="login.php"><i class="fas fa-arrow-circle-left"></i>Retour à la page de connexion</a>
+        <a class="btn-site lost_password_link" href="<?= $this->router->generate('accueil') ?>"><i class="fas fa-arrow-circle-left"></i>Retour à la page d'accueil</a>
     </div>
 </main>
 

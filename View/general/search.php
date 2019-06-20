@@ -70,15 +70,11 @@
             <div class="row justify-content-md-center">
 
                 <?php foreach($articles as $article): ?>
-                    <?php
-                        $resumeText = explode(' ', strip_tags($article->get_text_article_notags()));
-                        $text = join(' ', array_slice($resumeText, 0, 25)). '...';
-                    ?>
                     <div class="card article-card-search" style="max-width: 18rem;">
                         <img src="<?= $this->asset($article->get_image()) ?>" class="card-img-top" alt="Image de l'article">
                         <div class="card-body">
                             <h5 class="card-title"><?= $article->get_title_article() ?></h5>
-                            <p class="card-text"><?= $text ?></p>
+                            <p class="card-text"><?= $this->splitText($article->get_text_article_notags(), 25) ?></p>
                         </div>
                         
                         <div class="card-footer">
