@@ -53,8 +53,18 @@ class ArticleManager extends Manager
             WHERE article.id = :id');
 
             $request->bindValue(':id', (int)$id, PDO::PARAM_INT);
-            $request->execute();
+
+            if(!$request->execute())
+            {
+                return false;
+            }
+            
             $results = $request->fetchAll(PDO::FETCH_ASSOC);
+
+            if(empty($results))
+            {
+                return false;
+            }
 
             $comments = [];
 
@@ -138,8 +148,19 @@ class ArticleManager extends Manager
         {
             $request = $this->_bdd->prepare('SELECT * FROM article WHERE id = :id');
             $request->bindValue(':id', (int)$id, PDO::PARAM_INT);
-            $request->execute();
+
+            if(!$request->execute())
+            {
+                return false;
+            }
+
             $article = $request->fetchAll(PDO::FETCH_CLASS, 'Article')[0];
+
+            if(empty($article))
+            {
+                return false;
+            }
+            
             $article->set_comments([]);
             return $article;
         }

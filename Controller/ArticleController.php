@@ -7,6 +7,12 @@ class ArticleController extends Controller
         extract($params);
         $articleManager = new ArticleManager();
         $article = $articleManager->get($id);
+
+        if($article == false)
+        {
+            header('Location:'.$this->router->generate('article_list'));
+        }
+
         $titlePage = $article->get_title_article();
 
         $errors = [];

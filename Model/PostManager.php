@@ -47,8 +47,19 @@ class PostManager extends Manager
         WHERE post.id = :id');
 
         $request->bindValue(':id', (int)$id, PDO::PARAM_INT);
-        $request->execute();
+        
+        if(!$request->execute())
+        {
+            return false;
+        }
+        
         $results = $request->fetchAll(PDO::FETCH_ASSOC);
+
+        if(empty($results))
+        {
+            return false;
+        }
+
         $firstResult = $results[0];
 
         $member = new Member();

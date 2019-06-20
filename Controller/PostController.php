@@ -56,6 +56,12 @@ class PostController extends Controller
         extract($params);
         $postManager = new PostManager();
         $postF = $postManager->get($id);
+
+        if($postF == false)
+        {
+            header('Location:'.$this->router->generate('post_list'));
+        }
+
         $titlePage = $postF->get_title_post();
         $errors = [];
 
