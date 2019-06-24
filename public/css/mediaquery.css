@@ -2,6 +2,69 @@
 
 @media all and (max-width: 900px)
 {
+    /* Homepage */
+
+    .slider-content
+    {
+        padding-top: 5%;
+    }
+
+    .carousel-item span
+    {
+        font-size: 2.0rem !important;
+    }
+
+    .carousel-item .text-pug
+    {
+        width: 30%;
+    }
+
+    .carousel-item .text-cat,
+    .carousel-item .text-foal
+    {
+        width: 40%;
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon
+    {
+        width: 40px;
+        height: 40px;
+    }
+
+    .homepage
+    {
+        flex-direction: column;
+    }
+
+    .sidebox
+    {
+        position: initial;
+        width: 100%
+    }
+
+    .sidebox h4
+    {
+        text-align: center;
+    }
+
+    .sidebox input[type=submit]
+    {
+        width: 25%;
+    }
+
+    .article-box
+    {
+        width: 100%;
+    }
+
+    .article-box .text-article,
+    .article-box .title-article
+    {
+        width: calc(100% - 20px);
+    }
+
+    /* Modals */
     .modal_connection,
     .modal_inscription
     {
@@ -10,12 +73,12 @@
 
     .modal_connection
     {
-        height: 25vh;
+        height: 35vh;
     }
 
     .modal_inscription
     {
-        height: 45vh;
+        height: 60vh;
     }
 
     /* Show article */
@@ -62,10 +125,17 @@
 
     .carousel-item span
     {
-        font-size: 15px;
+        font-size: 15px !important;
         left: 10px;
         top: 35px !important;
         height: 45px !important;
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon
+    {
+        width: 25px;
+        height: 25px;
     }
 
     .text-pug
@@ -120,6 +190,7 @@
     .article-box
     {
         margin-left: 0;
+        width: 100vw;
     }
 
     .article-box .article .div-img
@@ -135,13 +206,13 @@
     .sidebox
     {
         position: initial;
-        width: calc(100vw - 80px);
     }
 
     .article-box .text-article,
     .article-box .title-article
     {
         word-wrap: break-word;
+        width: calc(100% - 20px);
     }
 
     .article-box .title-article

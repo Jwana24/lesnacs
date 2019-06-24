@@ -60,16 +60,16 @@
         <h4>Contacts</h4>
             <form method="post">
                 <label for="lastName"><?= $this->translation('Nom') ?></label>
-                <input id="lastName" type="text">
+                <input name="lastName" id="lastName" type="text">
 
                 <label for="firstName"><?= $this->translation('Prénom') ?></label>
-                <input id="firstName" type="text">
+                <input name="firstName" id="firstName" type="text">
 
                 <label for="mail"><?= $this->translation('Adresse e-mail') ?></label>
-                <input id="mail" type="mail">
+                <input name="mail" id="mail" type="mail">
 
                 <label for="message"><?= $this->translation('Message') ?></label>
-                <input class="area-message" id="message" type="text">
+                <textarea name="message" class="area-message" id="message" type="text"></textarea>
 
                 <input class="btn-site btn-submit-contact" type="submit" value="<?= $this->translation('Envoyer') ?>">
             </form>
