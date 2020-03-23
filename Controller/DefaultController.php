@@ -48,14 +48,14 @@ class DefaultController extends Controller
                     $mail->isSMTP();                                      // Set mailer to use SMTP
                     $mail->Host = 'smtp.office365.com';                   // Specify main and backup SMTP servers
                     $mail->SMTPAuth = true;                               // Enable SMTP authentication
-                    $mail->Username = 'johanna-24@hotmail.fr';            // SMTP username
-                    $mail->Password = 'croque';                           // SMTP password
+                    $mail->Username = '';                                 // SMTP username
+                    $mail->Password = '';                                 // SMTP password
                     $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
                     $mail->Port = 587;                                    // TCP port to connect to
 
                     //Recipients
-                    $mail->setFrom('johanna-24@hotmail.fr', 'Mailer');
-                    $mail->addAddress('johanna.detrieux@gmail.com', 'LesNacs');     // Add a recipient
+                    $mail->setFrom('', 'Mailer');
+                    $mail->addAddress('', 'LesNacs');                     // Add a recipient
 
                     //Content
                     $mail->isHTML(true);                                  // Set email format to HTML
