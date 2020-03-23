@@ -110,7 +110,6 @@
             <?php foreach($postF->get_comments() as $comment): ?>
                 <section class="comment-response-forum">
                     <article class="comment-post">
-                        <!-- {% if app.session.get('_locale') == 'fr_FR' %} -->
                         <p class="date"><?= $comment->get_date_comment() ?></p>
                         <p class="username username-comment"><?= $comment->get_member()->get_username() ?></p>
                         <p class="text-post-comment content-comment<?= $comment->get_id() ?>"><?= $comment->get_text_comment() ?></p>

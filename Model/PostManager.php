@@ -40,7 +40,7 @@ class PostManager extends Manager
         member.*,
         post.*
         FROM post
-        LEFT JOIN member
+        LEFT JOIN member -- The member can be deleted and the post stay on the database, available on the site
         ON post.id_member_FK = member.id
         LEFT JOIN (comment, member as comMember)
         ON post.id = comment.id_post_FK AND comment.id_member_FK = comMember.id
