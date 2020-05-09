@@ -8,7 +8,7 @@ A PHP from scratch project on the topic "New pets"
 
 ### What's in this application ?
 
-It's a multiple website :
+It's a multiple pages website :
 
 - in general :
 
