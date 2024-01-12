@@ -119,7 +119,7 @@ class MemberController extends Controller
                         $mail->Port = 587;                                    // TCP port to connect to
 
                         //Recipients
-                        $mail->setFrom('johanna-24@hotmail.fr', 'Mailer');
+                        $mail->setFrom('', 'Mailer');
                         $mail->addAddress($member->get_mail(), $member->get_username());     // Add a recipient
 
                         //Content
